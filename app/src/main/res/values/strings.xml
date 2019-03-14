@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- mark favourite message -->
+    <string name="drawer_open">open</string>
+    <string name="drawer_close">close</string>
+
+    <!--FONTS-->
+    <string name="font_normal">Poppins-Regular.ttf</string>
+    <string name="font_bold">Poppins-Bold.ttf</string>
+    <string name="font_light">Poppins-Light.ttf</string>
+    <string name="font_semibold">Poppins-SemiBold.ttf</string>
+    <string name="font_italic_bold">Roboto-Italic_2.ttf</string>
+    <string name="font_italic_light">Roboto-LightItalic_2.ttf</string>
+    <string name="font_handwriting">segoeprb_1.ttf</string>
+
+    <string name="api_key">AIzaSyAy0_NNDlklJUtEbcexcNPrqjLXzuRPTCY</string>
+    <string name="app_name">ASI</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="facebook_app_id">359582864595251</string>
+    <string name="fb_login_protocol_scheme">fb359582864595251</string>
+
+    <!-- Error Messages -->
+    <string name="error_passwords_do_not_match">Passwords do not match.</string>
+    <string name="error_could_not_connect">Could not connect to server. Please try again later.</string>
+    <string name="error_cannot_create_account">Account already exists!</string>
+    <string name="error_cannot_sign_in">Please provide correct Email and Password</string>
+    <string name="crash_toast_text">Sorry for inconvenience, we will get this issue fixed!</string>
+    <string name="msg_connection_failed">Error! Connection to server failed.</string>
+    <string name="msg_connection_error">Please check your internet connection</string>
+
+
+    <!-- AnyTextView -->
+    <string name="typeface_not_found">Typeface %$1 not found, or could not be loaded.
+        Showing default typeface.</string>
+    <string name="app">AnyTextView</string>
+    <string name="assets_fonts_folder">fonts/</string>
+    <string name="lorem_ipsum">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever sinc
+        e the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged
+         . It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</string>
+    <string name="this_is_login_fragment">This is Login Fragment</string>
+    <string name="lorem_small">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s.</string>
+    <string name="lorem_small_2">Lorem Ipsum is simply dummy text of the printing and types etting industry. </string>
+    <string name="lorem_small_3">Lorem Ipsum is simply dummy text. </string>
+    <string name="date_sample">12-12-2019 11:25:12</string>
+    <string name="default_hint_text">Where are you going?</string>
+
+    //ASI
+    <string name="notification">Notifications</string>
+    <string name="sign_in">Sign In</string>
+    <string name="submit">Submit</string>
+    <string name="english">English</string>
+    <string name="arabic">العربية</string>
+    <string name="email_id">Email ID</string>
+    <string name="done">Done</string>
+    <string name="edit_profile">Edit Profile</string>
+    <string name="edit">Edit</string>
+    <string name="click_here_to_retrieve_your_password">Click here to retrieve your password.</string>
+    <string name="tap_here_to_create_a_new_account">Tap here to create a new account</string>
+    <string name="to_reset_your_password_please_enter_your_email">To reset your password,Please enter your email.</string>
+    <string name="how_do_you_want_to_set_your_photo">How do you want to set your photo?</string>
+    <string name="upload_photo">Upload Photo</string>
+    <string name="gallery">Gallery</string>
+    <string name="camera">Camera</string>
+    <string name="internet_issue">Internet Issue,Upload Image Again</string>
+    <string name="forgot_your_password">Forgot your password?</string>
+    <string name="logout">Logout</string>
+    <string name="logout_successfully">Logout successfully</string>
+    <string name="are_you_sure_you_want_to_logout">Are you sure you want to logout?</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="email_address">Email Address</string>
+    <string name="password">Password</string>
+    <string name="confirm_pass">Confirm Password</string>
+    <string name="old_password">Old Password</string>
+    <string name="new_password">New Password</string>
+    <string name="login">Login</string>
+    <string name="user_name">User Name</string>
+    <string name="first_name">First Name</string>
+    <string name="last_name">Last Name</string>
+    <string name="phone_number">Phone Number</string>
+    <string name="settings">Settings</string>
+    <string name="language">Language</string>
+    <string name="type_your_message_here">Type your message here</string>
+    <string name="name">Name</string>
+    <string name="full_name">Full Name</string>
+    <string name="address">Address</string>
+    <string name="no_favorite_item_found">No Favorite Item Found</string>
+    <string name="connection_lost">No Internet Found</string>
+    <string name="samePassword">New password should be changed from previous password</string>
+    <string name="conform_password_error">confirm password does not match</string>
+    <string name="enter_confirm_password">Confirm Password Field cannot be Empty</string>
+    <string name="confirmpasswordLength">Confirm Password cannot be less than 6 characters</string>
+    <string name="internet_not_connected">Internet not Available</string>
+    <string name="gps_question">Location is turned of Do you want to enable it ?</string>
+    <string name="gps_yes">Yes</string>
+    <string name="gps_no">No</string>
+    <string name="wifi_question">No Network found  Do you want to enable Wifi ?</string>
+    <string name="no_notification_found">No notification found</string>
+    <string name="enter_your_phone_number_in_order_to_reset_your_password">Enter your phone number in order to reset your password</string>
+
+    <string name="haven_t_received_code_yet">Haven\'t received code yet?</string>
+    <string name="resend_code">Resend Code</string>
+    <string name="seconds">seconds</string>
+    <string name="did_not_get_code_yet_wait_for">Did not get code yet? wait for</string>
+    <string name="wait_for">wait for</string>
+    <string name="submitted_successfully">Your query has been submitted successfully</string>
+    <string name="password_changed">Password changed successfully</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="verify">Verify</string>
+    <string name="change_password">Change Password</string>
+    <string name="txt_enter_phone_no">Enter Phone No.</string>
+    <string name="txt_register_text">Verificaion process is required to verify the phone no.</string>
+    <string name="message_quit">Are you sure you want to exit?</string>
+    <string name="message_wait">Please wait while data is loading.</string>
+    <string name="profile_updated_successfully">Profile updated successfully</string>
+    <string name="deleted_by_admin">Account is deleted by admin</string>
+    <string name="blocked_by_admin">Deactivated by admin</string>
+    <string name="please_wait">Please Wait...</string>
+    <string name="no_response">No response from server</string>
+    <string name="i_agree_to_the_terms_and_conditions">I agree to the Terms and Conditions</string>
+    <string name="select_terms_and_conditions">Accept terms and conditions to proceed</string>
+    <string name="TermsCondition">Terms and Conditions</string>
+    <string name="will_be_implemented">will be implemented in future version</string>
+    <string name="enter_valid_number_error">Enter valid phone number format</string>
+    <string name="enter_password">Password Field cannot be Empty</string>
+    <string name="passwordLength">Password cannot be less than 6 characters</string>
+    <string name="enter_valid_email">Please Enter Valid Email</string>
+    <string name="enter_valid_pincode">Please Enter Verification Code</string>
+    <string name="enter_phone">Mobile Number Cannot be Empty</string>
+    <string name="confirm_password_error">Confirm Password did not match</string>
+    <string name="enter_username">Enter UserName</string>
+    <string name="enter_address">Enter Address</string>
+    <string name="enter_name">Enter Name</string>
+    <string name="enter_company_name">Enter Company Name</string>
+    <string name="enter_fullname">Enter Full Name</string>
+    <string name="write_something_here">Enter Message </string>
+    <string name="filed_cannot_be_empty">This field cannot be empty</string>
+    <string name="enter_phonenumber">Enter Phone Number</string>
+    <string name="enter_your_message">Enter your message here</string>
+    <string name="same_password_error">New password should be changed from old password</string>
+    <string name="profile">Profile</string>
+    <string name="upload_image">Upload image to proceed</string>
+    <string name="MyFavorites">My Favorites</string>
+    <string name="phone_verification">Phone Verification</string>
+    <string name="email_verification">Email Verification</string>
+    <string name="forgot_password">Forgot Password</string>
+    <string name="reset_password">Reset Password</string>
+    <string name="to_verify_your_email_please_enter_the_4_digit_code">To verify your email,Please enter \nthe 4 digit code</string>
+    <string name="continue_text">Continue</string>
+    <string name="code_expires_in">Code Expires In</string>
+    <string name="enter_new_password">Enter New Password</string>
+    <string name="confirm_new_password">Confirm New Password</string>
+    <string name="updated_succcessfully">Password updated successfully</string>
+
+</resources>

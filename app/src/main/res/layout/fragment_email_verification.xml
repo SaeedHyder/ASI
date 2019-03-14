@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    android:paddingEnd="@dimen/x20"
+    android:paddingStart="@dimen/x20">
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/x50"
+        android:src="@drawable/logo" />
+
+    <com.app.asi.ui.views.AnyTextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="@dimen/x35"
+        android:gravity="center_horizontal"
+        android:text="@string/to_verify_your_email_please_enter_the_4_digit_code"
+        android:textColor="@color/app_text_color"
+        android:textSize="@dimen/x14"
+        app:typeface="@string/font_normal" />
+
+
+    <com.app.asi.ui.views.PinEntryEditText
+        android:id="@+id/txt_pin_entry"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="@dimen/x20"
+        android:layout_marginEnd="@dimen/x30"
+        android:layout_marginStart="@dimen/x30"
+        android:background="@null"
+        android:cursorVisible="false"
+        android:digits="1234567890"
+        android:focusable="true"
+        android:imeOptions="actionDone"
+        android:inputType="number"
+        android:maxLength="4"
+        android:paddingBottom="@dimen/x10"
+        android:paddingTop="@dimen/x50"
+        android:textColor="@color/app_text_color"
+        android:textIsSelectable="false"
+        android:textSize="20sp"
+        android:visibility="visible"
+        app:pinLineColors="@color/app_text_color"
+        app:pinTextBottomPadding="@dimen/x20" />
+
+
+    <LinearLayout
+        android:id="@+id/ll_counter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <com.app.asi.ui.views.AnyTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/x4"
+            android:text="@string/code_expires_in"
+            android:textColor="@color/app_text_color"
+            android:textSize="@dimen/x14"
+            app:typeface="@string/font_normal" />
+
+        <com.app.asi.ui.views.AnyTextView
+            android:id="@+id/tv_counter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/x3"
+            android:gravity="center"
+            android:text="01:30"
+            android:textColor="@color/app_text_color"
+            android:textSize="@dimen/x14"
+            app:typeface="@string/font_normal" />
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/rlResendCode"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/x4"
+        android:gravity="center">
+
+        <com.app.asi.ui.views.AnyTextView
+            android:id="@+id/btnResend"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/resend_code"
+            android:textColor="@color/white"
+            android:textSize="@dimen/x15"
+            app:typeface="@string/font_bold" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/x1"
+            android:layout_alignEnd="@+id/btnResend"
+            android:layout_alignStart="@+id/btnResend"
+            android:layout_below="@+id/btnResend"
+            android:background="@color/white" />
+
+    </RelativeLayout>
+
+
+    <Button
+        android:id="@+id/btn_continue"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/x40"
+        android:layout_marginBottom="@dimen/x10"
+        android:layout_marginEnd="@dimen/x25"
+        android:layout_marginStart="@dimen/x25"
+        android:layout_marginTop="@dimen/x20"
+        android:background="@drawable/button"
+        android:text="@string/continue_text"
+        android:textColor="@color/white"
+        android:textSize="@dimen/x14" />
+
+
+</LinearLayout>
