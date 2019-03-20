@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.nfc.Tag;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
@@ -21,6 +22,7 @@ import com.andreabaccega.formedittextvalidator.Validator;
 import com.app.asi.R;
 import com.app.asi.activities.DockActivity;
 import com.app.asi.activities.MainActivity;
+import com.app.asi.entities.UserEnt;
 import com.app.asi.global.WebServiceConstants;
 import com.app.asi.helpers.BasePreferenceHelper;
 import com.app.asi.helpers.GPSTracker;
@@ -135,7 +137,7 @@ public abstract class BaseFragment extends Fragment implements webServiceRespons
 		myDockActivity = (DockActivity)context;
 	}
 	@Override
-	public void ResponseSuccess(Object result, String Tag, String message) {
+	public void ResponseSuccess(Object result, UserEnt userEnt, String Tag, String message) {
 
 	}
 
@@ -328,8 +330,6 @@ public abstract class BaseFragment extends Fragment implements webServiceRespons
 		if (imm != null)
 			imm.showSoftInput(textFocus, InputMethodManager.SHOW_IMPLICIT);
 	}
-
-
 
 
 

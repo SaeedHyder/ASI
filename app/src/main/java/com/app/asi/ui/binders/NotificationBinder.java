@@ -2,7 +2,7 @@ package com.app.asi.ui.binders;
 
 import android.content.Context;
 import android.view.View;
-import android.widget.ImageView;
+import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
 import com.app.asi.R;
@@ -34,7 +34,7 @@ public class NotificationBinder extends RecyclerViewBinder<NotificationEnt> {
     }
 
     @Override
-    public BaseViewHolder createViewHolder(View view) {
+    public BaseViewHolder createViewHolder(View view, ViewGroup parent) {
         return new ViewHolder(view);
     }
 
@@ -44,8 +44,8 @@ public class NotificationBinder extends RecyclerViewBinder<NotificationEnt> {
         final ViewHolder holder = (ViewHolder) viewHolder;
 
         //imageLoader.displayImage(entity, holder.logo);
-        holder.txtDetail.setText(entity.getMessage()+"");
-        holder.txt_date.setText(DateHelper.getLocalTimeDate(entity.getCreatedAt()));
+        //holder.txtDetail.setText(entity.getTitle() + "");
+       // holder.txt_date.setText(DateHelper.getLocalTimeDate(entity.getDate()));
 
         holder.mainFrame.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -57,8 +57,6 @@ public class NotificationBinder extends RecyclerViewBinder<NotificationEnt> {
     }
 
     static class ViewHolder extends BaseViewHolder {
-        @BindView(R.id.logo)
-        ImageView logo;
         @BindView(R.id.txt_detail)
         AnyTextView txtDetail;
         @BindView(R.id.txt_date)

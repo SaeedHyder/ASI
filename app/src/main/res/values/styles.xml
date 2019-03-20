@@ -20,21 +20,19 @@
 
     <!-- Application theme. -->
     <style name="AppTheme" parent="AppBaseTheme">
-
-        <!-- All customizations that are NOT specific to a particular API-level can go here. -->
-
         <item name="android:windowNoTitle">true</item>
         <item name="colorAccent">@color/app_red</item>
         <item name="colorPrimaryDark">@color/black</item>
         <item name="colorPrimary">@color/black</item>
         <item name="coordinatorLayoutStyle">@style/Widget.Support.CoordinatorLayout</item>
         <item name="cardViewStyle">@style/CardView</item>
-       <!-- <item name="android:windowTranslucentStatus">true</item>-->
 
     </style>
-    <style name="EditTextHint" parent="TextAppearance.AppCompat">
-        <item name="colorAccent">@android:color/white</item>
+
+
+    <style name="EditTextHint" parent="AppTheme">
         <item name="android:textColorHint">@color/app_text_color</item>
+        <item name="colorAccent">@color/app_text_color</item>
         <item name="colorControlNormal">@color/app_text_color</item>
         <item name="colorControlActivated">@color/app_text_color</item>
         <item name="colorControlHighlight">@color/app_text_color</item>

@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.otaliastudios.zoom.ZoomLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:scrollbars="vertical|horizontal"
+    app:alignment="center"
+    app:animationDuration="280"
+    app:flingEnabled="true"
+    app:hasClickableChildren="true"
+    app:horizontalPanEnabled="true"
+    app:maxZoom="5"
+    app:maxZoomType="realZoom"
+    app:minZoom="1"
+    app:minZoomType="realZoom"
+    app:overPinchable="true"
+    app:overScrollHorizontal="true"
+    app:overScrollVertical="true"
+    app:transformation="none"
+    app:transformationGravity="center"
+    app:verticalPanEnabled="true"
+    app:zoomEnabled="true">
+
+    <LinearLayout
+        android:layout_width="@dimen/x200"
+        android:layout_height="match_parent"
+        android:background="@color/d32"
+        android:orientation="vertical">
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingStart="@dimen/x10"
+            android:orientation="horizontal">
+
+            <RelativeLayout
+                android:id="@+id/rlLeft"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/x15_">
+
+
+                <ImageView
+                    android:id="@+id/atvSlam"
+                    android:layout_width="@dimen/x100"
+                    android:layout_height="@dimen/x180"
+                    android:src="@drawable/d49_12" />
+
+
+                <ImageView
+                    android:id="@+id/targetBravoStandup"
+                    android:layout_width="@dimen/x90"
+                    android:layout_height="@dimen/x90"
+                    android:layout_below="@+id/atvSlam"
+                    android:layout_marginStart="@dimen/x9"
+                    android:layout_marginTop="@dimen/x13_"
+                    android:src="@drawable/d49_13" />
+
+                <ImageView
+                    android:id="@+id/dayTona"
+                    android:layout_width="@dimen/x90"
+                    android:layout_height="@dimen/x90"
+                    android:layout_below="@+id/targetBravoStandup"
+                    android:layout_marginStart="@dimen/x12"
+                    android:layout_marginTop="@dimen/x13_"
+                    android:src="@drawable/d49_14" />
+
+                <ImageView
+                    android:id="@+id/transformerShadow"
+                    android:layout_width="@dimen/x90"
+                    android:layout_height="@dimen/x90"
+                    android:layout_below="@+id/dayTona"
+                    android:layout_marginStart="@dimen/x1"
+                    android:layout_marginTop="@dimen/x13_"
+                    android:src="@drawable/d49_15" />
+
+
+                <ImageView
+                    android:id="@+id/houseOfDeads"
+                    android:layout_width="@dimen/x90"
+                    android:layout_height="@dimen/x90"
+                    android:layout_below="@+id/transformerShadow"
+                    android:layout_marginStart="@dimen/x8"
+                    android:layout_marginTop="@dimen/x17_"
+                    android:src="@drawable/d49_01" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/rl_right"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_toEndOf="@+id/rlLeft">
+
+                <ImageView
+                    android:id="@+id/piratesFalls"
+                    android:layout_width="@dimen/x50"
+                    android:layout_height="@dimen/x40"
+                    android:layout_marginTop="@dimen/x4"
+                    android:layout_marginStart="@dimen/x10_"
+                    android:src="@drawable/d49_11" />
+
+                <ImageView
+                    android:id="@+id/hotRacer"
+                    android:layout_width="@dimen/x60"
+                    android:layout_height="@dimen/x70"
+                    android:layout_marginTop="@dimen/x13_"
+                    android:layout_below="@+id/piratesFalls"
+                    android:src="@drawable/d49_10" />
+
+                <ImageView
+                    android:id="@+id/sonicKidsBasketBall"
+                    android:layout_width="@dimen/x60"
+                    android:layout_height="@dimen/x60"
+                    android:layout_marginTop="@dimen/x13_"
+                    android:layout_marginStart="@dimen/x6_"
+                    android:layout_below="@+id/hotRacer"
+                    android:src="@drawable/d49_09" />
+
+                <ImageView
+                    android:id="@+id/segaAllBasketBall"
+                    android:layout_width="@dimen/x90"
+                    android:layout_height="@dimen/x90"
+                    android:layout_marginTop="@dimen/x18_"
+                    android:layout_marginStart="@dimen/x7_"
+                    android:layout_below="@+id/sonicKidsBasketBall"
+                    android:src="@drawable/d49_08" />
+
+                <ImageView
+                    android:id="@+id/ballRunna"
+                    android:layout_width="@dimen/x90"
+                    android:layout_height="@dimen/x90"
+                    android:layout_marginTop="@dimen/x16_"
+                    android:layout_marginStart="@dimen/x2_"
+                    android:layout_below="@+id/segaAllBasketBall"
+                    android:src="@drawable/d49_07" />
+
+                <ImageView
+                    android:id="@+id/hoopla"
+                    android:layout_width="@dimen/x90"
+                    android:layout_height="@dimen/x90"
+                    android:layout_marginTop="@dimen/x14_"
+                    android:layout_marginStart="@dimen/x7_"
+                    android:layout_below="@+id/ballRunna"
+                    android:src="@drawable/d49_05" />
+
+
+                <ImageView
+                    android:id="@+id/pixelChase"
+                    android:layout_width="@dimen/x90"
+                    android:layout_height="@dimen/x90"
+                    android:layout_marginTop="@dimen/x15_"
+                    android:layout_marginStart="@dimen/x7_"
+                    android:layout_below="@+id/hoopla"
+                    android:src="@drawable/d49_04" />
+
+                <ImageView
+                    android:id="@+id/table1"
+                    android:layout_width="@dimen/x50"
+                    android:layout_height="@dimen/x50"
+                    android:layout_below="@+id/pixelChase"
+                    android:src="@drawable/d49_03"
+                    android:layout_marginTop="@dimen/x20"
+                    android:layout_marginBottom="@dimen/x14_"
+                    android:paddingBottom="@dimen/x10"/>
+
+                <ImageView
+                    android:id="@+id/table2"
+                    android:layout_width="@dimen/x50"
+                    android:layout_height="@dimen/x50"
+                    android:layout_below="@+id/pixelChase"
+                    android:layout_toEndOf="@+id/table1"
+                    android:src="@drawable/d49_02"
+
+                    android:paddingBottom="@dimen/x10"/>
+
+
+            </RelativeLayout>
+
+        </RelativeLayout>
+
+
+    </LinearLayout>
+</com.otaliastudios.zoom.ZoomLayout>

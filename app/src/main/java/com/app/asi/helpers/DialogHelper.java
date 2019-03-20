@@ -4,8 +4,6 @@ import android.app.Dialog;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.support.v7.widget.DefaultItemAnimator;
-import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
@@ -13,12 +11,8 @@ import android.widget.ImageView;
 import android.widget.RadioGroup;
 
 import com.app.asi.R;
-import com.app.asi.activities.DockActivity;
 import com.app.asi.ui.views.AnyTextView;
-import com.app.asi.ui.views.CustomRecyclerView;
 import com.nostra13.universalimageloader.core.ImageLoader;
-
-import java.util.ArrayList;
 
 /**
  * Created on 5/24/2017.
@@ -46,7 +40,7 @@ public class DialogHelper {
         return this.dialog;
     }
 
-      public Dialog initlogout(View.OnClickListener yesListner, View.OnClickListener noListner) {
+    public Dialog initlogout(View.OnClickListener yesListner, View.OnClickListener noListner) {
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         this.dialog.setContentView(R.layout.dialoge_logout);
@@ -54,6 +48,23 @@ public class DialogHelper {
         btnYes.setOnClickListener(yesListner);
         Button btnNo = (Button) dialog.findViewById(R.id.btn_No);
         btnNo.setOnClickListener(noListner);
+        return this.dialog;
+    }
+
+    public Dialog initSocialLink(View.OnClickListener fbListner, View.OnClickListener youtubeListner, View.OnClickListener twitterListner, View.OnClickListener instaListner, View.OnClickListener linkdinListner) {
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        this.dialog.setContentView(R.layout.dialoge_social_links);
+        ImageView btnFb = (ImageView) dialog.findViewById(R.id.btnFb);
+        ImageView btnYoutube = (ImageView) dialog.findViewById(R.id.btnYoutube);
+        ImageView btnTwitter = (ImageView) dialog.findViewById(R.id.btnTwitter);
+        ImageView btnInsta = (ImageView) dialog.findViewById(R.id.btnInsta);
+        ImageView btnLinkedin = (ImageView) dialog.findViewById(R.id.btnLinkedin);
+        btnFb.setOnClickListener(fbListner);
+        btnYoutube.setOnClickListener(youtubeListner);
+        btnTwitter.setOnClickListener(twitterListner);
+        btnInsta.setOnClickListener(instaListner);
+        btnLinkedin.setOnClickListener(linkdinListner);
         return this.dialog;
     }
 
@@ -104,7 +115,7 @@ public class DialogHelper {
 
         cross.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
+            public void onWishClick(View view) {
                 dialog.dismiss();
             }
         });
@@ -131,7 +142,7 @@ public class DialogHelper {
 
         cross.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
+            public void onWishClick(View view) {
                 dialog.dismiss();
             }
         });
@@ -141,7 +152,6 @@ public class DialogHelper {
 
 
 */
-
 
 
     public Dialog cameraPicker(View.OnClickListener cameraListner, View.OnClickListener galleryListner) {

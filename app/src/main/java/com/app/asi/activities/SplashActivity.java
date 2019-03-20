@@ -41,7 +41,7 @@ public class SplashActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 //mainFrameLayout.setBackground(getResources().getDrawable(R.drawable.ic_launcher));
-              txt.setImageResource(R.drawable.logo2);
+              txt.setImageResource(R.drawable.logo1);
                 launchTimerAndTask();
             }
         });
@@ -60,7 +60,7 @@ public class SplashActivity extends AppCompatActivity {
             @Override
             public void run() {
                // mainFrameLayout.setBackground(getResources().getDrawable(R.drawable.image2));
-                txt.setImageResource(R.drawable.logo2);
+                txt.setImageResource(R.drawable.logo1);
                 launchTimerAndTask();
             }
         }, MIN_TIME_INTERVAL_FOR_SPLASH);

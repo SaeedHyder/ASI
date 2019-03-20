@@ -35,7 +35,7 @@ public class TokenUpdater {
         webservice = WebServiceFactory.getWebServiceInstanceWithCustomInterceptorandheader(context,
                 WebServiceConstants.Local_SERVICE_URL);
 
-        Call<ResponseWrapper> call = webservice.updateToken(AppConstants.Device_Type,Token);
+      /*  Call<ResponseWrapper> call = webservice.updateToken(AppConstants.Device_Type,Token);
         call.enqueue(new Callback<ResponseWrapper>() {
             @Override
             public void onResponse(Call<ResponseWrapper> call, Response<ResponseWrapper> response) {
@@ -47,7 +47,7 @@ public class TokenUpdater {
             public void onFailure(Call<ResponseWrapper> call, Throwable t) {
                 Log.e("UPDATETOKEN", t.toString());
             }
-        });
+        });*/
     }
 
 }

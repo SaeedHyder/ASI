@@ -48,6 +48,7 @@ import com.app.asi.fragments.HomeFragment;
 import com.app.asi.fragments.LoginFragment;
 import com.app.asi.fragments.NotificationsFragment;
 import com.app.asi.fragments.SideMenuFragment;
+import com.app.asi.fragments.WelcomeScreenFragment;
 import com.app.asi.fragments.abstracts.BaseFragment;
 import com.app.asi.global.AppConstants;
 import com.app.asi.global.SideMenuChooser;
@@ -199,7 +200,7 @@ public class MainActivity extends DockActivity implements OnClickListener, Image
         titleBar.setNotificationButtonListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                replaceDockableFragment(NotificationsFragment.newInstance(), "NotificationsFragment");
+            //    replaceDockableFragment(NotificationsFragment.newInstance(), "NotificationsFragment");
             }
         });
 
@@ -304,7 +305,7 @@ public class MainActivity extends DockActivity implements OnClickListener, Image
             popBackStackTillEntry(0);
             replaceDockableFragment(HomeFragment.newInstance(), "HomeFragment", false);
         } else {
-            replaceDockableFragment(LoginFragment.newInstance(), "LoginFragment", false);
+            replaceDockableFragment(WelcomeScreenFragment.newInstance(), "WelcomeScreenFragment", false);
         }
 
         Bundle bundle = getIntent().getExtras();
@@ -847,6 +848,9 @@ public class MainActivity extends DockActivity implements OnClickListener, Image
 
     public void refreshSideMenu() {
         sideMenuFragment.refreshSideMenuData();
+    }
+    public void refreshSideMenuData() {
+        sideMenuFragment.setProfile();
     }
 
     @Override

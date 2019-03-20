@@ -3,6 +3,7 @@ package com.app.asi.fragments;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,13 +11,10 @@ import android.view.ViewGroup;
 
 import com.app.asi.R;
 import com.app.asi.entities.NotificationEnt;
+import com.app.asi.entities.UserEnt;
 import com.app.asi.fragments.abstracts.BaseFragment;
-import com.app.asi.global.AppConstants;
-import com.app.asi.global.WebServiceConstants;
-import com.app.asi.helpers.DateHelper;
-import com.app.asi.helpers.UIHelper;
-import com.app.asi.interfaces.LoadMoreListener;
 import com.app.asi.interfaces.RecyclerClickListner;
+import com.app.asi.ui.binders.HomeBinder;
 import com.app.asi.ui.binders.NotificationBinder;
 import com.app.asi.ui.views.AnyTextView;
 import com.app.asi.ui.views.CustomRecyclerView;
@@ -28,9 +26,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
-import static com.app.asi.global.AppConstants.chatPush;
 import static com.app.asi.global.WebServiceConstants.Notificaions;
-import static com.app.asi.global.WebServiceConstants.NotificaionsPaging;
 
 public class NotificationsFragment extends BaseFragment implements RecyclerClickListner {
 
@@ -41,8 +37,10 @@ public class NotificationsFragment extends BaseFragment implements RecyclerClick
     CustomRecyclerView lvNotification;
     Unbinder unbinder;
 
+    private static boolean isSideMenu = false;
 
-    public static NotificationsFragment newInstance() {
+    public static NotificationsFragment newInstance(boolean isSideMenuKey) {
+        isSideMenu = isSideMenuKey;
         return new NotificationsFragment();
     }
 
@@ -57,7 +55,11 @@ public class NotificationsFragment extends BaseFragment implements RecyclerClick
     public void setTitleBar(TitleBar titleBar) {
         super.setTitleBar(titleBar);
         titleBar.hideButtons();
-        titleBar.showBackButton();
+        if (isSideMenu) {
+            titleBar.showMenuButton();
+        } else {
+            titleBar.showBackButton();
+        }
         titleBar.setSubHeading(getString(R.string.notification));
     }
 
@@ -74,14 +76,23 @@ public class NotificationsFragment extends BaseFragment implements RecyclerClick
         super.onViewCreated(view, savedInstanceState);
 
 
-
         prefHelper.setNotificationCount(0);
-     //   serviceHelper.enqueueCall(headerWebService.notifications(), Notificaions);
+       // setNotificationData();
+        //   serviceHelper.enqueueCall(headerWebService.notifications(), Notificaions);
+    }
+
+    private void setNotificationData() {
+
+        ArrayList<NotificationEnt> collection=new ArrayList<>();
+
+        lvNotification.BindRecyclerView(new NotificationBinder(getDockActivity(), prefHelper, this), collection,
+                new LinearLayoutManager(getDockActivity(), LinearLayoutManager.VERTICAL, false)
+                , new DefaultItemAnimator());
     }
 
     @Override
-    public void ResponseSuccess(Object result, String Tag, String message) {
-        super.ResponseSuccess(result, Tag, message);
+    public void ResponseSuccess(Object result, UserEnt userEnt, String Tag, String message) {
+        super.ResponseSuccess(result,userEnt, Tag, message);
         switch (Tag) {
             case Notificaions:
                 ArrayList<NotificationEnt> data = (ArrayList<NotificationEnt>) result;
@@ -98,7 +109,6 @@ public class NotificationsFragment extends BaseFragment implements RecyclerClick
                     lvNotification.setVisibility(View.GONE);
                     txtNoData.setVisibility(View.VISIBLE);
                 }
-
 
 
                 break;

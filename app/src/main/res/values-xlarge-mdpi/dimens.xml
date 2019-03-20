@@ -261,4 +261,6 @@
     <dimen name="x320">640dp</dimen>
     <dimen name="x340">680dp</dimen>
     <dimen name="x350">700dp</dimen>
+    <dimen name="x360">720dp</dimen>
+    <dimen name="x370">740dp</dimen>
 </resources>

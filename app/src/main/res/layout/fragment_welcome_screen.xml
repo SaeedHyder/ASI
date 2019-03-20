@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg"
+    android:orientation="vertical">
+
+    <FrameLayout
+        android:id="@+id/btnCross"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end"
+        android:layout_margin="@dimen/x10"
+        android:padding="@dimen/x15">
+
+        <ImageView
+            android:layout_width="@dimen/x15"
+            android:layout_height="@dimen/x15"
+            android:src="@drawable/cross_1" />
+
+    </FrameLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:layout_marginTop="@dimen/x40_"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:src="@drawable/logo" />
+
+        <com.app.asi.ui.views.AnyTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/x25"
+            android:gravity="center"
+            android:text="@string/welcome_to_the"
+
+            android:textColor="@color/white"
+            android:textSize="@dimen/x15"
+            app:typeface="@string/font_semibold" />
+
+        <com.app.asi.ui.views.AnyTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/x10"
+            android:gravity="center"
+            android:text="@string/asi_mobile_application"
+            android:textColor="@color/welcome_color"
+            android:textSize="@dimen/x18"
+            app:typeface="@string/font_bold" />
+
+        <com.app.asi.ui.views.AnyTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/x25"
+            android:gravity="center"
+            android:text="@string/sign_up_to_create_your_personal_profile_and_experience_great_features"
+            android:textColor="@color/app_text_color"
+            android:textSize="@dimen/x15"
+            app:typeface="@string/font_normal" />
+
+        <Button
+            android:id="@+id/btnSignUp"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/x40"
+            android:layout_marginEnd="@dimen/x30"
+            android:layout_marginStart="@dimen/x30"
+            android:layout_marginTop="@dimen/x30"
+            android:background="@drawable/button"
+            android:text="@string/sign_up"
+            android:textColor="@color/white"
+            android:textSize="@dimen/x14" />
+
+    </LinearLayout>
+
+
+</LinearLayout>

@@ -13,11 +13,17 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 import com.app.asi.R;
+import com.app.asi.entities.UserEnt;
 import com.app.asi.fragments.abstracts.BaseFragment;
+import com.app.asi.global.AppConstants;
 import com.app.asi.helpers.UIHelper;
 import com.app.asi.ui.views.AnyTextView;
 import com.app.asi.ui.views.PinEntryEditText;
 import com.app.asi.ui.views.TitleBar;
+import com.google.firebase.iid.FirebaseInstanceId;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.Locale;
 import java.util.concurrent.TimeUnit;
@@ -26,6 +32,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
+import okhttp3.MediaType;
+import okhttp3.RequestBody;
 
 import static com.app.asi.global.WebServiceConstants.ResendCode;
 import static com.app.asi.global.WebServiceConstants.VerifyCode;
@@ -50,19 +58,21 @@ public class EmailVerificationFragment extends BaseFragment {
     Unbinder unbinder;
 
     private static boolean isFromForgot = false;
+    private static String email;
 
 
-    public static EmailVerificationFragment newInstance() {
+    /*public static EmailVerificationFragment newInstance() {
         Bundle args = new Bundle();
         isFromForgot = false;
         EmailVerificationFragment fragment = new EmailVerificationFragment();
         fragment.setArguments(args);
         return fragment;
-    }
+    }*/
 
-    public static EmailVerificationFragment newInstance(boolean isForgot) {
+    public static EmailVerificationFragment newInstance(String emailKey, boolean isForgot) {
         Bundle args = new Bundle();
         isFromForgot = isForgot;
+        email = emailKey;
         EmailVerificationFragment fragment = new EmailVerificationFragment();
         fragment.setArguments(args);
         return fragment;
@@ -87,10 +97,11 @@ public class EmailVerificationFragment extends BaseFragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
-
         counter();
+        textWatcher();
+    }
 
+    private void textWatcher() {
         txtPinEntry.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -106,10 +117,10 @@ public class EmailVerificationFragment extends BaseFragment {
             public void afterTextChanged(Editable editable) {
 
                 if (editable.toString().length() == 4) {
-                    if (timer != null) {
+                     /*    if (timer != null) {
                         timer.cancel();
                     }
-                   /* if (isFromForgot) {
+               if (isFromForgot) {
                         serviceHelper.enqueueCall(webService.verifyForgotCode(prefHelper.getUser().getUser().getCountryCode(), prefHelper.getUser().getUser().getPhone(), txtPinEntry.getText().toString()), VerifyForgotPassword);
                     } else {
                         serviceHelper.enqueueCall(webService.verifyCode(prefHelper.getUser().getUser().getCountryCode(), prefHelper.getUser().getUser().getPhone(), txtPinEntry.getText().toString()), VerifyCode);
@@ -124,7 +135,7 @@ public class EmailVerificationFragment extends BaseFragment {
         super.setTitleBar(titleBar);
         titleBar.hideButtons();
         titleBar.showBackButton();
-        titleBar.setSubHeading(getResString(R.string.email_verification));
+    //    titleBar.setSubHeading(getResString(R.string.email_verification));
     }
 
 
@@ -132,23 +143,27 @@ public class EmailVerificationFragment extends BaseFragment {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.btnResend:
-                // serviceHelper.enqueueCall(headerWebService.resendCode(), ResendCode);
-                UIHelper.showShortToastInDialoge(getDockActivity(), getResString(R.string.will_be_implemented));
+                serviceHelper.enqueueCall(webService.resendCode(email), ResendCode);
                 break;
             case R.id.btn_continue:
                 if (isvalidated()) {
-                    if (timer != null) {
-                        timer.cancel();
+
+                    JSONObject verifyCode = new JSONObject();
+                    try {
+                        verifyCode.put("email", email);
+                        verifyCode.put("code", txtPinEntry.getText().toString());
+                        verifyCode.put("deviceType", AppConstants.Device_Type);
+                        verifyCode.put("deviceToken", FirebaseInstanceId.getInstance().getToken());
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
                     }
+                    RequestBody body = RequestBody.create(MediaType.parse("application/json; charset=utf-8"), verifyCode.toString());
                     if (isFromForgot) {
-                       // serviceHelper.enqueueCall(webService.verifyForgotCode(prefHelper.getUser().getUser().getCountryCode(), prefHelper.getUser().getUser().getPhone(), txtPinEntry.getText().toString()), VerifyForgotPassword);
-                        getDockActivity().popFragment();
-                        getDockActivity().replaceDockableFragment(ResetPasswordFragment.newInstance(txtPinEntry.getText().toString()), "ResetPasswordFragment");
+                        serviceHelper.enqueueCall(webService.verifyCode(body), VerifyForgotPassword);
                     } else {
-                    //    serviceHelper.enqueueCall(webService.verifyCode(prefHelper.getUser().getUser().getCountryCode(), prefHelper.getUser().getUser().getPhone(), txtPinEntry.getText().toString()), VerifyCode);
-                        prefHelper.setLoginStatus(true);
-                        getDockActivity().popBackStackTillEntry(0);
-                        getDockActivity().replaceDockableFragment(HomeFragment.newInstance(), "HomeFragment");
+                        serviceHelper.enqueueCall(webService.verifyCode(body), VerifyCode);
+
                     }
                 }
                 break;
@@ -191,18 +206,34 @@ public class EmailVerificationFragment extends BaseFragment {
     }
 
     @Override
-    public void ResponseSuccess(Object result, String Tag, String message) {
-        super.ResponseSuccess(result, Tag, message);
+    public void ResponseSuccess(Object result, UserEnt userEnt, String Tag, String message) {
+        super.ResponseSuccess(result, userEnt, Tag, message);
         switch (Tag) {
             case VerifyForgotPassword:
+                if (userEnt != null) {
+                    prefHelper.putUser(userEnt);
+                    if (userEnt.getToken() != null)
+                        prefHelper.set_TOKEN(userEnt.getToken());
+                }
+                if (timer != null) {
+                    timer.cancel();
+                }
+                UIHelper.hideSoftKeyboard(getDockActivity(),txtPinEntry);
                 getDockActivity().popFragment();
                 getDockActivity().replaceDockableFragment(ResetPasswordFragment.newInstance(txtPinEntry.getText().toString()), "ResetPasswordFragment");
                 break;
 
             case VerifyCode:
+                if (timer != null) {
+                    timer.cancel();
+                }
                 prefHelper.setLoginStatus(true);
                 getDockActivity().popBackStackTillEntry(0);
+                getMainActivity().refreshSideMenu();
+                getMainActivity().refreshSideMenuData();
+                UIHelper.hideSoftKeyboard(getDockActivity(),txtPinEntry);
                 getDockActivity().replaceDockableFragment(HomeFragment.newInstance(), "HomeFragment");
+                UIHelper.showShortToastInCenter(getDockActivity(), getResString(R.string.account_verify));
                 break;
 
             case ResendCode:
@@ -213,8 +244,6 @@ public class EmailVerificationFragment extends BaseFragment {
                 break;
         }
     }
-
-
 
 
 }

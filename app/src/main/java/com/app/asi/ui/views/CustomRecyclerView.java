@@ -109,6 +109,13 @@ public class CustomRecyclerView<T> extends RecyclerView {
         }
 
     }
+    public void remove(int pos) {
+        if (this.mRecyclerViewAdapter != null) {
+            this.mRecyclerViewAdapter.remove(pos);
+
+        }
+
+    }
 
     public void addAllStart(List<T> entityList) {
         if (this.mRecyclerViewAdapter != null) {

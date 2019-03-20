@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@drawable/bg"
+
     android:paddingEnd="@dimen/x25"
     android:paddingStart="@dimen/x25">
 
@@ -44,7 +44,7 @@
                 android:layout_height="wrap_content"
                 android:background="@color/transparent"
                 android:drawablePadding="@dimen/x10"
-                android:hint="@string/email_id"
+                android:hint="@string/email_address"
                 android:drawableStart="@drawable/mail"
                 android:imeOptions="actionNext"
                 android:inputType="textEmailAddress"

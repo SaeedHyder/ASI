@@ -1,93 +1,61 @@
 package com.app.asi.fragments;
 
-import android.Manifest;
-import android.annotation.SuppressLint;
+import android.app.AlertDialog;
+import android.content.ActivityNotFoundException;
 import android.content.Intent;
-import android.location.Location;
 import android.net.Uri;
 import android.os.Bundle;
-import android.provider.Settings;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v4.view.ViewPager;
 import android.support.v7.widget.DefaultItemAnimator;
-import android.support.v7.widget.LinearLayoutManager;
-import android.util.Log;
-import android.view.Gravity;
+import android.support.v7.widget.GridLayoutManager;
+import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.ImageView;
 
 import com.app.asi.R;
-import com.app.asi.entities.LocationModel;
+import com.app.asi.activities.MainActivity;
+import com.app.asi.entities.HomeEnt;
+import com.app.asi.entities.UserEnt;
 import com.app.asi.fragments.abstracts.BaseFragment;
-import com.app.asi.helpers.InternetHelper;
+import com.app.asi.global.WebServiceConstants;
+import com.app.asi.helpers.DialogHelper;
 import com.app.asi.helpers.UIHelper;
-import com.app.asi.interfaces.AreaInterface;
-import com.app.asi.interfaces.OnSettingActivateListener;
+import com.app.asi.interfaces.BarCodeValue;
 import com.app.asi.interfaces.RecyclerClickListner;
-import com.app.asi.ui.views.AnyTextView;
+import com.app.asi.ui.adapters.HomePageAdapter;
+import com.app.asi.ui.binders.HomeBinder;
 import com.app.asi.ui.views.CustomRecyclerView;
 import com.app.asi.ui.views.TitleBar;
-import com.google.android.gms.location.FusedLocationProviderClient;
-import com.google.android.gms.location.LocationServices;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.karumi.dexter.Dexter;
-import com.karumi.dexter.MultiplePermissionsReport;
-import com.karumi.dexter.PermissionToken;
-import com.karumi.dexter.listener.DexterError;
-import com.karumi.dexter.listener.PermissionRequest;
-import com.karumi.dexter.listener.PermissionRequestErrorListener;
-import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
+import com.google.android.gms.samples.vision.barcodereader.BarcodeGraphic;
+import com.google.android.gms.vision.barcode.Barcode;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 import butterknife.Unbinder;
+import me.relex.circleindicator.CircleIndicator;
+import xyz.belvi.mobilevisionbarcodescanner.BarcodeRetriever;
 
-import static com.app.asi.global.WebServiceConstants.BatchCountService;
-import static com.app.asi.global.WebServiceConstants.Services;
-
-
-public class HomeFragment extends BaseFragment implements RecyclerClickListner, AreaInterface, OnSettingActivateListener {
+import static com.app.asi.global.WebServiceConstants.GamePlayedBarCode;
 
 
-    @BindView(R.id.btnMenu)
-    ImageView btnMenu;
-    @BindView(R.id.txt_subHead)
-    ImageView txtSubHead;
-    @BindView(R.id.btnNotification)
-    ImageView btnNotification;
-    @BindView(R.id.txtBadge)
-    AnyTextView txtBadge;
-    @BindView(R.id.btn_current_location)
-    ImageView btnCurrentLocation;
-    @BindView(R.id.btn_find_quico)
-    Button btnFindQuico;
-    @BindView(R.id.rv_services)
-    CustomRecyclerView rvServices;
+public class HomeFragment extends BaseFragment implements RecyclerClickListner,BarCodeValue {
+
+
+    @BindView(R.id.rvHome)
+    CustomRecyclerView rvHome;
+    @BindView(R.id.viewpager)
+    ViewPager viewpager;
+    @BindView(R.id.indicator)
+    CircleIndicator indicator;
     Unbinder unbinder;
-    @BindView(R.id.txtAddress)
-    AnyTextView txtAddress;
-    @BindView(R.id.txtServices)
-    AnyTextView txtServices;
-    @BindView(R.id.txt_no_data)
-    AnyTextView txtNoData;
-    @BindView(R.id.pullToRefresh)
-    SwipeRefreshLayout pullToRefresh;
 
-    private ArrayList<String> collection;
-    private Double locationLat = 0.0;
-    private Double locationLng = 0.0;
-    private String cityId;
-    private String areaId;
-    private String serviceId;
+    private ArrayList<HomeEnt> collection;
+    private HomePageAdapter customPageAdapter;
 
     public static HomeFragment newInstance() {
         return new HomeFragment();
@@ -110,253 +78,176 @@ public class HomeFragment extends BaseFragment implements RecyclerClickListner, 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        getMainActivity().setOnSettingActivateListener(this);
 
+        setHomeData();
+        setViewPager();
 
-
-
-        requestLocationPermission();
-        HomeServiceCall();
-        pullRefreshListner();
     }
 
-    private void pullRefreshListner() {
-        pullToRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                HomeServiceCall();
-                pullToRefresh.setRefreshing(false);
-            }
-        });
+    private void setViewPager() {
+
+        ArrayList<String> imagesCollection = new ArrayList<>();
+        imagesCollection.add("drawable://" + R.drawable.home_header_img);
+
+        customPageAdapter = new HomePageAdapter(getMainActivity(), imagesCollection);
+        viewpager.setAdapter(customPageAdapter);
+        indicator.setViewPager(viewpager);
     }
 
-    private void HomeServiceCall() {
-        if (InternetHelper.CheckInternetConectivityand(getDockActivity())) {
-            txtNoData.setVisibility(View.GONE);
-          //  serviceHelper.enqueueCall(headerWebService.getServices(), Services);
-          //  serviceHelper.enqueueCall(headerWebService.bacthCount(), BatchCountService, false);
-        } else {
-            txtNoData.setVisibility(View.VISIBLE);
-        }
+    private void setHomeData() {
+
+        collection = new ArrayList<>();
+        collection.add(new HomeEnt(R.drawable.deal, getResString(R.string.deal_2019)));
+        collection.add(new HomeEnt(R.drawable.games, getResString(R.string.all_games)));
+        collection.add(new HomeEnt(R.drawable.scan, getResString(R.string.scan_qr_code)));
+        collection.add(new HomeEnt(R.drawable.gallery, getResString(R.string.gallery)));
+        collection.add(new HomeEnt(R.drawable.tips, getResString(R.string.asi_tips)));
+        collection.add(new HomeEnt(R.drawable.news, getResString(R.string.news)));
+        collection.add(new HomeEnt(R.drawable.blogs, getResString(R.string.blogs)));
+        collection.add(new HomeEnt(R.drawable.offers, getResString(R.string.offers)));
+        collection.add(new HomeEnt(R.drawable.topgames, getResString(R.string.top_10_games)));
+        collection.add(new HomeEnt(R.drawable.social_media, getResString(R.string.socail_media)));
+        collection.add(new HomeEnt(R.drawable.contact, getResString(R.string.contact_us)));
+        collection.add(new HomeEnt(R.drawable.website, getResString(R.string.website)));
+
+        rvHome.BindRecyclerView(new HomeBinder(getDockActivity(), prefHelper, this), collection,
+                new GridLayoutManager(getDockActivity(), 3)
+                , new DefaultItemAnimator());
+
     }
 
     @Override
     public void setTitleBar(TitleBar titleBar) {
         super.setTitleBar(titleBar);
-        titleBar.hideTitleBar();
+        titleBar.hideButtons();
+        titleBar.showLogo();
+        titleBar.showMenuButton();
+    /*    titleBar.showSearchButton(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                UIHelper.showShortToastInDialoge(getDockActivity(), getResString(R.string.will_be_implemented));
+            }
+        });*/
+        titleBar.showNotificationButton(0, new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getDockActivity().replaceDockableFragment(NotificationsFragment.newInstance(false), "NotificationsFragment");
+            }
+        });
     }
 
-
-    @OnClick({R.id.btnMenu, R.id.btnNotification, R.id.btn_current_location, R.id.btn_find_quico, R.id.txtAddress, R.id.txtServices})
-    public void onViewClicked(View view) {
-        switch (view.getId()) {
-            case R.id.btnMenu:
-                getMainActivity().getDrawerLayout().clearFocus();
-                getMainActivity().getDrawerLayout().clearAnimation();
-                getMainActivity().getDrawerLayout().openDrawer(Gravity.LEFT);
-                break;
-            case R.id.btnNotification:
-                getDockActivity().replaceDockableFragment(NotificationsFragment.newInstance(), "NotificationsFragment");
-                break;
-            case R.id.btn_current_location:
-                requestLocationPermission();
-                break;
-            case R.id.btn_find_quico:
-                if (isValidate()) {
-              //      getDockActivity().addDockableFragment(ServiceListingFragment.newInstance(getResString(R.string.companies), serviceId, cityId, areaId, locationLat + "", locationLng + ""), "ServiceListingFragment");
-                }
-                break;
-         /*   case R.id.txtAddress:
-                SelectAreaFragment selectAreaFragment = new SelectAreaFragment();
-                selectAreaFragment.setAreaListner(this);
-                getDockActivity().addDockableFragment(selectAreaFragment, "SelectAreaFragment");
-                break;
-            case R.id.txtServices:
-                SelectServicesFragment selectServicesFragment = new SelectServicesFragment();
-                selectServicesFragment.setAreaListner(this);
-                selectServicesFragment.setSelectedServices(serviceId);
-                getDockActivity().addDockableFragment(selectServicesFragment, "SelectAreaFragment");
-                break;*/
-        }
-    }
-
-
-    private void requestLocationPermission() {
-        Dexter.withActivity(getDockActivity())
-                .withPermissions(
-                        Manifest.permission.ACCESS_COARSE_LOCATION,
-                        Manifest.permission.ACCESS_FINE_LOCATION)
-                .withListener(new MultiplePermissionsListener() {
-                    @Override
-                    public void onPermissionsChecked(MultiplePermissionsReport report) {
-
-                        if (report.areAllPermissionsGranted()) {
-                            getLastLocationNewMethod();
-                        }
-
-                        // check for permanent denial of any permission
-                        if (report.isAnyPermissionPermanentlyDenied()) {
-                            requestLocationPermission();
-
-                        } else if (report.getDeniedPermissionResponses().size() > 0) {
-                            requestLocationPermission();
-                        }
-                    }
-
-                    @Override
-                    public void onPermissionRationaleShouldBeShown(List<PermissionRequest> permissions, PermissionToken token) {
-                        token.continuePermissionRequest();
-                    }
-                }).
-                withErrorListener(new PermissionRequestErrorListener() {
-                    @Override
-                    public void onError(DexterError error) {
-                        UIHelper.showShortToastInCenter(getDockActivity(), "Grant LocationEnt Permission to processed");
-                        openSettings();
-                    }
-                })
-
-                .onSameThread()
-                .check();
-
-
-    }
-
-    private void openSettings() {
-
-        Intent intent = new Intent();
-        intent.setAction(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
-        intent.addFlags(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
-        Uri uri = Uri.fromParts("package", getDockActivity().getPackageName(), null);
-        intent.setData(uri);
-        startActivity(intent);
-    }
-
-
-    @Override
-    public void ResponseSuccess(Object result, String Tag, String message) {
-        super.ResponseSuccess(result, Tag, message);
-        switch (Tag) {
-            case BatchCountService:
-              /*  BatchCount data = (BatchCount) result;
-                if (data.getCount() > 0) {
-                    txtBadge.setVisibility(View.VISIBLE);
-                    txtBadge.setText(data.getCount() + "");
-                } else {
-                    txtBadge.setVisibility(View.GONE);
-                }*/
-                break;
-
-            case Services:
-            /*    ArrayList<ServicesEnt> entity = (ArrayList<ServicesEnt>) result;
-
-                rvServices.BindRecyclerView(new ServiesBinder(getDockActivity(), prefHelper, this), entity,
-                        new LinearLayoutManager(getDockActivity(), LinearLayoutManager.VERTICAL, false)
-                        , new DefaultItemAnimator());
-*/
-                break;
-
-        }
-    }
 
     @Override
     public void onClick(Object entity, int position) {
-       /* ServicesEnt data = (ServicesEnt) entity;
-        if(locationLat!=null && !locationLat.equals(0.0) && locationLng!=null) {
-            getDockActivity().addDockableFragment(ServiceListingFragment.newInstance(data.getId() + "", data.getName(),locationLat+"",locationLng+""), "ServiceListingFragment");
-        }else{
-            getDockActivity().addDockableFragment(ServiceListingFragment.newInstance(data.getId() + "", data.getName()), "ServiceListingFragment");
-        }*/
-    }
 
+        HomeEnt ent = (HomeEnt) entity;
 
-    @Override
-    public void onLocationActivateListener() {
-        requestLocationPermission();
-    }
+        if (ent.getTitle().equals(getResString(R.string.deal_2019))) {
+            getDockActivity().replaceDockableFragment(DealFragment.newInstance(), "DealFragment");
 
-    @SuppressLint("MissingPermission")
-    private void getLastLocationNewMethod() {
+        } else if (ent.getTitle().equals(getResString(R.string.all_games))) {
+            UIHelper.showShortToastInDialoge(getDockActivity(), getResString(R.string.will_be_implemented));
 
-        if (getMainActivity() != null && getMainActivity().statusCheck()) {
-            FusedLocationProviderClient mFusedLocationClient = LocationServices.getFusedLocationProviderClient(getDockActivity());
-            mFusedLocationClient.getLastLocation()
-                    .addOnSuccessListener(new OnSuccessListener<Location>() {
-                        @Override
-                        public void onSuccess(Location location) {
-                            if (location != null) {
-                                txtAddress.setText(getMainActivity().getCurrentAddress(location.getLatitude(), location.getLongitude()));
-                                locationLat = location.getLatitude();
-                                locationLng = location.getLongitude();
-                                cityId = "";
-                                areaId = "";
+        } else if (ent.getTitle().equals(getResString(R.string.scan_qr_code))) {
+            BarCodeScanFragment barCodeScanFragment=new BarCodeScanFragment();
+            barCodeScanFragment.setBarCOdeListner(this);
+            getDockActivity().replaceDockableFragment(barCodeScanFragment, "BarCodeScanFragment");
 
+        } else if (ent.getTitle().equals(getResString(R.string.gallery))) {
+            UIHelper.showShortToastInDialoge(getDockActivity(), getResString(R.string.will_be_implemented));
 
-                            } else {
-                                UIHelper.showShortToastInDialoge(getDockActivity(), "Gps is not working, try again...");
-                            }
-                        }
-                    })
-                    .addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-                            Log.d("MapDemoActivity", "Error trying to get last GPS location");
-                            UIHelper.showShortToastInDialoge(getDockActivity(), "Error trying to get last GPS location");
-                            e.printStackTrace();
-                        }
-                    });
+        } else if (ent.getTitle().equals(getResString(R.string.asi_tips))) {
+            getDockActivity().replaceDockableFragment(AsiTipsFragment.newInstance(), "AsiTipsFragment");
 
+        } else if (ent.getTitle().equals(getResString(R.string.news))) {
+            UIHelper.showShortToastInDialoge(getDockActivity(), getResString(R.string.will_be_implemented));
 
+        } else if (ent.getTitle().equals(getResString(R.string.blogs))) {
+            UIHelper.showShortToastInDialoge(getDockActivity(), getResString(R.string.will_be_implemented));
+
+        } else if (ent.getTitle().equals(getResString(R.string.offers))) {
+            UIHelper.showShortToastInDialoge(getDockActivity(), getResString(R.string.will_be_implemented));
+
+        } else if (ent.getTitle().equals(getResString(R.string.top_10_games))) {
+            UIHelper.showShortToastInDialoge(getDockActivity(), getResString(R.string.will_be_implemented));
+
+        } else if (ent.getTitle().equals(getResString(R.string.socail_media))) {
+            openSocialDialoge();
+
+        } else if (ent.getTitle().equals(getResString(R.string.contact_us))) {
+            getDockActivity().replaceDockableFragment(ContactUsFragment.newInstance(), "ContactUsFragment");
+        } else if (ent.getTitle().equals(getResString(R.string.website))) {
+            openWebPage("www.asi-world.com");
         }
+
     }
 
-    private void getLocation() {
-        if (getMainActivity() != null && getMainActivity().statusCheck()) {
-            LocationModel locationModel = getMainActivity().getMyCurrentLocation();
-            if (locationModel != null && locationModel.getAddress() != null) {
-                txtAddress.setText(locationModel.getAddress());
-                locationLat = locationModel.getLat();
-                locationLng = locationModel.getLng();
+    private void openSocialDialoge() {
 
-            } else {
-                getDockActivity().onLoadingFinished();
-                getLastLocationNewMethod();
 
+        DialogHelper dialogHelper = new DialogHelper(getDockActivity());
+        dialogHelper.initSocialLink(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openWebPage("https://www.facebook.com/ASIDubai/");
+                dialogHelper.hideDialog();
             }
-        }
+        }, new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openWebPage("https://www.youtube.com/user/ASIDubai");
+                dialogHelper.hideDialog();
+            }
+        }, new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openWebPage("https://twitter.com/ASIDubai123");
+                dialogHelper.hideDialog();
+            }
+        }, new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openWebPage("https://www.instagram.com/asidubai/");
+                dialogHelper.hideDialog();
+            }
+        }, new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openWebPage("https://www.linkedin.com/company/asi-world");
+                dialogHelper.hideDialog();
+            }
+        });
+        dialogHelper.showDialog();
+    }
 
+    public void openWebPage(String url) {
+        try {
+            Uri webpage = Uri.parse(url);
+
+            if (!url.startsWith("http://") && !url.startsWith("https://")) {
+                webpage = Uri.parse("http://" + url);
+            }
+            startActivity(new Intent(Intent.ACTION_VIEW, webpage));
+        } catch (ActivityNotFoundException e) {
+            //TODO smth
+        }
+    }
+
+
+    @Override
+    public void getValue(Barcode barcode) {
+        String id=barcode.displayValue.replaceAll("[^0-9]", "");
+        serviceHelper.enqueueCall(headerWebService.gameSectionPlayed(id+""), GamePlayedBarCode);
     }
 
     @Override
-    public void selectArea(Object entity, int position) {
-       /* LocationEnt data = (LocationEnt) entity;
-        cityId = data.getParentId() + "";
-        areaId = data.getId() + "";
-        locationLat = Double.parseDouble(data.getLatitude());
-        locationLng = Double.parseDouble(data.getLongitude());
-        txtAddress.setText(data.getLocation());*/
-
-    }
-
-    @Override
-    public void selectService(String selectedIds, String names) {
-        serviceId = selectedIds;
-        txtServices.setText(names);
-    }
-
-    private boolean isValidate() {
-        if (txtAddress.getText() == null || txtAddress.getText().toString().trim().isEmpty()) {
-       //     UIHelper.showShortToastInDialoge(getDockActivity(), getResString(R.string.select_city_to_proceed));
-            return false;
-        } else if (txtServices.getText() == null || txtServices.getText().toString().trim().isEmpty()) {
-        //    UIHelper.showShortToastInDialoge(getDockActivity(), getResString(R.string.select_service_to_proceed));
-            return false;
-        } else {
-            return true;
+    public void ResponseSuccess(Object result, UserEnt userEnt, String Tag, String message) {
+        super.ResponseSuccess(result, userEnt, Tag, message);
+        switch (Tag){
+            case GamePlayedBarCode:
+                UIHelper.showShortToastInDialoge(getDockActivity(),getResString(R.string.game_is_addedd));
+                break;
         }
     }
-
 }
 

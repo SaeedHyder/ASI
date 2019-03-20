@@ -38,6 +38,7 @@ public class OKHttpClientCreator {
 
                         Request request = original.newBuilder()
                                 .addHeader("Accept-Encoding", "identity")
+                                .addHeader("Content-Type", "application/json")
                                 .method(original.method(), original.body())
                                 .build();
 
@@ -60,7 +61,8 @@ public class OKHttpClientCreator {
 
 
         if (preferenceHelper.get_TOKEN() != null) {
-            AppConstants.HeaderToken =AppConstants.Bearer+preferenceHelper.get_TOKEN();
+          //  AppConstants.HeaderToken = AppConstants.Bearer + preferenceHelper.get_TOKEN();
+            AppConstants.HeaderToken = preferenceHelper.get_TOKEN();
         } else {
             AppConstants.HeaderToken = "";
         }
@@ -76,7 +78,8 @@ public class OKHttpClientCreator {
 
                         Request request = original.newBuilder()
                                 .addHeader("Accept-Encoding", "identity")
-                                .addHeader("Authorization",AppConstants.HeaderToken)
+                                .addHeader("Content-Type", "application/json")
+                                .addHeader("Authorization", AppConstants.HeaderToken)
                                 .method(original.method(), original.body())
                                 .build();
 
@@ -111,7 +114,7 @@ public class OKHttpClientCreator {
     final static ProgressResponseBody.ProgressListener progressListener = new ProgressResponseBody.ProgressListener() {
         @Override
         public void update(long bytesRead, long contentLength, boolean done) {
-            int percent = (int) ((100 * bytesRead) / contentLength);
+          //  int percent = (int) ((100 * bytesRead) / contentLength);
         }
     };
 

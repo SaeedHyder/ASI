@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bg"
+
     android:gravity="center_horizontal"
     android:orientation="vertical">
 
@@ -14,37 +14,62 @@
         android:src="@drawable/logo" />
 
 
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/x40"
-        android:layout_marginEnd="@dimen/x40"
-        android:layout_marginTop="@dimen/x10"
         android:layout_marginBottom="@dimen/x30"
+        android:layout_marginEnd="@dimen/x40"
+        android:layout_marginStart="@dimen/x40"
+        android:layout_marginTop="@dimen/x10"
         android:orientation="vertical">
 
-        <android.support.design.widget.TextInputLayout
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/x40"
-            android:theme="@style/EditTextHint">
+            android:orientation="horizontal">
 
-            <android.support.design.widget.TextInputEditText
-                android:id="@+id/edt_password"
-                android:layout_width="match_parent"
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:background="@color/transparent"
-                android:drawablePadding="@dimen/x10"
-                android:drawableStart="@drawable/lock"
-                android:hint="@string/enter_new_password"
-                android:imeOptions="actionNext"
-                android:inputType="textPassword"
-                android:paddingTop="@dimen/x10"
-                android:textColor="@color/app_text_color"
-                android:textSize="@dimen/x14" />
+                android:layout_weight="1"
+                android:theme="@style/EditTextHint">
 
-        </android.support.design.widget.TextInputLayout>
+                <android.support.design.widget.TextInputEditText
+                    android:id="@+id/edt_password"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/transparent"
+                    android:drawablePadding="@dimen/x10"
+                    android:drawableStart="@drawable/lock"
+                    android:hint="@string/enter_new_password"
+                    android:imeOptions="actionNext"
+                    android:inputType="textPassword"
+                    android:paddingTop="@dimen/x10"
+                    android:textColor="@color/app_text_color"
+                    android:textSize="@dimen/x14" />
+
+            </android.support.design.widget.TextInputLayout>
+
+
+            <ToggleButton
+                android:id="@+id/eyeNewPass"
+                android:layout_width="@dimen/x18"
+                android:layout_height="@dimen/x10"
+                android:gravity="bottom"
+                android:padding="@dimen/x5"
+                android:layout_marginStart="@dimen/x5"
+                android:background="@drawable/eye"
+                android:text=""
+                android:textOff=""
+                android:textOn=""
+                android:layout_gravity="bottom"
+                android:checked="false"
+                android:visibility="visible"
+                />
+
+        </LinearLayout>
 
         <View
             android:layout_width="match_parent"
@@ -52,27 +77,52 @@
             android:layout_marginTop="@dimen/x10"
             android:background="@color/view_line_color" />
 
-        <android.support.design.widget.TextInputLayout
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/x20"
-            android:theme="@style/EditTextHint">
+            android:orientation="horizontal">
 
-            <android.support.design.widget.TextInputEditText
-                android:id="@+id/edt_confirpassword"
-                android:layout_width="match_parent"
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:background="@color/transparent"
-                android:drawablePadding="@dimen/x10"
-                android:drawableStart="@drawable/lock"
-                android:hint="@string/confirm_new_password"
-                android:imeOptions="actionDone"
-                android:inputType="textPassword"
-                android:paddingTop="@dimen/x10"
-                android:textColor="@color/app_text_color"
-                android:textSize="@dimen/x14" />
+                android:layout_weight="1"
+                android:theme="@style/EditTextHint">
 
-        </android.support.design.widget.TextInputLayout>
+                <android.support.design.widget.TextInputEditText
+                    android:id="@+id/edt_confirpassword"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/transparent"
+                    android:drawablePadding="@dimen/x10"
+                    android:drawableStart="@drawable/lock"
+                    android:hint="@string/confirm_new_password"
+                    android:imeOptions="actionDone"
+                    android:inputType="textPassword"
+                    android:paddingTop="@dimen/x10"
+                    android:textColor="@color/app_text_color"
+                    android:textSize="@dimen/x14" />
+
+            </android.support.design.widget.TextInputLayout>
+
+
+            <ToggleButton
+                android:id="@+id/eyeConfPass"
+                android:layout_width="@dimen/x18"
+                android:layout_height="@dimen/x10"
+                android:gravity="bottom"
+                android:padding="@dimen/x5"
+                android:layout_marginStart="@dimen/x5"
+                android:background="@drawable/eye"
+                android:text=""
+                android:textOff=""
+                android:textOn=""
+                android:layout_gravity="bottom"
+                android:checked="false"
+                android:visibility="visible"
+                />
+
+        </LinearLayout>
 
         <View
             android:layout_width="match_parent"

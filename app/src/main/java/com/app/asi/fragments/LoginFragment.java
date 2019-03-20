@@ -9,16 +9,25 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.app.asi.R;
+import com.app.asi.entities.UserEnt;
 import com.app.asi.fragments.abstracts.BaseFragment;
+import com.app.asi.global.AppConstants;
 import com.app.asi.ui.views.AnyTextView;
 import com.app.asi.ui.views.TitleBar;
+import com.google.firebase.iid.FirebaseInstanceId;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
+import okhttp3.MediaType;
+import okhttp3.RequestBody;
 
 import static com.app.asi.global.WebServiceConstants.Login;
+import static com.app.asi.global.WebServiceConstants.ResendCode;
 
 
 public class LoginFragment extends BaseFragment {
@@ -75,7 +84,19 @@ public class LoginFragment extends BaseFragment {
                 break;
             case R.id.btn_login:
                 if (isvalidated()) {
-                    //      serviceHelper.enqueueCall(webService.loginUser(edtEmail.getText().toString(), edtPassword.getText().toString(), AppConstants.Device_Type, FirebaseInstanceId.getInstance().getToken()), Login);
+                    JSONObject login = new JSONObject();
+                    try {
+                        login.put("email", edtEmail.getText().toString());
+                        login.put("password", edtPassword.getText().toString());
+                        login.put("deviceType", AppConstants.Device_Type);
+                        login.put("deviceToken", FirebaseInstanceId.getInstance().getToken());
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                    RequestBody body = RequestBody.create(MediaType.parse("application/json; charset=utf-8"), login.toString());
+
+                    serviceHelper.enqueueCall(webService.loginUser(body), Login);
 
                 }
                 break;
@@ -83,28 +104,37 @@ public class LoginFragment extends BaseFragment {
             case R.id.btn_signup:
                 getDockActivity().replaceDockableFragment(SignupFragment.newInstance(), "SignupFragment");
                 break;
+
+
         }
     }
 
     @Override
-    public void ResponseSuccess(Object result, String Tag, String message) {
-        super.ResponseSuccess(result, Tag, message);
+    public void ResponseSuccess(Object result, UserEnt userEnt, String Tag, String message) {
+        super.ResponseSuccess(result, userEnt, Tag, message);
         switch (Tag) {
             case Login:
-             /*   UserEnt userEnt = (UserEnt) result;
-                prefHelper.putUser(userEnt);
-                prefHelper.set_TOKEN(userEnt.getUser().getAccessToken());
+                if (userEnt != null) {
+                    prefHelper.putUser(userEnt);
+                    if (userEnt.getToken() != null)
+                        prefHelper.set_TOKEN(userEnt.getToken());
 
-                if (userEnt.getUser().getIs_verified() == 1) {
-                    prefHelper.setLoginStatus(true);
-                    getDockActivity().popBackStackTillEntry(0);
-                    getDockActivity().replaceDockableFragment(HomeFragment.newInstance(), "HomeFragment");
-                    if (getMainActivity() != null) {
-                        getMainActivity().refreshSideMenu();
+                    if (userEnt.getVerified()) {
+                        prefHelper.setLoginStatus(true);
+                        getDockActivity().popBackStackTillEntry(0);
+                        getMainActivity().refreshSideMenuData();
+                        getDockActivity().replaceDockableFragment(HomeFragment.newInstance(), "HomeFragment");
+                        if (getMainActivity() != null) {
+                            getMainActivity().refreshSideMenu();
+                        }
+                    } else {
+                        serviceHelper.enqueueCall(webService.resendCode(edtEmail.getText().toString()), ResendCode);
+
                     }
-                } else {
-                    getDockActivity().replaceDockableFragment(EmailVerificationFragment.newInstance(), "EmailVerificationFragment");
-                }*/
+                }
+                break;
+            case ResendCode:
+                getDockActivity().replaceDockableFragment(EmailVerificationFragment.newInstance(edtEmail.getText().toString(), false), "EmailVerificationFragment");
                 break;
 
 

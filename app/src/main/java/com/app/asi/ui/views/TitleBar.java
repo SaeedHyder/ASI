@@ -16,6 +16,7 @@ public class TitleBar extends RelativeLayout {
 	private ImageView btnLeft;
 	private ImageView btnRight2;
 	private ImageView btnRight;
+	private ImageView logo;
 	private AnyTextView txtBadge;
 
 
@@ -56,6 +57,7 @@ public class TitleBar extends RelativeLayout {
 		btnRight2 = (ImageView) this.findViewById(R.id.btnRight2);
 		btnLeft = (ImageView) this.findViewById(R.id.btnLeft);
 		txtBadge = (AnyTextView) findViewById(R.id.txtBadge);
+		logo = (ImageView) findViewById(R.id.logo);
 
 	}
 
@@ -71,6 +73,7 @@ public class TitleBar extends RelativeLayout {
 		btnLeft.setVisibility(View.INVISIBLE);
 		btnRight.setVisibility(View.INVISIBLE);
 		btnRight2.setVisibility(View.INVISIBLE);
+		logo.setVisibility(View.GONE);
 		txtBadge.setVisibility(View.GONE);
 
 	}
@@ -81,6 +84,10 @@ public class TitleBar extends RelativeLayout {
 		btnLeft.setOnClickListener(backButtonListener);
 
 	}
+	public void showLogo() {
+		logo.setVisibility(View.VISIBLE);
+	}
+
 
 	public void hideBackButton() {
 		btnLeft.setVisibility(View.GONE);
@@ -91,11 +98,21 @@ public class TitleBar extends RelativeLayout {
 		btnLeft.setOnClickListener(menuButtonListener);
 		btnLeft.setImageResource(R.drawable.menu);
 	}
+	public void showSearchButton(OnClickListener listener) {
+		btnRight.setVisibility(View.VISIBLE);
+		btnRight.setOnClickListener(listener);
+		btnRight.setImageResource(R.drawable.search);
+	}
+	public void showSearchButtonEnd(OnClickListener listener) {
+		btnRight2.setVisibility(View.VISIBLE);
+		btnRight2.setOnClickListener(listener);
+		btnRight2.setImageResource(R.drawable.search);
+	}
 
 	public void showEdithButton(OnClickListener listener) {
 		btnRight2.setVisibility(View.VISIBLE);
 		btnRight2.setOnClickListener(listener);
-		btnRight2.setImageResource(R.drawable.ic_launcher);
+		btnRight2.setImageResource(R.drawable.edit2);
 	}
 
 	public void showShareButton(OnClickListener listener) {
@@ -121,10 +138,10 @@ public class TitleBar extends RelativeLayout {
 
 	}
 
-	public void showNotificationButton(int Count) {
+	public void showNotificationButton(int Count,OnClickListener listener) {
 
 		btnRight2.setVisibility(View.VISIBLE);
-		btnRight2.setOnClickListener(notificationButtonListener);
+		btnRight2.setOnClickListener(listener);
 		btnRight2.setImageResource(R.drawable.notification);
 		if (Count > 0) {
 			txtBadge.setVisibility(View.VISIBLE);

@@ -46,17 +46,7 @@
 
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
-            <intent-filter>
-                <action android:name="android.intent.action.VIEW" />
 
-                <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="android.intent.category.BROWSABLE" />
-
-                <data
-                    android:scheme="http"
-                    android:host="quico.stagingic.com"
-                    android:pathPrefix="/deepLink.php"/>
-            </intent-filter>
 
         </activity>
 
@@ -97,7 +87,7 @@
         </activity>
         <meta-data
             android:name="io.fabric.ApiKey"
-            android:value="737e3c303e65c4f916fb62eb55603ad006512f59"
+            android:value="2a4ac54c40b47f5c2d53ca9e7ad7c3198856dbed"
             />
 
 

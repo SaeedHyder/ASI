@@ -6,11 +6,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CompoundButton;
 import android.widget.LinearLayout;
-import android.widget.ToggleButton;
+import android.widget.Switch;
 
 import com.app.asi.R;
+import com.app.asi.entities.UserEnt;
 import com.app.asi.fragments.abstracts.BaseFragment;
-import com.app.asi.ui.views.AnyTextView;
 import com.app.asi.ui.views.TitleBar;
 
 import butterknife.BindView;
@@ -21,20 +21,15 @@ import butterknife.Unbinder;
 import static com.app.asi.global.WebServiceConstants.ChangePush;
 
 public class SettingFragment extends BaseFragment {
-    @BindView(R.id.btn_english)
-    AnyTextView btnEnglish;
-    @BindView(R.id.btn_arabic)
-    AnyTextView btnArabic;
-    @BindView(R.id.toggleBtn)
-    ToggleButton toggleBtn;
+
+
+    @BindView(R.id.btnNotifications)
+    Switch btnNotifications;
     @BindView(R.id.btn_change_password)
     LinearLayout btnChangePassword;
     @BindView(R.id.changePassworView)
     View changePassworView;
     Unbinder unbinder;
-    @BindView(R.id.btn_profile)
-    LinearLayout btnProfile;
-
     private boolean isPushCheck;
 
     public static SettingFragment newInstance() {
@@ -56,6 +51,7 @@ public class SettingFragment extends BaseFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_setting, container, false);
+
         unbinder = ButterKnife.bind(this, view);
         return view;
     }
@@ -64,44 +60,35 @@ public class SettingFragment extends BaseFragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-      /*  if (prefHelper.getUser().getUser() != null && prefHelper.getUser().getUser().getPushNotification() != null) {
-            toggleBtn.setChecked(prefHelper.getUser().getUser().getPushNotification() == 1 ? true : false);
-        }*/
-        if (prefHelper.isSocialLogin()) {
-            btnChangePassword.setVisibility(View.GONE);
-            changePassworView.setVisibility(View.GONE);
+
+        if (prefHelper.getUser().getNotification()) {
+            btnNotifications.setChecked(true);
+        } else {
+            btnNotifications.setChecked(false);
         }
         listner();
 
-        if (prefHelper.isLanguageArabian()) {
-            btnEnglish.setTextColor(getResources().getColor(R.color.app_gray_text));
-            btnArabic.setTextColor(getResources().getColor(R.color.app_red));
-
-        } else {
-            btnEnglish.setTextColor(getResources().getColor(R.color.app_red));
-            btnArabic.setTextColor(getResources().getColor(R.color.app_gray_text));
-        }
 
     }
 
     private void listner() {
-        toggleBtn.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        btnNotifications.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                 isPushCheck = b;
-               // serviceHelper.enqueueCall(headerWebService.chanePushNotification(b ? "1" : "0"), ChangePush);
+                serviceHelper.enqueueCall(headerWebService.isNotification(b), ChangePush);
             }
         });
     }
 
     @Override
-    public void ResponseSuccess(Object result, String Tag, String message) {
-        super.ResponseSuccess(result, Tag, message);
+    public void ResponseSuccess(Object result, UserEnt userEnt, String Tag, String message) {
+        super.ResponseSuccess(result, userEnt, Tag, message);
         switch (Tag) {
             case ChangePush:
-              /*  UserEnt userEnt = prefHelper.getUser();
-                userEnt.getUser().setPushNotification(isPushCheck ? 1 : 0);
-                prefHelper.putUser(userEnt);*/
+                UserEnt userObject = prefHelper.getUser();
+                userObject.setNotification(userEnt.getNotification());
+                prefHelper.putUser(userEnt);
 
                 break;
         }
@@ -116,27 +103,15 @@ public class SettingFragment extends BaseFragment {
     }
 
 
-    @OnClick({R.id.btn_arabic, R.id.btn_english, R.id.btn_change_password, R.id.btn_profile})
+    @OnClick({R.id.btn_change_password})
     public void onViewClicked(View view) {
         switch (view.getId()) {
-            case R.id.btn_arabic:
-                btnEnglish.setTextColor(getResources().getColor(R.color.app_gray_text));
-                btnArabic.setTextColor(getResources().getColor(R.color.app_red));
-                prefHelper.putLang(getDockActivity(), "ar");
-                break;
-            case R.id.btn_english:
-                btnEnglish.setTextColor(getResources().getColor(R.color.app_red));
-                btnArabic.setTextColor(getResources().getColor(R.color.app_gray_text));
-                prefHelper.putLang(getDockActivity(), "en");
-                break;
+
             case R.id.btn_change_password:
                 getDockActivity().replaceDockableFragment(ChangePasswordFragment.newInstance(), "ChangePasswordFragment");
                 break;
-            case R.id.btn_profile:
-                getDockActivity().replaceDockableFragment(ProfileFragment.newInstance(), "ProfileFragment");
-                break;
+
         }
     }
-
 
 }

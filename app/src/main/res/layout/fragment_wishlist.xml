@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+
+    >
+
+    <com.app.asi.ui.views.AnyTextView
+        android:id="@+id/txt_no_data"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:drawableTop="@drawable/logo"
+        android:drawablePadding="@dimen/x10"
+        android:text="@string/no_wishlist_item_found"
+        android:textColor="@color/app_text_color"
+        android:textSize="@dimen/x15"
+        android:visibility="gone"
+        app:typeface="@string/font_normal"
+        />
+
+
+
+    <com.app.asi.ui.views.CustomRecyclerView
+        android:id="@+id/rv_favorites"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clipToPadding="false"
+        android:paddingBottom="@dimen/x7"
+       />
+
+</LinearLayout>

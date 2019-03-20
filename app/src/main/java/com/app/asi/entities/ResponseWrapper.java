@@ -3,9 +3,11 @@ package com.app.asi.entities;
 public class ResponseWrapper<T> {
 
     private String message;
-    private boolean success;
+    private String messageAr;
+    private boolean status;
+    private boolean isBlocked;
+    private UserEnt user;
     private T data;
-
 
     public String getMessage() {
         return message;
@@ -15,12 +17,36 @@ public class ResponseWrapper<T> {
         this.message = message;
     }
 
-    public boolean isSuccess() {
-        return success;
+    public String getMessageAr() {
+        return messageAr;
     }
 
-    public void setSuccess(boolean success) {
-        this.success = success;
+    public void setMessageAr(String messageAr) {
+        this.messageAr = messageAr;
+    }
+
+    public boolean isStatus() {
+        return status;
+    }
+
+    public void setStatus(boolean status) {
+        this.status = status;
+    }
+
+    public boolean isBlocked() {
+        return isBlocked;
+    }
+
+    public void setBlocked(boolean blocked) {
+        isBlocked = blocked;
+    }
+
+    public UserEnt getUser() {
+        return user;
+    }
+
+    public void setUser(UserEnt user) {
+        this.user = user;
     }
 
     public T getData() {

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg"
+    android:orientation="vertical">
+
+    <android.support.v7.widget.CardView
+        android:layout_width="@dimen/x200"
+        android:layout_height="@dimen/x200"
+        android:layout_gravity="center"
+        android:layout_margin="@dimen/x35"
+        app:cardElevation="@dimen/x5"
+        app:cardCornerRadius="@dimen/x10">
+
+        <ImageView
+            android:id="@+id/ivImage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:src="@drawable/tips_image" />
+
+    </android.support.v7.widget.CardView>
+
+    <com.app.asi.ui.views.AnyTextView
+        android:id="@+id/txtTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="@string/quick_drop_ball_jam"
+        android:textColor="@color/white"
+        android:textSize="@dimen/x16"
+        app:typeface="@string/font_normal" />
+
+    <com.app.asi.ui.views.AnyTextView
+        android:id="@+id/txtDescription"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/x20"
+        android:layout_marginStart="@dimen/x20"
+        android:layout_marginTop="@dimen/x10"
+        android:gravity="center"
+        android:text="@string/is_your_quik_drop_ball_tube_not_feeding_balls_if_the_balls_are_stuck_in_the_upper_auger_it_might_be_because_the_upper_optical_sensor_needs_to_be_cleaned_and_or_blown_off_to_access_the_sensor_unlatch_the_two_marquee_latches_on_the_right_side_and_swing_open_to_the_left"
+        android:textColor="@color/app_text_color"
+        android:textSize="@dimen/x12"
+        app:typeface="@string/font_normal" />
+
+
+</LinearLayout>

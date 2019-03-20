@@ -37,7 +37,7 @@ public class RecyclerViewAdapter<T> extends RecyclerView.Adapter<RecyclerViewBin
     @Override
     public RecyclerViewBinder.BaseViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
-        return (RecyclerViewBinder.BaseViewHolder) this.viewBinder.createViewHolder(this.viewBinder.createView(this.mContext));
+        return (RecyclerViewBinder.BaseViewHolder) this.viewBinder.createViewHolder(this.viewBinder.createView(this.mContext,parent),parent);
     }
 
     @Override
@@ -104,6 +104,10 @@ public class RecyclerViewAdapter<T> extends RecyclerView.Adapter<RecyclerViewBin
      */
     public void addAll(List<T> entityList) {
         collections.addAll(entityList);
+        notifyDataSetChanged();
+    }
+    public void remove(int pos) {
+        collections.remove(pos);
         notifyDataSetChanged();
     }
 

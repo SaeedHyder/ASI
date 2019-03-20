@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/mainFrame"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/x15"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/ivIcon"
+                android:layout_width="@dimen/x50"
+                android:layout_height="@dimen/x50"
+                android:src="@drawable/img"
+                android:visibility="visible" />
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/x10"
+            android:gravity="center_vertical"
+            android:orientation="vertical">
+
+            <com.app.asi.ui.views.AnyTextView
+                android:id="@+id/txt_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:maxLines="4"
+                android:text="Transformers Shadow "
+                android:textColor="@color/app_text_color"
+                android:textSize="@dimen/x14"
+                app:typeface="@string/font_semibold" />
+
+            <com.app.asi.ui.views.AnyTextView
+                android:id="@+id/txt_detail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:text="@string/lorem_small_2"
+                android:textColor="@color/app_text_color"
+                android:textSize="@dimen/x12"
+                app:typeface="@string/font_normal" />
+
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <com.app.asi.ui.views.AnyTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:text="@string/dimensions"
+                    android:layout_marginEnd="@dimen/x5"
+                    android:textColor="@color/app_text_color"
+                    android:textSize="@dimen/x11"
+                    app:typeface="@string/font_normal" />
+
+                <com.app.asi.ui.views.AnyTextView
+                    android:id="@+id/txt_dimensions"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:text="D254 * W163 * xH241CM"
+                    android:textColor="@color/app_text_color"
+                    android:textSize="@dimen/x11"
+                    app:typeface="@string/font_normal" />
+
+             <!--   <CheckBox
+                    android:id="@+id/btnFav"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/x3"
+                    android:checked="true"
+                    android:button="@drawable/selector_checkbox"/>-->
+                <ImageView
+                    android:id="@+id/btnFav"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/x3"
+                    android:src="@drawable/filled_star"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_game_played"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                android:orientation="horizontal">
+
+                <com.app.asi.ui.views.AnyTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:text="@string/last_scanned"
+                    android:textColor="@color/app_text_color"
+                    android:textSize="@dimen/x12"
+                    android:layout_marginEnd="@dimen/x5"
+                    app:typeface="@string/font_normal" />
+
+                <com.app.asi.ui.views.AnyTextView
+                    android:id="@+id/txtDate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:text="11:59 am 12th july 2019"
+                    android:textColor="@color/app_text_color"
+                    android:textSize="@dimen/x12"
+                    app:typeface="@string/font_normal" />
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/x1"
+        android:background="@color/view_line_color" />
+
+</LinearLayout>

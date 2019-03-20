@@ -4,6 +4,7 @@ import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 
 public abstract class RecyclerViewBinder<T> {
 	private int LayoutResId;
@@ -11,15 +12,15 @@ public abstract class RecyclerViewBinder<T> {
 		this.LayoutResId = LayoutResId;
 	}
 
-	public View createView (Context activity) {
+	public View createView (Context activity, ViewGroup parent) {
 		LayoutInflater inflater = (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		final View view = inflater.inflate( LayoutResId , null );
-		view.setTag( createViewHolder( view ) );
+		view.setTag( createViewHolder(view,parent) );
 		return view;
 
 	}
 
-	public abstract BaseViewHolder createViewHolder (View view);
+	public abstract BaseViewHolder createViewHolder (View view,ViewGroup parent);
 
 	/**
 	 * @param entity object with view Data

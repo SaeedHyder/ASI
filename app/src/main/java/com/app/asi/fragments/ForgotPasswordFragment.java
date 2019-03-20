@@ -9,7 +9,9 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.app.asi.R;
+import com.app.asi.entities.UserEnt;
 import com.app.asi.fragments.abstracts.BaseFragment;
+import com.app.asi.global.WebServiceConstants;
 import com.app.asi.ui.views.TitleBar;
 
 import butterknife.BindView;
@@ -62,25 +64,22 @@ public class ForgotPasswordFragment extends BaseFragment {
         super.setTitleBar(titleBar);
         titleBar.hideButtons();
         titleBar.showBackButton();
-        titleBar.setSubHeading(getResString(R.string.forgot_password));
+    //    titleBar.setSubHeading(getResString(R.string.forgot_password));
     }
 
     @OnClick(R.id.btn_submit)
     public void onViewClicked() {
         if (isvalidated()) {
-              getDockActivity().replaceDockableFragment(EmailVerificationFragment.newInstance(true), "EmailVerificationFragment");
+            serviceHelper.enqueueCall(webService.forgotPassword(edtEmail.getText().toString()), WebServiceConstants.ForgotPass);
         }
     }
 
     @Override
-    public void ResponseSuccess(Object result, String Tag, String message) {
-        super.ResponseSuccess(result, Tag, message);
+    public void ResponseSuccess(Object result, UserEnt userEnt, String Tag, String message) {
+        super.ResponseSuccess(result, userEnt, Tag, message);
         switch (Tag) {
             case ForgotPass:
-             /*   UserEnt userEnt=(UserEnt)result;
-                prefHelper.putUser(userEnt);
-                prefHelper.set_TOKEN(userEnt.getUser().getAccessToken());
-                getDockActivity().replaceDockableFragment(EmailVerificationFragment.newInstance(true), "EmailVerificationFragment");*/
+                getDockActivity().replaceDockableFragment(EmailVerificationFragment.newInstance(edtEmail.getText().toString(), true), "EmailVerificationFragment");
                 break;
         }
     }

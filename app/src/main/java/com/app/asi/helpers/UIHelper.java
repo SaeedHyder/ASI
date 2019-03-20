@@ -103,7 +103,7 @@ public class UIHelper {
 	// new DialogInterface.OnClickListener() {
 	//
 	// @Override
-	// public void onClick(DialogInterface dialog, int which) {
+	// public void onWishClick(DialogInterface dialog, int which) {
 	// dialog.dismiss();
 	// _baizaContact.setSelectedNumber(which);
 	// }

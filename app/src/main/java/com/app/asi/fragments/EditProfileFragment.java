@@ -6,12 +6,12 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.support.design.widget.TextInputEditText;
-import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.app.asi.R;
 import com.app.asi.entities.UserEnt;
@@ -19,9 +19,7 @@ import com.app.asi.fragments.abstracts.BaseFragment;
 import com.app.asi.helpers.CameraHelper;
 import com.app.asi.helpers.UIHelper;
 import com.app.asi.interfaces.ImageSetter;
-import com.app.asi.ui.views.AutoCompleteLocation;
 import com.app.asi.ui.views.TitleBar;
-import com.google.android.gms.location.places.Place;
 import com.google.i18n.phonenumbers.NumberParseException;
 import com.google.i18n.phonenumbers.PhoneNumberUtil;
 import com.google.i18n.phonenumbers.Phonenumber;
@@ -54,23 +52,25 @@ import static com.app.asi.global.WebServiceConstants.UpdateProfileService;
 
 public class EditProfileFragment extends BaseFragment implements ImageSetter {
     private static final String TAG = "EditProfileFragment";
-    @BindView(R.id.edt_username)
-    TextInputEditText edtUsername;
-    @BindView(R.id.edt_email)
-    TextInputEditText edtEmail;
-    @BindView(R.id.edt_phone)
-    TextInputEditText edtPhone;
-    @BindView(R.id.btn_edit)
-    Button btnEdit;
-    Unbinder unbinder;
-    @BindView(R.id.edt_address)
-    AutoCompleteLocation edtAddress;
     @BindView(R.id.profile_image)
     CircleImageView profileImage;
     @BindView(R.id.btnUploadImage)
     RelativeLayout btnUploadImage;
+    @BindView(R.id.edt_username)
+    TextInputEditText edtUsername;
+    @BindView(R.id.edt_email)
+    TextView edtEmail;
     @BindView(R.id.Countrypicker)
     CountryCodePicker Countrypicker;
+    @BindView(R.id.edt_phone)
+    TextInputEditText edtPhone;
+    @BindView(R.id.edt_companyName)
+    TextInputEditText edtCompanyName;
+    @BindView(R.id.edt_designation)
+    TextInputEditText edtDesignation;
+    @BindView(R.id.btn_edit)
+    Button btnEdit;
+    Unbinder unbinder;
 
 
     private PhoneNumberUtil phoneUtil;
@@ -101,6 +101,7 @@ public class EditProfileFragment extends BaseFragment implements ImageSetter {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_editprofile, container, false);
+
         unbinder = ButterKnife.bind(this, view);
         return view;
     }
@@ -109,67 +110,39 @@ public class EditProfileFragment extends BaseFragment implements ImageSetter {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        if (prefHelper.isSocialLogin()) {
-            edtPhone.setFocusable(true);
-            edtPhone.setFocusableInTouchMode(true);
-            edtEmail.setFocusable(false);
-            edtEmail.setFocusableInTouchMode(false);
-
-        } else {
-            edtPhone.setFocusable(false);
-            edtPhone.setFocusableInTouchMode(false);
-            Countrypicker.setCcpClickable(false);
-            edtEmail.setFocusable(true);
-            edtEmail.setFocusableInTouchMode(true);
-        }
         phoneUtil = PhoneNumberUtil.getInstance();
         edtPhone.setTransformationMethod(new NumericKeyBoardTransformationMethod());
         getMainActivity().setImageSetter(this);
-        autoCompleteListner();
         setData();
 
     }
 
-    private void autoCompleteListner() {
-
-        edtAddress.setAutoCompleteTextListener(new AutoCompleteLocation.AutoCompleteLocationListener() {
-            @Override
-            public void onTextClear() {
-
-            }
-
-            @Override
-            public void onItemSelected(Place selectedPlace) {
-                latitude = selectedPlace.getLatLng().latitude;
-                longitude = selectedPlace.getLatLng().longitude;
-                Address = selectedPlace.getAddress().toString();
-            }
-        });
-    }
 
     private void setData() {
 
-      /*  if (prefHelper.getUser() != null && prefHelper.getUser().getUser() != null) {
-            edtUsername.setText(prefHelper.getUser().getUser().getName() + "");
-            edtEmail.setText(prefHelper.getUser().getUser().getEmail() + "");
-
-            if (prefHelper.getUser().getUser().getCountryCode() != null && !prefHelper.getUser().getUser().getCountryCode().equals("") &&
-                    prefHelper.getUser().getUser().getPhone() != null && !prefHelper.getUser().getUser().getPhone().equals("")) {
-                Countrypicker.setCountryForPhoneCode(Integer.parseInt(prefHelper.getUser().getUser().getCountryCode()));
-                edtPhone.setText(prefHelper.getUser().getUser().getPhone() + "");
+        if (prefHelper != null && prefHelper.getUser() != null) {
+            if (prefHelper.getUser().getImageUrl() != null && !prefHelper.getUser().getImageUrl().equals("") && !prefHelper.getUser().getImageUrl().isEmpty()) {
+                Picasso.get().load(prefHelper.getUser().getImageUrl()).placeholder(R.drawable.placeholder_thumb).into(profileImage);
+                profilePath=prefHelper.getUser().getImageUrl();
+            }
+            if (prefHelper.getUser().getFullName() != null && !prefHelper.getUser().getFullName().equals("") && !prefHelper.getUser().getFullName().isEmpty()) {
+                edtUsername.setText(prefHelper.getUser().getFullName());
+            }
+            if (prefHelper.getUser().getEmail() != null && !prefHelper.getUser().getEmail().equals("") && !prefHelper.getUser().getEmail().isEmpty()) {
+                edtEmail.setText(prefHelper.getUser().getEmail());
+            }
+            if (prefHelper.getUser().getPhoneNo() != null && !prefHelper.getUser().getPhoneNo().equals("") && !prefHelper.getUser().getPhoneNo().isEmpty()) {
+                Countrypicker.setCountryForPhoneCode(Integer.parseInt(prefHelper.getUser().getPhoneCode()));
+                edtPhone.setText(prefHelper.getUser().getPhoneNo());
+            }
+            if (prefHelper.getUser().getCompany() != null && !prefHelper.getUser().getCompany().equals("") && !prefHelper.getUser().getCompany().isEmpty()) {
+                edtCompanyName.setText(prefHelper.getUser().getCompany());
+            }
+            if (prefHelper.getUser().getDesignation() != null && !prefHelper.getUser().getDesignation().equals("") && !prefHelper.getUser().getDesignation().isEmpty()) {
+                edtDesignation.setText(prefHelper.getUser().getPhoneCode() + prefHelper.getUser().getPhoneNo());
             }
 
-            if (prefHelper.getUser().getUser().getDetails().getImageUrl() != null && !prefHelper.getUser().getUser().getDetails().getImageUrl().equals("")) {
-                profilePath = prefHelper.getUser().getUser().getDetails().getImageUrl();
-                //   imageLoader.displayImage(prefHelper.getUser().getUser().getDetails().getImageUrl(), profileImage);
-                Picasso.get().load(prefHelper.getUser().getUser().getDetails().getImageUrl()).placeholder(R.drawable.placeholder).into(profileImage);
-            }
-            if (prefHelper.getUser().getUser().getDetails().getAddress() != null && !prefHelper.getUser().getUser().getDetails().getAddress().equals("") && !prefHelper.getUser().getUser().getDetails().getAddress().equals("null")) {
-                edtAddress.setText(prefHelper.getUser().getUser().getDetails().getAddress());
-                latitude = Double.valueOf(prefHelper.getUser().getUser().getDetails().getLatitude());
-                longitude = Double.valueOf(prefHelper.getUser().getUser().getDetails().getLongitude());
-            }
-        }*/
+        }
     }
 
 
@@ -184,25 +157,12 @@ public class EditProfileFragment extends BaseFragment implements ImageSetter {
 
     private boolean isvalidated() {
         if (edtUsername.getText().toString().trim().isEmpty() || edtUsername.getText().toString().trim().length() < 3) {
-            edtUsername.setError(getString(R.string.enter_username));
+            edtUsername.setError(getString(R.string.enter_fullname));
             if (edtUsername.requestFocus()) {
                 setEditTextFocus(edtUsername);
             }
             return false;
-        } else if (edtEmail.getText() == null || edtEmail.getText().toString().trim().isEmpty() ||
-                !Patterns.EMAIL_ADDRESS.matcher(edtEmail.getText().toString()).matches()) {
-            edtEmail.setError(getString(R.string.enter_valid_email));
-            if (edtEmail.requestFocus()) {
-                setEditTextFocus(edtEmail);
-            }
-            return false;
-        } else if (edtAddress.getText().toString().trim().isEmpty() || edtAddress.getText().toString().trim().length() < 3) {
-            edtAddress.setError(getString(R.string.enter_address));
-            if (edtAddress.requestFocus()) {
-                setEditTextFocus(edtAddress);
-            }
-            return false;
-        } else if (edtPhone.getText().toString().trim().isEmpty() || edtPhone.getText().toString().length() < 3) {
+        } else if (edtPhone.getText().toString().trim().isEmpty() || edtPhone.getText().toString().trim().length() < 3) {
             edtPhone.setError(getString(R.string.enter_phonenumber));
             if (edtPhone.requestFocus()) {
                 setEditTextFocus(edtPhone);
@@ -210,9 +170,20 @@ public class EditProfileFragment extends BaseFragment implements ImageSetter {
             return false;
         } else if (!isPhoneNumberValid()) {
             edtPhone.setError(getDockActivity().getResources().getString(R.string.enter_valid_number_error));
-            //updateHint();
             if (edtPhone.requestFocus()) {
                 setEditTextFocus(edtPhone);
+            }
+            return false;
+        } else if (edtCompanyName.getText().toString().trim().isEmpty() || edtCompanyName.getText().toString().trim().length() < 3) {
+            edtCompanyName.setError(getString(R.string.enter_company));
+            if (edtCompanyName.requestFocus()) {
+                setEditTextFocus(edtCompanyName);
+            }
+            return false;
+        } else if (edtDesignation.getText().toString().trim().isEmpty() || edtDesignation.getText().toString().trim().length() < 3) {
+            edtDesignation.setError(getString(R.string.enter_designation));
+            if (edtDesignation.requestFocus()) {
+                setEditTextFocus(edtDesignation);
             }
             return false;
         } else if (profilePath == null) {
@@ -234,29 +205,20 @@ public class EditProfileFragment extends BaseFragment implements ImageSetter {
                 if (isvalidated()) {
                     MultipartBody.Part filePart;
                     if (profilePic != null) {
-                        filePart = MultipartBody.Part.createFormData("image",
+                        filePart = MultipartBody.Part.createFormData("Image",
                                 profilePic.getName(), RequestBody.create(MediaType.parse("image/*"), profilePic));
                     } else {
-                        filePart = MultipartBody.Part.createFormData("image", "",
+                        filePart = MultipartBody.Part.createFormData("Image", "",
                                 RequestBody.create(MediaType.parse("*/*"), ""));
                     }
-                /*    serviceHelper.enqueueCall(headerWebService.updateProfile(
-                            RequestBody.create(MediaType.parse("text/plain"), prefHelper.getUser().getUser().getId() + ""),
+
+                    serviceHelper.enqueueCall(headerWebService.updateProfile(
                             RequestBody.create(MediaType.parse("text/plain"), edtUsername.getText().toString()),
-                            RequestBody.create(MediaType.parse("text/plain"), edtEmail.getText().toString()),
                             RequestBody.create(MediaType.parse("text/plain"), Countrypicker.getSelectedCountryCodeWithPlus().toString()),
                             RequestBody.create(MediaType.parse("text/plain"), edtPhone.getText().toString()),
-                            RequestBody.create(MediaType.parse("text/plain"), edtAddress.getText().toString()),
-                            RequestBody.create(MediaType.parse("text/plain"), latitude != null ? String.valueOf(latitude) : "0.0"),
-                            RequestBody.create(MediaType.parse("text/plain"), longitude != null ? String.valueOf(longitude) : "0.0"),
-                            filePart
-                    ), UpdateProfileService);*/
-
-                  /*  UpdateProfile updateProfile = new UpdateProfile(prefHelper.getUser().getUser().getId() + "", edtUsername.getText().toString(), edtEmail.getText().toString()
-                            , prefHelper.getUser().getUser().getCountryCode(), prefHelper.getUser().getUser().getPhone(), edtAddress.getText().toString(), latitude != null ? String.valueOf(latitude) : "0.0"
-                            , longitude != null ? String.valueOf(longitude) : "0.0", profilePath);
-
-                    serviceHelper.enqueueCall(headerWebService.updateProfile(prefHelper.getUser().getUser().getId() + "", updateProfile), UpdateProfileService);*/
+                            RequestBody.create(MediaType.parse("text/plain"), edtDesignation.getText().toString()),
+                            RequestBody.create(MediaType.parse("text/plain"), edtCompanyName.getText().toString()),
+                            filePart), UpdateProfileService);
 
                 }
                 break;
@@ -264,25 +226,21 @@ public class EditProfileFragment extends BaseFragment implements ImageSetter {
     }
 
     @Override
-    public void ResponseSuccess(Object result, String Tag, String message) {
-        super.ResponseSuccess(result, Tag, message);
+    public void ResponseSuccess(Object result, UserEnt userEnt, String Tag, String message) {
+        super.ResponseSuccess(result, userEnt, Tag, message);
         switch (Tag) {
             case UpdateProfileService:
-               /* UpdateProfileResponse entity = (UpdateProfileResponse) result;
-                UserEnt userEnt = prefHelper.getUser();
-                userEnt.getUser().setName(entity.getName() + "");
-                userEnt.getUser().setEmail(entity.getEmail() + "");
-                userEnt.getUser().setPhone(entity.getPhone() + "");
-                userEnt.getUser().setCountryCode(entity.getCountryCode() + "");
-                userEnt.getUser().getDetails().setAddress(entity.getDetails().getAddress() + "");
-                userEnt.getUser().getDetails().setLatitude(entity.getDetails().getLatitude() + "");
-                userEnt.getUser().getDetails().setLongitude(entity.getDetails().getLongitude() + "");
-                userEnt.getUser().getDetails().setImage(entity.getDetails().getImage() + "");
-                userEnt.getUser().getDetails().setImageUrl(entity.getDetails().getImageUrl() + "");
-
-                prefHelper.putUser(userEnt);
-                UIHelper.showShortToastInCenter(getDockActivity(),getResString(R.string.profile_updated_successfully));
-                getDockActivity().popFragment();*/
+                UserEnt userObject = prefHelper.getUser();
+                userObject.setFullName(userEnt.getFullName());
+                userObject.setPhoneCode(userEnt.getPhoneCode());
+                userObject.setPhoneNo(userEnt.getPhoneNo());
+                userObject.setDesignation(userEnt.getDesignation());
+                userObject.setCompany(userEnt.getCompany());
+                userObject.setImageUrl(userEnt.getImageUrl());
+                prefHelper.putUser(userObject);
+                getMainActivity().refreshSideMenuData();
+                UIHelper.showShortToastInCenter(getDockActivity(), getResString(R.string.profile_updated_successfully));
+                getDockActivity().popFragment();
                 break;
         }
     }
@@ -371,7 +329,6 @@ public class EditProfileFragment extends BaseFragment implements ImageSetter {
 
         }
     }
-
 
 
 }

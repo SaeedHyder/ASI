@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/card_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="@dimen/x3"
+        app:cardCornerRadius="@dimen/x19"
+        app:cardElevation="@dimen/x8">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/popup"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1.3"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/btnCross"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:paddingEnd="@dimen/x15"
+                    android:paddingStart="@dimen/x15"
+                    android:paddingTop="@dimen/x8"
+                    android:paddingBottom="@dimen/x5"
+                    android:src="@drawable/cross" />
+
+                <com.app.asi.ui.views.AnyTextView
+                    android:id="@+id/txtTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:text="DAYTONA CHAMPIONSHIP"
+                    android:textColor="@color/popup_text"
+                    android:paddingStart="@dimen/x20"
+                    android:paddingEnd="@dimen/x20"
+                    android:textSize="@dimen/x14"
+                    android:layout_marginTop="@dimen/x7_"
+                    app:typeface="@string/font_semibold" />
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_gravity="center"
+                    android:layout_weight="1">
+
+                    <ImageView
+                        android:id="@+id/ivCenterImage"
+                        android:layout_width="@dimen/x200"
+                        android:layout_height="@dimen/x200"
+                        android:layout_gravity="center"
+                        android:scaleType="fitXY"
+                        />
+                </FrameLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="0.75"
+                android:gravity="center_horizontal"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/btnVideo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/video" />
+
+                <com.app.asi.ui.views.AnyTextView
+                    android:id="@+id/txtVideoPlay"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/x10"
+                    android:layout_marginTop="@dimen/x5"
+                    android:gravity="center"
+                    android:text="Watch Video"
+                    android:textColor="@color/popup_text"
+                    android:textSize="@dimen/x11"
+                    app:typeface="@string/font_semibold" />
+
+                <com.app.asi.ui.views.AnyTextView
+                    android:id="@+id/txtDescription"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_marginEnd="@dimen/x20"
+                    android:layout_marginStart="@dimen/x20"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:scrollbars="vertical"
+                    android:text="@string/lorem_ipsum"
+                    android:textColor="@color/popup_text"
+                    android:textSize="@dimen/x11"
+
+                    app:typeface="@string/font_semibold" />
+
+                <com.app.asi.ui.views.AnyTextView
+                    android:id="@+id/txtDimension"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/txtDescription"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginBottom="@dimen/x15"
+                    android:layout_marginTop="@dimen/x15"
+                    android:background="@drawable/rounded_popup_back"
+                    android:gravity="center"
+                    android:paddingBottom="@dimen/x8"
+                    android:paddingEnd="@dimen/x10"
+                    android:paddingStart="@dimen/x10"
+                    android:paddingTop="@dimen/x8"
+                    android:text="168 D X 108 W X 224 H cm per unit"
+                    android:textColor="@color/popup_text"
+                    android:textSize="@dimen/x10"
+                    app:typeface="@string/font_semibold" />
+
+            </LinearLayout>
+
+
+            <Button
+                android:id="@+id/btn_add"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/x40"
+                android:layout_alignParentBottom="true"
+                android:background="@color/popup_red"
+                android:text="@string/add_to_wish_list"
+                android:textColor="@color/white"
+                android:textSize="@dimen/x14" />
+        </LinearLayout>
+
+
+    </android.support.v7.widget.CardView>
+
+
+</LinearLayout>

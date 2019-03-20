@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.app.asi.R;
+import com.app.asi.entities.UserEnt;
 import com.app.asi.fragments.abstracts.BaseFragment;
 import com.app.asi.helpers.UIHelper;
 import com.app.asi.ui.views.AnyEditTextView;
@@ -40,8 +41,6 @@ public class ContactUsFragment extends BaseFragment {
     Unbinder unbinder;
     @BindView(R.id.Countrypicker)
     CountryCodePicker Countrypicker;
-    @BindView(R.id.edt_companyName)
-    TextInputEditText edtCompanyName;
 
     private PhoneNumberUtil phoneUtil;
 
@@ -74,9 +73,7 @@ public class ContactUsFragment extends BaseFragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        if (edtCompanyName.requestFocus()) {
-            setEditTextFocus(edtCompanyName);
-        }
+
         phoneUtil = PhoneNumberUtil.getInstance();
         edtPhone.setTransformationMethod(new NumericKeyBoardTransformationMethod());
         // Countrypicker.registerCarrierNumberEditText(edtPhone);
@@ -97,7 +94,7 @@ public class ContactUsFragment extends BaseFragment {
 
     private void listner() {
 
-     /*   edtContactUs.setOnTouchListener(new View.OnTouchListener() {
+        edtContactUs.setOnTouchListener(new View.OnTouchListener() {
 
             public boolean onTouch(View v, MotionEvent event) {
 
@@ -109,29 +106,32 @@ public class ContactUsFragment extends BaseFragment {
                 }
                 return false;
             }
-        });*/
+        });
     }
 
     @Override
     public void setTitleBar(TitleBar titleBar) {
         super.setTitleBar(titleBar);
         titleBar.hideButtons();
-
-        titleBar.showMenuButton();
+        titleBar.setSubHeading(getResString(R.string.contact_us));
+        titleBar.showBackButton();
     }
 
 
     @OnClick(R.id.btn_submit)
     public void onViewClicked() {
         if (isvalidated()) {
+            UIHelper.showShortToastInCenter(getDockActivity(), getResString(R.string.submitted_successfully));
+            getDockActivity().popBackStackTillEntry(0);
+            getDockActivity().replaceDockableFragment(HomeFragment.newInstance(), "HomeFragment");
           //  serviceHelper.enqueueCall(headerWebService.contactUs(edtUsername.getText().toString(), edtEmail.getText().toString(), Countrypicker.getSelectedCountryCodeWithPlus().toString() + edtPhone.getText().toString(), edtContactUs.getText().toString(),edtCompanyName.getText().toString()), ContactUs);
 
         }
     }
 
     @Override
-    public void ResponseSuccess(Object result, String Tag, String message) {
-        super.ResponseSuccess(result, Tag, message);
+    public void ResponseSuccess(Object result, UserEnt userEnt, String Tag, String message) {
+        super.ResponseSuccess(result,userEnt, Tag, message);
         switch (Tag) {
             case ContactUs:
                 UIHelper.showShortToastInCenter(getDockActivity(), getResString(R.string.submitted_successfully));
@@ -143,14 +143,7 @@ public class ContactUsFragment extends BaseFragment {
     }
 
     private boolean isvalidated() {
-        if (edtCompanyName.getText().toString().trim().isEmpty() || edtCompanyName.getText().toString().trim().length() < 3) {
-            edtCompanyName.setError(getString(R.string.enter_company_name));
-            if (edtCompanyName.requestFocus()) {
-                setEditTextFocus(edtCompanyName);
-            }
-            return false;
-        }
-        else if (edtUsername.getText().toString().trim().isEmpty() || edtUsername.getText().toString().trim().length() < 3) {
+       /* if (edtUsername.getText().toString().trim().isEmpty() || edtUsername.getText().toString().trim().length() < 3) {
             edtUsername.setError(getString(R.string.enter_name));
             if (edtUsername.requestFocus()) {
                 setEditTextFocus(edtUsername);
@@ -175,7 +168,7 @@ public class ContactUsFragment extends BaseFragment {
                 setEditTextFocus(edtPhone);
             }
             return false;
-        } else if (edtContactUs.getText().toString().trim().isEmpty() || edtContactUs.getText().toString().length() < 3) {
+        } else */if (edtContactUs.getText().toString().trim().isEmpty() || edtContactUs.getText().toString().length() < 3) {
             edtContactUs.setError(getString(R.string.enter_your_message));
             if (edtContactUs.requestFocus()) {
                 setEditTextFocus(edtContactUs);

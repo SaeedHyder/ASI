@@ -859,13 +859,13 @@ public class DateHelper {
 		}
 		return OurDate;
 	}
-	public static String getChatTime(String OurDate) {
+	public static String getGameTime(String OurDate) {
 		try {
-			SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSXXX");
 			formatter.setTimeZone(TimeZone.getTimeZone("UTC"));
 			Date value = formatter.parse(OurDate);
 
-			SimpleDateFormat dateFormatter = new SimpleDateFormat("dd MMM,yyyy - hh:mm a"); //this format changeable
+			SimpleDateFormat dateFormatter = new SimpleDateFormat(" hh:mm a dd MMM,yyyy"); //this format changeable
 			dateFormatter.setTimeZone(TimeZone.getDefault());
 			OurDate = dateFormatter.format(value);
 

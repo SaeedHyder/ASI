@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/x15"
         android:alpha="0.7"
-        android:textColor="@color/black"
+        android:textColor="@color/app_text_color"
         android:textSize="@dimen/x13"
         app:typeface="@string/font_normal" />
 

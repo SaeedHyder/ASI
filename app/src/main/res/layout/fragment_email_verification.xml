@@ -3,7 +3,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bg"
     android:gravity="center_horizontal"
     android:orientation="vertical"
     android:paddingEnd="@dimen/x20"
@@ -32,24 +31,26 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:layout_marginBottom="@dimen/x20"
+        android:layout_marginBottom="@dimen/x10"
         android:layout_marginEnd="@dimen/x30"
         android:layout_marginStart="@dimen/x30"
-        android:background="@null"
+        android:background="@color/transparent"
         android:cursorVisible="false"
         android:digits="1234567890"
         android:focusable="true"
         android:imeOptions="actionDone"
         android:inputType="number"
+
         android:maxLength="4"
         android:paddingBottom="@dimen/x10"
         android:paddingTop="@dimen/x50"
         android:textColor="@color/app_text_color"
         android:textIsSelectable="false"
-        android:textSize="20sp"
+        android:textSize="@dimen/x16"
         android:visibility="visible"
-        app:pinLineColors="@color/app_text_color"
-        app:pinTextBottomPadding="@dimen/x20" />
+        app:pinBackgroundDrawable="@drawable/box"
+        app:pinCharacterSpacing="@dimen/x15"
+        app:pinTextBottomPadding="@dimen/x15"/>
 
 
     <LinearLayout
@@ -85,6 +86,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/x4"
+        android:visibility="gone"
         android:gravity="center">
 
         <com.app.asi.ui.views.AnyTextView

@@ -13,7 +13,6 @@
         android:layout_marginEnd="@dimen/x10"
         android:layout_marginTop="@dimen/x5"
         android:layout_marginBottom="@dimen/x5"
-        android:background="@drawable/sidemenu_box"
         android:gravity="center_vertical"
         android:orientation="horizontal">
 
@@ -21,12 +20,12 @@
             android:id="@+id/icon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/x15"
-            android:src="@drawable/ic_launcher" />
+            android:src="@drawable/sidebar" />
 
         <com.app.asi.ui.views.AnyTextView
             android:id="@+id/txt_item_name"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
+            android:layout_weight="1"
             android:layout_height="match_parent"
             android:layout_marginStart="@dimen/x10"
             android:layout_marginEnd="@dimen/x10"
@@ -34,6 +33,22 @@
             android:text="Home"
             android:textColor="@color/white"
             android:textSize="@dimen/x14"
+            app:typeface="@string/font_normal" />
+
+        <com.app.asi.ui.views.AnyTextView
+            android:id="@+id/txtBadge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/txt_name"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="@dimen/x10"
+            android:background="@drawable/red_blue"
+            android:gravity="center"
+            android:maxLength="3"
+            android:text="22"
+            android:textColor="@color/white"
+            android:textSize="@dimen/x10"
+            android:visibility="gone"
             app:typeface="@string/font_normal" />
 
 

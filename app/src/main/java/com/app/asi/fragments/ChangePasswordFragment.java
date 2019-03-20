@@ -2,21 +2,31 @@ package com.app.asi.fragments;
 
 import android.os.Bundle;
 import android.support.design.widget.TextInputEditText;
+import android.text.method.HideReturnsTransformationMethod;
+import android.text.method.PasswordTransformationMethod;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ToggleButton;
 
 import com.app.asi.R;
+import com.app.asi.entities.UserEnt;
 import com.app.asi.fragments.abstracts.BaseFragment;
-import com.app.asi.global.WebServiceConstants;
+import com.app.asi.global.AppConstants;
 import com.app.asi.helpers.UIHelper;
 import com.app.asi.ui.views.TitleBar;
+import com.google.firebase.iid.FirebaseInstanceId;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
+import okhttp3.MediaType;
+import okhttp3.RequestBody;
 
 import static com.app.asi.global.WebServiceConstants.ChangePassword;
 
@@ -30,6 +40,12 @@ public class ChangePasswordFragment extends BaseFragment {
     @BindView(R.id.btn_submit)
     Button btnSubmit;
     Unbinder unbinder;
+    @BindView(R.id.eyeOldPass)
+    ToggleButton eyeOldPass;
+    @BindView(R.id.eyeNewPass)
+    ToggleButton eyeNewPass;
+    @BindView(R.id.eyeConfPass)
+    ToggleButton eyeConfPass;
 
     public static ChangePasswordFragment newInstance() {
         Bundle args = new Bundle();
@@ -120,21 +136,71 @@ public class ChangePasswordFragment extends BaseFragment {
     }
 
 
-    @OnClick(R.id.btn_submit)
-    public void onViewClicked() {
-        if (isvalidate()) {
-       //     serviceHelper.enqueueCall(headerWebService.changePassword(edtOldPassword.getText().toString(),edtNewPassword.getText().toString(),edtConfirpassword.getText().toString()), ChangePassword);
+    @Override
+    public void ResponseSuccess(Object result, UserEnt userEnt, String Tag, String message) {
+        super.ResponseSuccess(result, userEnt, Tag, message);
+        switch (Tag) {
+            case ChangePassword:
+                UIHelper.showShortToastInCenter(getDockActivity(), getResString(R.string.password_changed));
+                getDockActivity().popBackStackTillEntry(0);
+                getDockActivity().replaceDockableFragment(HomeFragment.newInstance(), "HomeFragment");
+
+                break;
         }
     }
 
-    @Override
-    public void ResponseSuccess(Object result, String Tag, String message) {
-        super.ResponseSuccess(result, Tag, message);
-        switch (Tag){
-            case ChangePassword:
-                UIHelper.showShortToastInCenter(getDockActivity(),getResString(R.string.password_changed));
-                getDockActivity().popBackStackTillEntry(0);
-                getDockActivity().replaceDockableFragment(HomeFragment.newInstance(),"HomeFragment");
+
+    @OnClick({R.id.eyeOldPass, R.id.eyeNewPass, R.id.eyeConfPass, R.id.btn_submit})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.eyeOldPass:
+                boolean isCheck0 = eyeOldPass.isChecked();
+
+                if (isCheck0) {
+                    edtOldPassword.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+                    edtOldPassword.setSelection(edtOldPassword.getText().length());
+                } else {
+                    edtOldPassword.setTransformationMethod(PasswordTransformationMethod.getInstance());
+                    edtOldPassword.setSelection(edtOldPassword.getText().length());
+                }
+                break;
+            case R.id.eyeNewPass:
+                boolean isCheck = eyeNewPass.isChecked();
+
+                if (isCheck) {
+                    edtNewPassword.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+                    edtNewPassword.setSelection(edtNewPassword.getText().length());
+                } else {
+                    edtNewPassword.setTransformationMethod(PasswordTransformationMethod.getInstance());
+                    edtNewPassword.setSelection(edtNewPassword.getText().length());
+                }
+                break;
+            case R.id.eyeConfPass:
+                boolean isCheck1 = eyeConfPass.isChecked();
+
+                if (isCheck1) {
+                    edtConfirpassword.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+                    edtConfirpassword.setSelection(edtConfirpassword.getText().length());
+                } else {
+                    edtConfirpassword.setTransformationMethod(PasswordTransformationMethod.getInstance());
+                    edtConfirpassword.setSelection(edtConfirpassword.getText().length());
+                }
+                break;
+            case R.id.btn_submit:
+                if (isvalidate()) {
+                    JSONObject updatePassword = new JSONObject();
+                    try {
+                        updatePassword.put("currentPassword", edtOldPassword.getText().toString());
+                        updatePassword.put("newPassword", edtNewPassword.getText().toString());
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                    RequestBody body = RequestBody.create(MediaType.parse("application/json; charset=utf-8"), updatePassword.toString());
+                    serviceHelper.enqueueCall(headerWebService.changePassword(body), ChangePassword);
+
+
+                }
                 break;
         }
     }

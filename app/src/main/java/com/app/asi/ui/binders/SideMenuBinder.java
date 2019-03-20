@@ -2,6 +2,7 @@ package com.app.asi.ui.binders;
 
 import android.content.Context;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -35,7 +36,7 @@ public class SideMenuBinder extends RecyclerViewBinder<SideMenuEnt> {
     }
 
     @Override
-    public BaseViewHolder createViewHolder(View view) {
+    public BaseViewHolder createViewHolder(View view,ViewGroup parent) {
         return new ViewHolder(view);
     }
 
@@ -44,18 +45,18 @@ public class SideMenuBinder extends RecyclerViewBinder<SideMenuEnt> {
 
         final ViewHolder holder = (ViewHolder) viewHolder;
 
-       /* if(entity.isSelected()){
-            holder.txtItemName.setText(entity.getTitle());
-            holder.txtItemName.setTextColor(dockActivity.getResources().getColor(R.color.white));
-            holder.icon.setImageResource(entity.getSelectedImage());
-            holder.llItem.setBackground(dockActivity.getResources().getDrawable(R.drawable.sidemenu_box));
+        if(entity.getTitle().equals(context.getResources().getString(R.string.notifications))){
+            holder.txtBadge.setVisibility(View.GONE);
         }else{
+            holder.txtBadge.setVisibility(View.GONE);
+        }
+        if (entity.isSelected()) {
             holder.txtItemName.setText(entity.getTitle());
-            holder.txtItemName.setTextColor(dockActivity.getResources().getColor(R.color.black));
-            holder.icon.setImageResource(entity.getUnSelectedImage());
-            holder.llItem.setBackgroundColor(dockActivity.getResources().getColor(R.color.transparent));
-        }*/
-
+            holder.icon.setVisibility(View.VISIBLE);
+        } else {
+            holder.txtItemName.setText(entity.getTitle());
+            holder.icon.setVisibility(View.GONE);
+        }
 
 
         holder.llItem.setOnClickListener(new View.OnClickListener() {
@@ -67,7 +68,7 @@ public class SideMenuBinder extends RecyclerViewBinder<SideMenuEnt> {
 
     }
 
-    static class ViewHolder extends BaseViewHolder{
+    static class ViewHolder extends BaseViewHolder {
         @BindView(R.id.icon)
         ImageView icon;
         @BindView(R.id.txt_item_name)
@@ -76,6 +77,9 @@ public class SideMenuBinder extends RecyclerViewBinder<SideMenuEnt> {
         LinearLayout llItem;
         @BindView(R.id.ll_mainFrame)
         RelativeLayout llMainFrame;
+        @BindView(R.id.txtBadge)
+        AnyTextView txtBadge;
+
 
         ViewHolder(View view) {
             super(view);

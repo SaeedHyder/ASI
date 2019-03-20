@@ -1,35 +1,42 @@
 package com.app.asi.fragments;
 
+
 import android.os.Bundle;
+import android.support.design.widget.TextInputEditText;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
 import com.app.asi.R;
 import com.app.asi.fragments.abstracts.BaseFragment;
-import com.app.asi.ui.views.AnyTextView;
 import com.app.asi.ui.views.TitleBar;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.squareup.picasso.Picasso;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 import butterknife.Unbinder;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class ProfileFragment extends BaseFragment {
+
+    Unbinder unbinder;
     @BindView(R.id.profile_image)
     CircleImageView profileImage;
-    @BindView(R.id.txt_name)
-    AnyTextView txtName;
-    @BindView(R.id.txtEmail)
-    AnyTextView txtEmail;
-    @BindView(R.id.txPhonel)
-    AnyTextView txPhonel;
-    @BindView(R.id.txtAddress)
-    AnyTextView txtAddress;
-    Unbinder unbinder;
+    @BindView(R.id.edt_username)
+    TextInputEditText edtUsername;
+    @BindView(R.id.edt_email)
+    TextInputEditText edtEmail;
+    @BindView(R.id.edt_phone)
+    TextInputEditText edtPhone;
+    @BindView(R.id.edt_companyName)
+    TextInputEditText edtCompanyName;
+    @BindView(R.id.edt_designation)
+    TextInputEditText edtDesignation;
+    @BindView(R.id.mainFrameLayout)
+    LinearLayout mainFrameLayout;
+
 
     private ImageLoader imageLoader;
 
@@ -61,29 +68,44 @@ public class ProfileFragment extends BaseFragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        enableDisableViewGroup(mainFrameLayout, false);
+        setData();
 
     }
 
+    public static void enableDisableViewGroup(ViewGroup viewGroup, boolean enabled) {
+        int childCount = viewGroup.getChildCount();
+        for (int i = 0; i < childCount; i++) {
+            View view = viewGroup.getChildAt(i);
+            view.setFocusable(enabled);
+            view.setFocusableInTouchMode(enabled);
+            if (view instanceof ViewGroup) {
+                enableDisableViewGroup((ViewGroup) view, enabled);
+            }
+        }
+    }
+
     private void setData() {
-
-        /*if (prefHelper.getUser() != null && prefHelper.getUser().getUser() != null) {
-
-            txtName.setText(prefHelper.getUser().getUser().getName() + "");
-            txtEmail.setText(prefHelper.getUser().getUser().getEmail() + "");
-
-            if (prefHelper.getUser().getUser().getCountryCode() != null && !prefHelper.getUser().getUser().getCountryCode().equals("") &&
-                    prefHelper.getUser().getUser().getPhone() != null && !prefHelper.getUser().getUser().getPhone().equals("")) {
-                txPhonel.setText(prefHelper.getUser().getUser().getCountryCode() + "" + prefHelper.getUser().getUser().getPhone() + "");
+        if (prefHelper != null && prefHelper.getUser() != null) {
+            if (prefHelper.getUser().getImageUrl() != null && !prefHelper.getUser().getImageUrl().equals("") && !prefHelper.getUser().getImageUrl().isEmpty()) {
+                Picasso.get().load(prefHelper.getUser().getImageUrl()).placeholder(R.drawable.placeholder_thumb).into(profileImage);
             }
-
-            if (prefHelper.getUser().getUser().getDetails().getAddress() != null && !prefHelper.getUser().getUser().getDetails().getAddress().equals("") && !prefHelper.getUser().getUser().getDetails().getAddress().equals("null")) {
-                txtAddress.setText(prefHelper.getUser().getUser().getDetails().getAddress());
+            if (prefHelper.getUser().getFullName() != null && !prefHelper.getUser().getFullName().equals("") && !prefHelper.getUser().getFullName().isEmpty()) {
+                edtUsername.setText(prefHelper.getUser().getFullName());
             }
-            if (prefHelper.getUser().getUser().getDetails().getImageUrl() != null && !prefHelper.getUser().getUser().getDetails().getImageUrl().equals("")) {
-                //   imageLoader.displayImage(prefHelper.getUser().getUser().getDetails().getImageUrl(), profileImage);
-                Picasso.get().load(prefHelper.getUser().getUser().getDetails().getImageUrl()).placeholder(R.drawable.placeholder).into(profileImage);
+            if (prefHelper.getUser().getEmail() != null && !prefHelper.getUser().getEmail().equals("") && !prefHelper.getUser().getEmail().isEmpty()) {
+                edtEmail.setText(prefHelper.getUser().getEmail());
             }
-        }*/
+            if (prefHelper.getUser().getPhoneNo() != null && !prefHelper.getUser().getPhoneNo().equals("") && !prefHelper.getUser().getPhoneNo().isEmpty()) {
+                edtPhone.setText(prefHelper.getUser().getPhoneCode() + prefHelper.getUser().getPhoneNo());
+            }
+            if (prefHelper.getUser().getCompany() != null && !prefHelper.getUser().getCompany().equals("") && !prefHelper.getUser().getCompany().isEmpty()) {
+                edtCompanyName.setText(prefHelper.getUser().getCompany());
+            }
+            if (prefHelper.getUser().getDesignation() != null && !prefHelper.getUser().getDesignation().equals("") && !prefHelper.getUser().getDesignation().isEmpty()) {
+                edtDesignation.setText(prefHelper.getUser().getPhoneCode() + prefHelper.getUser().getPhoneNo());
+            }
+        }
     }
 
     @Override
