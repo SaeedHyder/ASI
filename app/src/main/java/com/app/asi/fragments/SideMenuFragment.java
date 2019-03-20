@@ -28,7 +28,6 @@ import com.app.asi.ui.binders.SideMenuBinder;
 import com.app.asi.ui.views.AnyTextView;
 import com.app.asi.ui.views.CustomRecyclerView;
 import com.app.asi.ui.views.TitleBar;
-
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.squareup.picasso.Picasso;
 
@@ -107,8 +106,8 @@ public class SideMenuFragment extends BaseFragment implements RecyclerClickListn
     }
 
     public void setProfile() {
-        if (prefHelper.getUser() != null) {
-            if (prefHelper.getUser()!=null && prefHelper.getUser().getImageUrl() != null && !prefHelper.getUser().getImageUrl().equals("") && !prefHelper.getUser().getImageUrl().isEmpty()) {
+        if (prefHelper != null && prefHelper.getUser() != null) {
+            if (prefHelper.getUser() != null && prefHelper.getUser().getImageUrl() != null && !prefHelper.getUser().getImageUrl().equals("") && !prefHelper.getUser().getImageUrl().isEmpty()) {
                 ivBackground.setVisibility(View.VISIBLE);
                 Picasso.get().load(prefHelper.getUser().getImageUrl()).placeholder(R.drawable.placeholder).into(ivImage);
                 Picasso.get().load(prefHelper.getUser().getImageUrl()).placeholder(R.drawable.placeholder_thumb).into(ivBackground);
@@ -156,12 +155,11 @@ public class SideMenuFragment extends BaseFragment implements RecyclerClickListn
         titleBar.hideTitleBar();
     }
 
+
     @Override
     public void onClick(Object entity, int position) {
 
-       /* if (SystemClock.elapsedRealtime() - mLastClickTime < 1000) {
-            return;
-        }*/
+
         collection.get(position).setSelected(true);
         SideMenu.notifyItemChanged(position);
         if (previousSelectedPos != position) {
@@ -170,28 +168,45 @@ public class SideMenuFragment extends BaseFragment implements RecyclerClickListn
         }
         previousSelectedPos = position;
 
+
         SideMenuEnt ent = (SideMenuEnt) entity;
 
         if (ent.getTitle().equals(getResString(R.string.home))) {
             getDockActivity().popFragment();
-            getDockActivity().replaceDockableFragment(HomeFragment.newInstance(), "HomeFragment", false);
+            getDockActivity().replaceDockableFragment(HomeFragment.newInstance(), "HomeFragment");
 
         } else if (ent.getTitle().equals(getResString(R.string.wish_list))) {
-            getDockActivity().popFragment();
-            getDockActivity().replaceDockableFragment(WishListFragment.newInstance(), "WishListFragment", false);
+            if (prefHelper.isGuestUser()) {
+                openGuestDialoge();
+            } else {
+                getDockActivity().popFragment();
+                getDockActivity().replaceDockableFragment(WishListFragment.newInstance(), "WishListFragment");
+            }
 
         } else if (ent.getTitle().equals(getResString(R.string.games_played))) {
-            getDockActivity().popFragment();
-            getDockActivity().replaceDockableFragment(GamePlayedFragment.newInstance(), "GamePlayedFragment", false);
+            if (prefHelper.isGuestUser()) {
+                openGuestDialoge();
+            } else {
+                getDockActivity().popFragment();
+                getDockActivity().replaceDockableFragment(GamePlayedFragment.newInstance(), "GamePlayedFragment");
+            }
 
         } else if (ent.getTitle().equals(getResString(R.string.settings))) {
-            getDockActivity().popFragment();
-            getDockActivity().replaceDockableFragment(SettingFragment.newInstance(), "SettingFragment", false);
+            if (prefHelper.isGuestUser()) {
+                openGuestDialoge();
+            } else {
+                getDockActivity().popFragment();
+                getDockActivity().replaceDockableFragment(SettingFragment.newInstance(), "SettingFragment");
+            }
 
 
         } else if (ent.getTitle().equals(getResString(R.string.notifications))) {
-            getDockActivity().popFragment();
-            getDockActivity().replaceDockableFragment(NotificationsFragment.newInstance(true), "NotificationsFragment", false);
+            if (prefHelper.isGuestUser()) {
+                openGuestDialoge();
+            } else {
+                getDockActivity().popFragment();
+                getDockActivity().replaceDockableFragment(NotificationsFragment.newInstance(true), "NotificationsFragment");
+            }
 
         } else if (ent.getTitle().equals(getResString(R.string.termsCondition))) {
             getDockActivity().popFragment();
@@ -205,8 +220,12 @@ public class SideMenuFragment extends BaseFragment implements RecyclerClickListn
                     serviceHelper.enqueueCall(headerWebService.logout(AppConstants.Device_Type, FirebaseInstanceId.getInstance().getToken()), Logout);
                     dialoge.hideDialog();
                 }
-            },getResString(R.string.logout),getResString(R.string.are_you_sure_you_want_to_logout));
+            }, getResString(R.string.logout), getResString(R.string.are_you_sure_you_want_to_logout), getResString(R.string.yes), getResString(R.string.no));
             dialoge.showDialog();
+        } else if (ent.getTitle().equals(getResString(R.string.sign_in))) {
+            prefHelper.setGuestStatus(false);
+            getDockActivity().popBackStackTillEntry(0);
+            getDockActivity().replaceDockableFragment(LoginFragment.newInstance(), "LoginFragment");
         }
     }
 
@@ -217,7 +236,7 @@ public class SideMenuFragment extends BaseFragment implements RecyclerClickListn
             case Logout:
                 getDockActivity().popBackStackTillEntry(0);
                 prefHelper.setLoginStatus(false);
-                prefHelper.setSocialLogin(false);
+                prefHelper.setGuestStatus(false);
                /* if (AccessToken.getCurrentAccessToken() != null) {
                     LoginManager.getInstance().logOut();
                 }*/
@@ -249,15 +268,40 @@ public class SideMenuFragment extends BaseFragment implements RecyclerClickListn
                 , new DefaultItemAnimator());
     }
 
+    public void setGuestSideMenu() {
+        previousSelectedPos = 0;
+        collection = new ArrayList<>();
 
-    @OnClick({R.id.btnProfile, R.id.btnFb, R.id.btnYoutube, R.id.btnTwitter, R.id.btnInsta, R.id.btnLinkedin,R.id.txtWebsite})
+        collection.add(new SideMenuEnt(getResString(R.string.home), true));
+        collection.add(new SideMenuEnt(getResString(R.string.games_played)));
+        collection.add(new SideMenuEnt(getResString(R.string.wish_list)));
+        collection.add(new SideMenuEnt(getResString(R.string.settings)));
+        collection.add(new SideMenuEnt(getResString(R.string.notifications)));
+        collection.add(new SideMenuEnt(getResString(R.string.termsCondition)));
+        collection.add(new SideMenuEnt(getResString(R.string.sign_in)));
+
+
+        SideMenu.BindRecyclerView(new SideMenuBinder(getDockActivity(), prefHelper, this), collection,
+                new LinearLayoutManager(getDockActivity(), LinearLayoutManager.VERTICAL, false)
+                , new DefaultItemAnimator());
+
+
+        ivBackground.setVisibility(View.GONE);
+        txtName.setText(R.string.guest_user);
+        txtCompany.setVisibility(View.GONE);
+    }
+
+
+    @OnClick({R.id.btnProfile, R.id.btnFb, R.id.btnYoutube, R.id.btnTwitter, R.id.btnInsta, R.id.btnLinkedin, R.id.txtWebsite})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.btnProfile:
-                getDockActivity().replaceDockableFragment(ProfileFragment.newInstance(), "ProfileFragment");
+                if (!prefHelper.isGuestUser()) {
+                    getDockActivity().replaceDockableFragment(ProfileFragment.newInstance(), "ProfileFragment");
+                }
                 break;
             case R.id.btnFb:
-            openWebPage("https://www.facebook.com/ASIDubai/");
+                openWebPage("https://www.facebook.com/ASIDubai/");
                 break;
             case R.id.btnYoutube:
                 openWebPage("https://www.youtube.com/user/ASIDubai");

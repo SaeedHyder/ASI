@@ -6,14 +6,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-
+    android:background="@drawable/bg"
     android:paddingEnd="@dimen/x25"
     android:paddingStart="@dimen/x25">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="0.33"
+        android:layout_weight="0.28"
         android:gravity="bottom|center_horizontal">
 
         <ImageView
@@ -135,6 +135,18 @@
             android:textColor="@color/white"
             android:textSize="@dimen/x14"
             app:typeface="@string/font_normal" />
+
+        <com.app.asi.ui.views.AnyTextView
+            android:id="@+id/btnGuestUser"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_marginTop="@dimen/x5"
+            android:layout_marginBottom="@dimen/x10"
+            android:text="Login as Guest"
+            android:textColor="@color/white"
+            android:textSize="@dimen/x14"
+            app:typeface="@string/font_semibold" />
 
 
     </LinearLayout>

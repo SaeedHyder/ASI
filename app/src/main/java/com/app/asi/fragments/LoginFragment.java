@@ -1,5 +1,6 @@
 package com.app.asi.fragments;
 
+import android.graphics.Paint;
 import android.os.Bundle;
 import android.support.design.widget.TextInputEditText;
 import android.util.Patterns;
@@ -39,6 +40,8 @@ public class LoginFragment extends BaseFragment {
     TextInputEditText edtPassword;
     @BindView(R.id.btn_forgot_pass)
     AnyTextView btnForgotPass;
+    @BindView(R.id.btnGuestUser)
+    AnyTextView btnGuestUser;
     @BindView(R.id.btn_login)
     Button btnLogin;
     @BindView(R.id.btn_signup)
@@ -53,6 +56,9 @@ public class LoginFragment extends BaseFragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         // TODO Auto-generated method stub
         super.onViewCreated(view, savedInstanceState);
+
+
+        btnGuestUser.setPaintFlags(btnGuestUser.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
 
     }
 
@@ -76,7 +82,7 @@ public class LoginFragment extends BaseFragment {
     }
 
 
-    @OnClick({R.id.btn_forgot_pass, R.id.btn_login, R.id.btn_signup})
+    @OnClick({R.id.btn_forgot_pass, R.id.btn_login, R.id.btn_signup,R.id.btnGuestUser})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.btn_forgot_pass:
@@ -102,6 +108,15 @@ public class LoginFragment extends BaseFragment {
 
             case R.id.btn_signup:
                 getDockActivity().replaceDockableFragment(SignupFragment.newInstance(), "SignupFragment");
+                break;
+
+            case R.id.btnGuestUser:
+                prefHelper.setGuestStatus(true);
+                getDockActivity().popBackStackTillEntry(0);
+                getDockActivity().replaceDockableFragment(HomeFragment.newInstance(), "HomeFragment");
+                if (getMainActivity() != null) {
+                    getMainActivity().guestSideMenu();
+                }
                 break;
 
 

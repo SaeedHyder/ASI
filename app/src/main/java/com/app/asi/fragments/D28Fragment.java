@@ -99,58 +99,63 @@ public class D28Fragment extends BaseFragment implements UpdateListData {
         titleBar.showLogo();
     }
 
-    @OnClick({R.id.ring3Circus, R.id.fruitNinjaVirtual, R.id.mininoSoccer, R.id.ringToss, R.id.letsBounce, R.id.hyperShoot, R.id.snapShot2,R.id.beatSaber,R.id.vrRabbids})
+    @OnClick({R.id.ring3Circus, R.id.fruitNinjaVirtual, R.id.mininoSoccer, R.id.ringToss, R.id.letsBounce, R.id.hyperShoot, R.id.snapShot2, R.id.beatSaber, R.id.vrRabbids})
     public void onViewClicked(View view) {
-        if (gamesList!=null && gamesList.size() > 0)
-            switch (view.getId()) {
-                case R.id.ring3Circus:
-                    gamesPopupFragment = new GamesPopupFragment();
-                    gamesPopupFragment.setUpdateDataListner(this, AppConstants.RING_3_CIRCUS, gamesList);
-                    getDockActivity().addDockableFragment(gamesPopupFragment, "GamesPopupFragment");
-                    break;
-                case R.id.fruitNinjaVirtual:
-                    gamesPopupFragment = new GamesPopupFragment();
-                    gamesPopupFragment.setUpdateDataListner(this, AppConstants.FRUIT_NINJA_VR, gamesList);
-                    getDockActivity().addDockableFragment(gamesPopupFragment, "GamesPopupFragment");
-                    break;
-                case R.id.mininoSoccer:
-                    gamesPopupFragment = new GamesPopupFragment();
-                    gamesPopupFragment.setUpdateDataListner(this, AppConstants.MINIONS_SOCCER, gamesList);
-                    getDockActivity().addDockableFragment(gamesPopupFragment, "GamesPopupFragment");
+        if (prefHelper.isGuestUser()) {
+            openGuestDialoge();
+        } else {
+            if (gamesList != null && gamesList.size() > 0) {
+                switch (view.getId()) {
+                    case R.id.ring3Circus:
+                        gamesPopupFragment = new GamesPopupFragment();
+                        gamesPopupFragment.setUpdateDataListner(this, AppConstants.RING_3_CIRCUS, gamesList);
+                        getDockActivity().addDockableFragment(gamesPopupFragment, "GamesPopupFragment");
+                        break;
+                    case R.id.fruitNinjaVirtual:
+                        gamesPopupFragment = new GamesPopupFragment();
+                        gamesPopupFragment.setUpdateDataListner(this, AppConstants.FRUIT_NINJA_VR, gamesList);
+                        getDockActivity().addDockableFragment(gamesPopupFragment, "GamesPopupFragment");
+                        break;
+                    case R.id.mininoSoccer:
+                        gamesPopupFragment = new GamesPopupFragment();
+                        gamesPopupFragment.setUpdateDataListner(this, AppConstants.MINIONS_SOCCER, gamesList);
+                        getDockActivity().addDockableFragment(gamesPopupFragment, "GamesPopupFragment");
 
-                    break;
-                case R.id.ringToss:
-                    gamesPopupFragment = new GamesPopupFragment();
-                    gamesPopupFragment.setUpdateDataListner(this, AppConstants.RING_TOSS, gamesList);
-                    getDockActivity().addDockableFragment(gamesPopupFragment, "GamesPopupFragment");
-                    break;
-                case R.id.letsBounce:
-                    gamesPopupFragment = new GamesPopupFragment();
-                    gamesPopupFragment.setUpdateDataListner(this, AppConstants.LETS_BOUNCE, gamesList);
-                    getDockActivity().addDockableFragment(gamesPopupFragment, "GamesPopupFragment");
-                    break;
-                case R.id.hyperShoot:
-                    gamesPopupFragment = new GamesPopupFragment();
-                    gamesPopupFragment.setUpdateDataListner(this, AppConstants.HYPERSHOOT, gamesList);
-                    getDockActivity().addDockableFragment(gamesPopupFragment, "GamesPopupFragment");
-                    break;
-                case R.id.snapShot2:
-                    gamesPopupFragment = new GamesPopupFragment();
-                    gamesPopupFragment.setUpdateDataListner(this, AppConstants.SNAPSHOT_2, gamesList);
-                    getDockActivity().addDockableFragment(gamesPopupFragment, "GamesPopupFragment");
-                    break;
+                        break;
+                    case R.id.ringToss:
+                        gamesPopupFragment = new GamesPopupFragment();
+                        gamesPopupFragment.setUpdateDataListner(this, AppConstants.RING_TOSS, gamesList);
+                        getDockActivity().addDockableFragment(gamesPopupFragment, "GamesPopupFragment");
+                        break;
+                    case R.id.letsBounce:
+                        gamesPopupFragment = new GamesPopupFragment();
+                        gamesPopupFragment.setUpdateDataListner(this, AppConstants.LETS_BOUNCE, gamesList);
+                        getDockActivity().addDockableFragment(gamesPopupFragment, "GamesPopupFragment");
+                        break;
+                    case R.id.hyperShoot:
+                        gamesPopupFragment = new GamesPopupFragment();
+                        gamesPopupFragment.setUpdateDataListner(this, AppConstants.HYPERSHOOT, gamesList);
+                        getDockActivity().addDockableFragment(gamesPopupFragment, "GamesPopupFragment");
+                        break;
+                    case R.id.snapShot2:
+                        gamesPopupFragment = new GamesPopupFragment();
+                        gamesPopupFragment.setUpdateDataListner(this, AppConstants.SNAPSHOT_2, gamesList);
+                        getDockActivity().addDockableFragment(gamesPopupFragment, "GamesPopupFragment");
+                        break;
 
-                case R.id.beatSaber:
-                    gamesPopupFragment = new GamesPopupFragment();
-                    gamesPopupFragment.setUpdateDataListner(this, AppConstants.BEAT_SABER_VR, gamesList);
-                    getDockActivity().addDockableFragment(gamesPopupFragment, "GamesPopupFragment");
-                    break;
-                case R.id.vrRabbids:
-                    gamesPopupFragment = new GamesPopupFragment();
-                    gamesPopupFragment.setUpdateDataListner(this, AppConstants.VIRTUALRABBIDSTHEBIGRIDE, gamesList);
-                    getDockActivity().addDockableFragment(gamesPopupFragment, "GamesPopupFragment");
-                    break;
+                    case R.id.beatSaber:
+                        gamesPopupFragment = new GamesPopupFragment();
+                        gamesPopupFragment.setUpdateDataListner(this, AppConstants.BEAT_SABER_VR, gamesList);
+                        getDockActivity().addDockableFragment(gamesPopupFragment, "GamesPopupFragment");
+                        break;
+                    case R.id.vrRabbids:
+                        gamesPopupFragment = new GamesPopupFragment();
+                        gamesPopupFragment.setUpdateDataListner(this, AppConstants.VIRTUALRABBIDSTHEBIGRIDE, gamesList);
+                        getDockActivity().addDockableFragment(gamesPopupFragment, "GamesPopupFragment");
+                        break;
+                }
             }
+        }
     }
 
     @Override

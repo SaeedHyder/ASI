@@ -4,26 +4,31 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-
+android:gravity="center"
     android:orientation="vertical">
 
     <com.app.asi.ui.views.AnyTextView
         android:id="@+id/txt_no_data"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:gravity="center"
         android:text="@string/will_be_implemented"
+        android:drawableTop="@drawable/logo"
+        android:drawablePadding="@dimen/x10"
         android:textColor="@color/app_text_color"
         android:textSize="@dimen/x15"
-        android:visibility="visible"
+
         app:typeface="@string/font_normal"
         />
+
+
 
     <com.app.asi.ui.views.CustomRecyclerView
         android:id="@+id/lv_notification"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:visibility="gone"/>
 
 
 </LinearLayout>

@@ -616,6 +616,9 @@ public class MainActivity extends DockActivity implements View.OnClickListener, 
     public void refreshSideMenu() {
         sideMenuFragment.refreshSideMenuData();
     }
+    public void guestSideMenu() {
+        sideMenuFragment.setGuestSideMenu();
+    }
     public void refreshSideMenuData() {
         sideMenuFragment.setProfile();
     }

@@ -88,41 +88,45 @@ public class D01Fragment extends BaseFragment implements UpdateListData {
     }
 
 
-    @OnClick({R.id.asiDesignSolution, R.id.buildingBlock, R.id.sparesSupport,R.id.connectGo})
+    @OnClick({R.id.asiDesignSolution, R.id.buildingBlock, R.id.sparesSupport, R.id.connectGo})
     public void onViewClicked(View view) {
-        if (gamesList!=null && gamesList.size() > 0)
-            switch (view.getId()) {
+        if (prefHelper.isGuestUser()) {
+            openGuestDialoge();
+        } else {
+            if (gamesList != null && gamesList.size() > 0) {
+                switch (view.getId()) {
 
-                case R.id.asiDesignSolution:
+                    case R.id.asiDesignSolution:
                 /*gamesPopupFragment=new GamesPopupFragment();
                 gamesPopupFragment.setUpdateDataListner(this, AppConstants.ASI_DESIGN_SOLUTION, gamesList);
                 getDockActivity().addDockableFragment(gamesPopupFragment, "GamesPopupFragment");*/
-                    break;
-                case R.id.buildingBlock:
-                    gamesPopupFragment = new GamesPopupFragment();
-                    gamesPopupFragment.setUpdateDataListner(this, AppConstants.BUILDING_BLOCK_CARS, gamesList);
-                    getDockActivity().addDockableFragment(gamesPopupFragment, "GamesPopupFragment");
-                    break;
-                case R.id.sparesSupport:
+                        break;
+                    case R.id.buildingBlock:
+                        gamesPopupFragment = new GamesPopupFragment();
+                        gamesPopupFragment.setUpdateDataListner(this, AppConstants.BUILDING_BLOCK_CARS, gamesList);
+                        getDockActivity().addDockableFragment(gamesPopupFragment, "GamesPopupFragment");
+                        break;
+                    case R.id.sparesSupport:
                   /*  gamesPopupFragment = new GamesPopupFragment();
                     gamesPopupFragment.setUpdateDataListner(this, AppConstants.ASI_SUPPORT_SOLUTIONS, gamesList);
                     getDockActivity().addDockableFragment(gamesPopupFragment, "GamesPopupFragment");*/
-                    break;
+                        break;
 
-                case R.id.connectGo:
-                    gamesPopupFragment = new GamesPopupFragment();
-                    gamesPopupFragment.setUpdateDataListner(this, AppConstants.CONNECT_GO, gamesList);
-                    getDockActivity().addDockableFragment(gamesPopupFragment, "GamesPopupFragment");
-                    break;
+                    case R.id.connectGo:
+                        gamesPopupFragment = new GamesPopupFragment();
+                        gamesPopupFragment.setUpdateDataListner(this, AppConstants.CONNECT_GO, gamesList);
+                        getDockActivity().addDockableFragment(gamesPopupFragment, "GamesPopupFragment");
+                        break;
+                }
             }
+        }
+
     }
 
     @Override
     public void update(boolean b, int position) {
         gamesList.get(position).setFavourite(b);
     }
-
-
 
 
 }

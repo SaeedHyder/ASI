@@ -114,70 +114,75 @@ public class D49Fragment extends BaseFragment implements UpdateListData {
 
     @OnClick({R.id.atvSlam, R.id.targetBravoStandup, R.id.dayTona, R.id.transformerShadow, R.id.houseOfDeads, R.id.piratesFalls, R.id.hotRacer, R.id.sonicKidsBasketBall, R.id.segaAllBasketBall, R.id.ballRunna, R.id.hoopla, R.id.pixelChase})
     public void onViewClicked(View view) {
-        if (gamesList != null && gamesList.size() > 0)
-            switch (view.getId()) {
-                case R.id.atvSlam:
-                    gamesPopupFragment = new GamesPopupFragment();
-                    gamesPopupFragment.setUpdateDataListner(this, AppConstants.ATV_SLAM, gamesList);
-                    getDockActivity().addDockableFragment(gamesPopupFragment, "GamesPopupFragment");
-                    break;
-                case R.id.targetBravoStandup:
-                    gamesPopupFragment = new GamesPopupFragment();
-                    gamesPopupFragment.setUpdateDataListner(this, AppConstants.TARGET_BRAVO_UPRIGHT, gamesList);
-                    getDockActivity().addDockableFragment(gamesPopupFragment, "GamesPopupFragment");
-                    break;
-                case R.id.dayTona:
-                    gamesPopupFragment = new GamesPopupFragment();
-                    gamesPopupFragment.setUpdateDataListner(this, AppConstants.DAY_TO_NAUSA_STREET_RACING_42, gamesList);
-                    getDockActivity().addDockableFragment(gamesPopupFragment, "GamesPopupFragment");
-                    break;
-                case R.id.transformerShadow:
-                    gamesPopupFragment = new GamesPopupFragment();
-                    gamesPopupFragment.setUpdateDataListner(this, AppConstants.TRANSFORMERS_SHADOWS_RISING, gamesList);
-                    getDockActivity().addDockableFragment(gamesPopupFragment, "GamesPopupFragment");
-                    break;
-                case R.id.houseOfDeads:
-                    gamesPopupFragment = new GamesPopupFragment();
-                    gamesPopupFragment.setUpdateDataListner(this, AppConstants.HOUSE_OF_THE_DEAD_SCARLET_DAWN, gamesList);
-                    getDockActivity().addDockableFragment(gamesPopupFragment, "GamesPopupFragment");
-                    break;
-                case R.id.piratesFalls:
-                    gamesPopupFragment = new GamesPopupFragment();
-                    gamesPopupFragment.setUpdateDataListner(this, AppConstants.PIRATE_FALLS, gamesList);
-                    getDockActivity().addDockableFragment(gamesPopupFragment, "GamesPopupFragment");
-                    break;
-                case R.id.hotRacer:
-                    gamesPopupFragment = new GamesPopupFragment();
-                    gamesPopupFragment.setUpdateDataListner(this, AppConstants.HOT_RACERS, gamesList);
-                    getDockActivity().addDockableFragment(gamesPopupFragment, "GamesPopupFragment");
-                    break;
-                case R.id.sonicKidsBasketBall:
-                    gamesPopupFragment = new GamesPopupFragment();
-                    gamesPopupFragment.setUpdateDataListner(this, AppConstants.SONIC_ALL_STAR_KIDS_BASKETBALL, gamesList);
-                    getDockActivity().addDockableFragment(gamesPopupFragment, "GamesPopupFragment");
-                    break;
-                case R.id.segaAllBasketBall:
-                    gamesPopupFragment = new GamesPopupFragment();
-                    gamesPopupFragment.setUpdateDataListner(this, AppConstants.SONIC_ALL_STARS_BASKETBALL, gamesList);
-                    getDockActivity().addDockableFragment(gamesPopupFragment, "GamesPopupFragment");
-                    break;
-                case R.id.ballRunna:
-                    gamesPopupFragment = new GamesPopupFragment();
-                    gamesPopupFragment.setUpdateDataListner(this, AppConstants.BALL_RUNNER, gamesList);
-                    getDockActivity().addDockableFragment(gamesPopupFragment, "GamesPopupFragment");
-                    break;
-                case R.id.hoopla:
-                    gamesPopupFragment = new GamesPopupFragment();
-                    gamesPopupFragment.setUpdateDataListner(this, AppConstants.HOOPLA, gamesList);
-                    getDockActivity().addDockableFragment(gamesPopupFragment, "GamesPopupFragment");
-                    break;
-                case R.id.pixelChase:
-                    gamesPopupFragment = new GamesPopupFragment();
-                    gamesPopupFragment.setUpdateDataListner(this, AppConstants.PIXEL_CHASE, gamesList);
-                    getDockActivity().addDockableFragment(gamesPopupFragment, "GamesPopupFragment");
-                    break;
+        if (prefHelper.isGuestUser()) {
+            openGuestDialoge();
+        } else {
+            if (gamesList != null && gamesList.size() > 0) {
+                switch (view.getId()) {
+                    case R.id.atvSlam:
+                        gamesPopupFragment = new GamesPopupFragment();
+                        gamesPopupFragment.setUpdateDataListner(this, AppConstants.ATV_SLAM, gamesList);
+                        getDockActivity().addDockableFragment(gamesPopupFragment, "GamesPopupFragment");
+                        break;
+                    case R.id.targetBravoStandup:
+                        gamesPopupFragment = new GamesPopupFragment();
+                        gamesPopupFragment.setUpdateDataListner(this, AppConstants.TARGET_BRAVO_UPRIGHT, gamesList);
+                        getDockActivity().addDockableFragment(gamesPopupFragment, "GamesPopupFragment");
+                        break;
+                    case R.id.dayTona:
+                        gamesPopupFragment = new GamesPopupFragment();
+                        gamesPopupFragment.setUpdateDataListner(this, AppConstants.DAY_TO_NAUSA_STREET_RACING_42, gamesList);
+                        getDockActivity().addDockableFragment(gamesPopupFragment, "GamesPopupFragment");
+                        break;
+                    case R.id.transformerShadow:
+                        gamesPopupFragment = new GamesPopupFragment();
+                        gamesPopupFragment.setUpdateDataListner(this, AppConstants.TRANSFORMERS_SHADOWS_RISING, gamesList);
+                        getDockActivity().addDockableFragment(gamesPopupFragment, "GamesPopupFragment");
+                        break;
+                    case R.id.houseOfDeads:
+                        gamesPopupFragment = new GamesPopupFragment();
+                        gamesPopupFragment.setUpdateDataListner(this, AppConstants.HOUSE_OF_THE_DEAD_SCARLET_DAWN, gamesList);
+                        getDockActivity().addDockableFragment(gamesPopupFragment, "GamesPopupFragment");
+                        break;
+                    case R.id.piratesFalls:
+                        gamesPopupFragment = new GamesPopupFragment();
+                        gamesPopupFragment.setUpdateDataListner(this, AppConstants.PIRATE_FALLS, gamesList);
+                        getDockActivity().addDockableFragment(gamesPopupFragment, "GamesPopupFragment");
+                        break;
+                    case R.id.hotRacer:
+                        gamesPopupFragment = new GamesPopupFragment();
+                        gamesPopupFragment.setUpdateDataListner(this, AppConstants.HOT_RACERS, gamesList);
+                        getDockActivity().addDockableFragment(gamesPopupFragment, "GamesPopupFragment");
+                        break;
+                    case R.id.sonicKidsBasketBall:
+                        gamesPopupFragment = new GamesPopupFragment();
+                        gamesPopupFragment.setUpdateDataListner(this, AppConstants.SONIC_ALL_STAR_KIDS_BASKETBALL, gamesList);
+                        getDockActivity().addDockableFragment(gamesPopupFragment, "GamesPopupFragment");
+                        break;
+                    case R.id.segaAllBasketBall:
+                        gamesPopupFragment = new GamesPopupFragment();
+                        gamesPopupFragment.setUpdateDataListner(this, AppConstants.SONIC_ALL_STARS_BASKETBALL, gamesList);
+                        getDockActivity().addDockableFragment(gamesPopupFragment, "GamesPopupFragment");
+                        break;
+                    case R.id.ballRunna:
+                        gamesPopupFragment = new GamesPopupFragment();
+                        gamesPopupFragment.setUpdateDataListner(this, AppConstants.BALL_RUNNER, gamesList);
+                        getDockActivity().addDockableFragment(gamesPopupFragment, "GamesPopupFragment");
+                        break;
+                    case R.id.hoopla:
+                        gamesPopupFragment = new GamesPopupFragment();
+                        gamesPopupFragment.setUpdateDataListner(this, AppConstants.HOOPLA, gamesList);
+                        getDockActivity().addDockableFragment(gamesPopupFragment, "GamesPopupFragment");
+                        break;
+                    case R.id.pixelChase:
+                        gamesPopupFragment = new GamesPopupFragment();
+                        gamesPopupFragment.setUpdateDataListner(this, AppConstants.PIXEL_CHASE, gamesList);
+                        getDockActivity().addDockableFragment(gamesPopupFragment, "GamesPopupFragment");
+                        break;
 
+                }
             }
+        }
     }
 
     @Override

@@ -113,69 +113,74 @@ public class D34Fragment extends BaseFragment implements UpdateListData {
     }
 
 
-    @OnClick({R.id.candyWaterGame, R.id.bazookaBlast3Player, R.id.bazookaBlastFrontCounter, R.id.hangTime, R.id.darts, R.id.pinball, R.id.superKixx, R.id.fastTrackEvo, R.id.pongCocktail, R.id.pongArcade,R.id.pinball_gold})
+    @OnClick({R.id.candyWaterGame, R.id.bazookaBlast3Player, R.id.bazookaBlastFrontCounter, R.id.hangTime, R.id.darts, R.id.pinball, R.id.superKixx, R.id.fastTrackEvo, R.id.pongCocktail, R.id.pongArcade, R.id.pinball_gold})
     public void onViewClicked(View view) {
-        if (gamesList!=null && gamesList.size() > 0)
-            switch (view.getId()) {
+        if (prefHelper.isGuestUser()) {
+            openGuestDialoge();
+        } else {
+            if (gamesList != null && gamesList.size() > 0) {
+                switch (view.getId()) {
 
-                case R.id.candyWaterGame:
-                gamesPopupFragment=new GamesPopupFragment();
-                gamesPopupFragment.setUpdateDataListner(this, AppConstants.WATER_GUN_FUN_8_PLAYER, gamesList);
-                getDockActivity().addDockableFragment(gamesPopupFragment, "GamesPopupFragment");
-                    break;
-                case R.id.bazookaBlast3Player:
-                    gamesPopupFragment = new GamesPopupFragment();
-                    gamesPopupFragment.setUpdateDataListner(this, AppConstants.BAZOOKA_BLAST, gamesList);
-                    getDockActivity().addDockableFragment(gamesPopupFragment, "GamesPopupFragment");
-                    break;
-                case R.id.bazookaBlastFrontCounter:
-                    gamesPopupFragment = new GamesPopupFragment();
-                    gamesPopupFragment.setUpdateDataListner(this, AppConstants.BALLOON_BUST, gamesList);
-                    getDockActivity().addDockableFragment(gamesPopupFragment, "GamesPopupFragment");
-                    break;
-                case R.id.hangTime:
-                    gamesPopupFragment = new GamesPopupFragment();
-                    gamesPopupFragment.setUpdateDataListner(this, AppConstants.HANG_TIME, gamesList);
-                    getDockActivity().addDockableFragment(gamesPopupFragment, "GamesPopupFragment");
-                    break;
-                case R.id.darts:
-                    gamesPopupFragment = new GamesPopupFragment();
-                    gamesPopupFragment.setUpdateDataListner(this, AppConstants.I_DARTS, gamesList);
-                    getDockActivity().addDockableFragment(gamesPopupFragment, "GamesPopupFragment");
-                    break;
-                case R.id.pinball:
-                gamesPopupFragment=new GamesPopupFragment();
-                gamesPopupFragment.setUpdateDataListner(this, AppConstants.DEAD_POOL_PRO, gamesList);
-                getDockActivity().addDockableFragment(gamesPopupFragment, "GamesPopupFragment");
-                    break;
-                case R.id.pongArcade:
-                    gamesPopupFragment = new GamesPopupFragment();
-                    gamesPopupFragment.setUpdateDataListner(this, AppConstants.ATARI_PONG_ARCADE_TABLE, gamesList);
-                    getDockActivity().addDockableFragment(gamesPopupFragment, "GamesPopupFragment");
-                    break;
-                case R.id.pongCocktail:
-                    gamesPopupFragment = new GamesPopupFragment();
-                    gamesPopupFragment.setUpdateDataListner(this, AppConstants.ATARI_PONG_COCKTAIL_TABLE, gamesList);
-                    getDockActivity().addDockableFragment(gamesPopupFragment, "GamesPopupFragment");
-                    break;
-                case R.id.fastTrackEvo:
-                    gamesPopupFragment = new GamesPopupFragment();
-                    gamesPopupFragment.setUpdateDataListner(this, AppConstants.ASI_FAST_TRACK_EVO_2, gamesList);
-                    getDockActivity().addDockableFragment(gamesPopupFragment, "GamesPopupFragment");
-                    break;
-                case R.id.superKixx:
-                    gamesPopupFragment = new GamesPopupFragment();
-                    gamesPopupFragment.setUpdateDataListner(this, AppConstants.SUPER_KIXX_PRO, gamesList);
-                    getDockActivity().addDockableFragment(gamesPopupFragment, "GamesPopupFragment");
-                    break;
+                    case R.id.candyWaterGame:
+                        gamesPopupFragment = new GamesPopupFragment();
+                        gamesPopupFragment.setUpdateDataListner(this, AppConstants.WATER_GUN_FUN_8_PLAYER, gamesList);
+                        getDockActivity().addDockableFragment(gamesPopupFragment, "GamesPopupFragment");
+                        break;
+                    case R.id.bazookaBlast3Player:
+                        gamesPopupFragment = new GamesPopupFragment();
+                        gamesPopupFragment.setUpdateDataListner(this, AppConstants.BAZOOKA_BLAST, gamesList);
+                        getDockActivity().addDockableFragment(gamesPopupFragment, "GamesPopupFragment");
+                        break;
+                    case R.id.bazookaBlastFrontCounter:
+                        gamesPopupFragment = new GamesPopupFragment();
+                        gamesPopupFragment.setUpdateDataListner(this, AppConstants.BALLOON_BUST, gamesList);
+                        getDockActivity().addDockableFragment(gamesPopupFragment, "GamesPopupFragment");
+                        break;
+                    case R.id.hangTime:
+                        gamesPopupFragment = new GamesPopupFragment();
+                        gamesPopupFragment.setUpdateDataListner(this, AppConstants.HANG_TIME, gamesList);
+                        getDockActivity().addDockableFragment(gamesPopupFragment, "GamesPopupFragment");
+                        break;
+                    case R.id.darts:
+                        gamesPopupFragment = new GamesPopupFragment();
+                        gamesPopupFragment.setUpdateDataListner(this, AppConstants.I_DARTS, gamesList);
+                        getDockActivity().addDockableFragment(gamesPopupFragment, "GamesPopupFragment");
+                        break;
+                    case R.id.pinball:
+                        gamesPopupFragment = new GamesPopupFragment();
+                        gamesPopupFragment.setUpdateDataListner(this, AppConstants.DEAD_POOL_PRO, gamesList);
+                        getDockActivity().addDockableFragment(gamesPopupFragment, "GamesPopupFragment");
+                        break;
+                    case R.id.pongArcade:
+                        gamesPopupFragment = new GamesPopupFragment();
+                        gamesPopupFragment.setUpdateDataListner(this, AppConstants.ATARI_PONG_ARCADE_TABLE, gamesList);
+                        getDockActivity().addDockableFragment(gamesPopupFragment, "GamesPopupFragment");
+                        break;
+                    case R.id.pongCocktail:
+                        gamesPopupFragment = new GamesPopupFragment();
+                        gamesPopupFragment.setUpdateDataListner(this, AppConstants.ATARI_PONG_COCKTAIL_TABLE, gamesList);
+                        getDockActivity().addDockableFragment(gamesPopupFragment, "GamesPopupFragment");
+                        break;
+                    case R.id.fastTrackEvo:
+                        gamesPopupFragment = new GamesPopupFragment();
+                        gamesPopupFragment.setUpdateDataListner(this, AppConstants.ASI_FAST_TRACK_EVO_2, gamesList);
+                        getDockActivity().addDockableFragment(gamesPopupFragment, "GamesPopupFragment");
+                        break;
+                    case R.id.superKixx:
+                        gamesPopupFragment = new GamesPopupFragment();
+                        gamesPopupFragment.setUpdateDataListner(this, AppConstants.SUPER_KIXX_PRO, gamesList);
+                        getDockActivity().addDockableFragment(gamesPopupFragment, "GamesPopupFragment");
+                        break;
 
-                case R.id.pinball_gold:
-                    gamesPopupFragment = new GamesPopupFragment();
-                    gamesPopupFragment.setUpdateDataListner(this, AppConstants.THE_BEATLES_GOLD, gamesList);
-                    getDockActivity().addDockableFragment(gamesPopupFragment, "GamesPopupFragment");
-                    break;
+                    case R.id.pinball_gold:
+                        gamesPopupFragment = new GamesPopupFragment();
+                        gamesPopupFragment.setUpdateDataListner(this, AppConstants.THE_BEATLES_GOLD, gamesList);
+                        getDockActivity().addDockableFragment(gamesPopupFragment, "GamesPopupFragment");
+                        break;
 
+                }
             }
+        }
     }
 
     @Override

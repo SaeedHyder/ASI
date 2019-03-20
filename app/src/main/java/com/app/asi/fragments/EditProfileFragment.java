@@ -240,6 +240,9 @@ public class EditProfileFragment extends BaseFragment implements ImageSetter {
                 userObject.setCompany(userEnt.getCompany());
                 userObject.setImageUrl(userEnt.getImageUrl());
                 prefHelper.putUser(userObject);
+                if(getMainActivity()!=null){
+                    getMainActivity().refreshSideMenuData();
+                }
                 UIHelper.showShortToastInCenter(getDockActivity(), getResString(R.string.profile_updated_successfully));
                 getDockActivity().popFragment();
                 break;

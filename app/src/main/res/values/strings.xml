@@ -47,7 +47,7 @@
 
     //ASI
     <string name="notification">Notifications</string>
-    <string name="sign_in">Sign In</string>
+
     <string name="submit">Submit</string>
     <string name="english">English</string>
     <string name="arabic">العربية</string>
@@ -200,4 +200,9 @@
     <string name="sign_up_to_create_your_personal_profile_and_experience_great_features">Sign up to create your personal profile and\n experience great features</string>
     <string name="is_your_quik_drop_ball_tube_not_feeding_balls_if_the_balls_are_stuck_in_the_upper_auger_it_might_be_because_the_upper_optical_sensor_needs_to_be_cleaned_and_or_blown_off_to_access_the_sensor_unlatch_the_two_marquee_latches_on_the_right_side_and_swing_open_to_the_left">Is your Quik Drop ball tube not feeding balls? If the balls are stuck in the upper auger, it might be because the upper optical sensor needs to be cleaned and/or blown off.\n\nTo access the sensor, unlatch the two marquee latches on the right side and swing open to the left.</string>
     <string name="remove">Remove</string>
+    <string name="access_denied">Access Denied</string>
+    <string name="guest_user_error">Guest user does not has access,Sign in to proceed</string>
+    <string name="sign_in">Sign In</string>
+    <string name="cancel">Cancel</string>
+    <string name="guest_user">Guest User</string>
 </resources>

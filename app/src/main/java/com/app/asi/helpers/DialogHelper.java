@@ -39,7 +39,7 @@ public class DialogHelper {
         return this.dialog;
     }
 
-    public Dialog initDialoge(View.OnClickListener yesListner, String title,String description) {
+    public Dialog initDialoge(View.OnClickListener yesListner, String title,String description,String button1,String button2) {
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         this.dialog.setContentView(R.layout.dialoge_layout);
@@ -49,6 +49,8 @@ public class DialogHelper {
         AnyTextView txtDescription = (AnyTextView) dialog.findViewById(R.id.txtDescription);
         txtTitle.setText(title);
         txtDescription.setText(description);
+        btnYes.setText(button1);
+        btnNo.setText(button2);
         btnYes.setOnClickListener(yesListner);
         btnNo.setOnClickListener(new View.OnClickListener() {
             @Override

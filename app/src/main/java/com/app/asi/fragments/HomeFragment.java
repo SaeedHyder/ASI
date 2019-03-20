@@ -73,7 +73,9 @@ public class HomeFragment extends BaseFragment implements RecyclerClickListner, 
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        getMainActivity().refreshSideMenuData();
+        if (!prefHelper.isGuestUser()) {
+            getMainActivity().refreshSideMenuData();
+        }
         setHomeData();
         setViewPager();
 
@@ -144,9 +146,13 @@ public class HomeFragment extends BaseFragment implements RecyclerClickListner, 
             UIHelper.showShortToastInDialoge(getDockActivity(), getResString(R.string.will_be_implemented));
 
         } else if (ent.getTitle().equals(getResString(R.string.scan_qr_code))) {
-            BarCodeScanFragment barCodeScanFragment = new BarCodeScanFragment();
-            barCodeScanFragment.setBarCOdeListner(this);
-            getDockActivity().replaceDockableFragment(barCodeScanFragment, "BarCodeScanFragment");
+            if (prefHelper.isGuestUser()) {
+                openGuestDialoge();
+            } else {
+                BarCodeScanFragment barCodeScanFragment = new BarCodeScanFragment();
+                barCodeScanFragment.setBarCOdeListner(this);
+                getDockActivity().replaceDockableFragment(barCodeScanFragment, "BarCodeScanFragment");
+            }
 
         } else if (ent.getTitle().equals(getResString(R.string.gallery))) {
             UIHelper.showShortToastInDialoge(getDockActivity(), getResString(R.string.will_be_implemented));
@@ -170,7 +176,11 @@ public class HomeFragment extends BaseFragment implements RecyclerClickListner, 
             openSocialDialoge();
 
         } else if (ent.getTitle().equals(getResString(R.string.contact_us))) {
-            getDockActivity().replaceDockableFragment(ContactUsFragment.newInstance(), "ContactUsFragment");
+            if (prefHelper.isGuestUser()) {
+                openGuestDialoge();
+            } else {
+                getDockActivity().replaceDockableFragment(ContactUsFragment.newInstance(), "ContactUsFragment");
+            }
         } else if (ent.getTitle().equals(getResString(R.string.website))) {
             openWebPage(AppConstants.asiDesignURL);
         }
@@ -244,5 +254,7 @@ public class HomeFragment extends BaseFragment implements RecyclerClickListner, 
                 break;
         }
     }
+
+
 }
 
