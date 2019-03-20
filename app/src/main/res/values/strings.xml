@@ -66,6 +66,7 @@
     <string name="logout">Logout</string>
     <string name="logout_successfully">Logout successfully</string>
     <string name="are_you_sure_you_want_to_logout">Are you sure you want to logout?</string>
+    <string name="are_you_sure_you_want_to_remove_game">Are you sure you want to remove this game from your wishlist?</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
     <string name="email_address">Email Address</string>
@@ -188,7 +189,7 @@
     <string name="remove_from_wish_list">Remove From Wish List</string>
     <string name="added_in_wish_list_successfully">Added in wish list successfully</string>
     <string name="removed_from_wish_list_successfully">Removed from wish list successfully</string>
-    <string name="game_is_addedd">Game is successfully added.</string>
+    <string name="game_is_addedd">This game successfully added to games played list.</string>
     <string name="dimensions">Dimensions:</string>
     <string name="tips">Tips</string>
     <string name="choose_your_selection">Choose Your Selection</string>
@@ -198,4 +199,5 @@
     <string name="welcome_to_the">Welcome To The</string>
     <string name="sign_up_to_create_your_personal_profile_and_experience_great_features">Sign up to create your personal profile and\n experience great features</string>
     <string name="is_your_quik_drop_ball_tube_not_feeding_balls_if_the_balls_are_stuck_in_the_upper_auger_it_might_be_because_the_upper_optical_sensor_needs_to_be_cleaned_and_or_blown_off_to_access_the_sensor_unlatch_the_two_marquee_latches_on_the_right_side_and_swing_open_to_the_left">Is your Quik Drop ball tube not feeding balls? If the balls are stuck in the upper auger, it might be because the upper optical sensor needs to be cleaned and/or blown off.\n\nTo access the sensor, unlatch the two marquee latches on the right side and swing open to the left.</string>
+    <string name="remove">Remove</string>
 </resources>

@@ -157,7 +157,7 @@ public class D32Fragment extends BaseFragment implements UpdateListData {
             R.id.bigBugBlast, R.id.theRocket, R.id.princessFairyTest, R.id.billyJumper, R.id.kidsim, R.id.adventureBike, R.id.comboDx, R.id.fireFigmate, R.id.monsterCatcher,
             R.id.monsterEnd, R.id.superBoxes})
     public void onViewClicked(View view) {
-        if (gamesList.size() > 0)
+        if (gamesList!=null && gamesList.size() > 0)
             switch (view.getId()) {
                 case R.id.fishBow:
                     gamesPopupFragment = new GamesPopupFragment();
@@ -180,9 +180,9 @@ public class D32Fragment extends BaseFragment implements UpdateListData {
                     getDockActivity().addDockableFragment(gamesPopupFragment, "GamesPopupFragment");
                     break;
                 case R.id.spaceBasketBall:
-            /*    gamesPopupFragment=new GamesPopupFragment();
-                gamesPopupFragment.setUpdateDataListner(this, AppConstants.RING_3_CIRCUS, gamesList);
-                getDockActivity().addDockableFragment(gamesPopupFragment, "GamesPopupFragment");*/
+                    gamesPopupFragment = new GamesPopupFragment();
+                    gamesPopupFragment.setUpdateDataListner(this, AppConstants.SPACEBasketBall, gamesList);
+                    getDockActivity().addDockableFragment(gamesPopupFragment, "GamesPopupFragment");
                     break;
                 case R.id.whacker:
                     gamesPopupFragment = new GamesPopupFragment();
@@ -231,9 +231,9 @@ public class D32Fragment extends BaseFragment implements UpdateListData {
                     getDockActivity().addDockableFragment(gamesPopupFragment, "GamesPopupFragment");
                     break;
                 case R.id.magnoBison:
-                /*gamesPopupFragment=new GamesPopupFragment();
-                gamesPopupFragment.setUpdateDataListner(this, AppConstants.RING_3_CIRCUS, gamesList);
-                getDockActivity().addDockableFragment(gamesPopupFragment, "GamesPopupFragment");*/
+                    gamesPopupFragment = new GamesPopupFragment();
+                    gamesPopupFragment.setUpdateDataListner(this, AppConstants.MagnoBison, gamesList);
+                    getDockActivity().addDockableFragment(gamesPopupFragment, "GamesPopupFragment");
                     break;
                 case R.id.foosBall:
                     gamesPopupFragment = new GamesPopupFragment();

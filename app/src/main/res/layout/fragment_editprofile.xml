@@ -50,7 +50,7 @@
             android:layout_marginTop="@dimen/x20"
             android:theme="@style/EditTextHint">
 
-            <TextView
+            <android.support.design.widget.TextInputEditText
                 android:id="@+id/edt_email"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

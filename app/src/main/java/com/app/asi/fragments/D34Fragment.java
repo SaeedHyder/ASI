@@ -57,6 +57,9 @@ public class D34Fragment extends BaseFragment implements UpdateListData {
     ImageView leftTable;
     @BindView(R.id.rl_bottom)
     RelativeLayout rlBottom;
+    @BindView(R.id.pinball_gold)
+    ImageView pinballGold;
+
 
     private ArrayList<GameEnt> gamesList;
     private GamesPopupFragment gamesPopupFragment;
@@ -110,9 +113,9 @@ public class D34Fragment extends BaseFragment implements UpdateListData {
     }
 
 
-    @OnClick({R.id.candyWaterGame, R.id.bazookaBlast3Player, R.id.bazookaBlastFrontCounter, R.id.hangTime, R.id.darts, R.id.pinball, R.id.superKixx, R.id.fastTrackEvo, R.id.pongCocktail, R.id.pongArcade})
+    @OnClick({R.id.candyWaterGame, R.id.bazookaBlast3Player, R.id.bazookaBlastFrontCounter, R.id.hangTime, R.id.darts, R.id.pinball, R.id.superKixx, R.id.fastTrackEvo, R.id.pongCocktail, R.id.pongArcade,R.id.pinball_gold})
     public void onViewClicked(View view) {
-        if (gamesList.size() > 0)
+        if (gamesList!=null && gamesList.size() > 0)
             switch (view.getId()) {
 
                 case R.id.candyWaterGame:
@@ -141,9 +144,9 @@ public class D34Fragment extends BaseFragment implements UpdateListData {
                     getDockActivity().addDockableFragment(gamesPopupFragment, "GamesPopupFragment");
                     break;
                 case R.id.pinball:
-               /* gamesPopupFragment=new GamesPopupFragment();
-                gamesPopupFragment.setUpdateDataListner(this, AppConstants.RING_3_CIRCUS, gamesList);
-                getDockActivity().addDockableFragment(gamesPopupFragment, "GamesPopupFragment");*/
+                gamesPopupFragment=new GamesPopupFragment();
+                gamesPopupFragment.setUpdateDataListner(this, AppConstants.DEAD_POOL_PRO, gamesList);
+                getDockActivity().addDockableFragment(gamesPopupFragment, "GamesPopupFragment");
                     break;
                 case R.id.pongArcade:
                     gamesPopupFragment = new GamesPopupFragment();
@@ -163,6 +166,12 @@ public class D34Fragment extends BaseFragment implements UpdateListData {
                 case R.id.superKixx:
                     gamesPopupFragment = new GamesPopupFragment();
                     gamesPopupFragment.setUpdateDataListner(this, AppConstants.SUPER_KIXX_PRO, gamesList);
+                    getDockActivity().addDockableFragment(gamesPopupFragment, "GamesPopupFragment");
+                    break;
+
+                case R.id.pinball_gold:
+                    gamesPopupFragment = new GamesPopupFragment();
+                    gamesPopupFragment.setUpdateDataListner(this, AppConstants.THE_BEATLES_GOLD, gamesList);
                     getDockActivity().addDockableFragment(gamesPopupFragment, "GamesPopupFragment");
                     break;
 

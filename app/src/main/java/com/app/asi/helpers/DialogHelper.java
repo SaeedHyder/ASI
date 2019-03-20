@@ -12,7 +12,6 @@ import android.widget.RadioGroup;
 
 import com.app.asi.R;
 import com.app.asi.ui.views.AnyTextView;
-import com.nostra13.universalimageloader.core.ImageLoader;
 
 /**
  * Created on 5/24/2017.
@@ -21,7 +20,7 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 public class DialogHelper {
     private Dialog dialog;
     private Context context;
-    private ImageLoader imageLoader;
+
     private RadioGroup rg;
 
 
@@ -40,16 +39,43 @@ public class DialogHelper {
         return this.dialog;
     }
 
-    public Dialog initlogout(View.OnClickListener yesListner, View.OnClickListener noListner) {
+    public Dialog initDialoge(View.OnClickListener yesListner, String title,String description) {
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        this.dialog.setContentView(R.layout.dialoge_logout);
+        this.dialog.setContentView(R.layout.dialoge_layout);
         Button btnYes = (Button) dialog.findViewById(R.id.btn_yes);
-        btnYes.setOnClickListener(yesListner);
         Button btnNo = (Button) dialog.findViewById(R.id.btn_No);
-        btnNo.setOnClickListener(noListner);
+        AnyTextView txtTitle = (AnyTextView) dialog.findViewById(R.id.txtTitle);
+        AnyTextView txtDescription = (AnyTextView) dialog.findViewById(R.id.txtDescription);
+        txtTitle.setText(title);
+        txtDescription.setText(description);
+        btnYes.setOnClickListener(yesListner);
+        btnNo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
+            }
+        });
         return this.dialog;
     }
+    public Dialog initRemoveDialoge(View.OnClickListener yesListner, String title,String description) {
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        this.dialog.setContentView(R.layout.dialoge_remove_game);
+        Button btnYes = (Button) dialog.findViewById(R.id.btn_yes);
+        Button btnNo = (Button) dialog.findViewById(R.id.btn_No);
+        AnyTextView txtDescription = (AnyTextView) dialog.findViewById(R.id.txtDescription);
+        txtDescription.setText(description);
+        btnYes.setOnClickListener(yesListner);
+        btnNo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
+            }
+        });
+        return this.dialog;
+    }
+
 
     public Dialog initSocialLink(View.OnClickListener fbListner, View.OnClickListener youtubeListner, View.OnClickListener twitterListner, View.OnClickListener instaListner, View.OnClickListener linkdinListner) {
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -68,90 +94,6 @@ public class DialogHelper {
         return this.dialog;
     }
 
-
-    /*public Dialog forgotPassDialoge(View.OnClickListener listener, String heading, String text, int image) {
-        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        this.dialog.setContentView(R.layout.dialge_forgot_password);
-        Button btn = (Button) dialog.findViewById(R.id.bn_back);
-        btn.setOnClickListener(listener);
-        AnyTextView textView = (AnyTextView) dialog.findViewById(R.id.txt_text);
-        AnyTextView txtHeading = (AnyTextView) dialog.findViewById(R.id.txt_heading);
-        ImageView imageIcon = (ImageView) dialog.findViewById(R.id.image);
-        txtHeading.setText(heading);
-        textView.setText(text);
-        imageIcon.setImageResource(image);
-        return this.dialog;
-    }
-
-    public Dialog bookingDialoge(View.OnClickListener listener) {
-        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        this.dialog.setContentView(R.layout.dialoge_booking);
-        Button btn = (Button) dialog.findViewById(R.id.bn_back);
-        btn.setOnClickListener(listener);
-        return this.dialog;
-    }
-*/
-
-  /*  public Dialog shareDialoge(View.OnClickListener listener) {
-        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        this.dialog.setContentView(R.layout.dialoge_share);
-        AnyTextView txtText = (AnyTextView) dialog.findViewById(R.id.txtText);
-        AnyTextView txtTwitter = (AnyTextView) dialog.findViewById(R.id.txtTwitter);
-        AnyTextView txtMessenger = (AnyTextView) dialog.findViewById(R.id.txtMessenger);
-        AnyTextView txtFacebook = (AnyTextView) dialog.findViewById(R.id.txtFacebook);
-        AnyTextView txtEmail = (AnyTextView) dialog.findViewById(R.id.txtEmail);
-        AnyTextView txtGooglePlus = (AnyTextView) dialog.findViewById(R.id.txtGooglePlus);
-        ImageView cross = (ImageView) dialog.findViewById(R.id.cross);
-
-        txtText.setOnClickListener(listener);
-        txtTwitter.setOnClickListener(listener);
-        txtMessenger.setOnClickListener(listener);
-        txtFacebook.setOnClickListener(listener);
-        txtEmail.setOnClickListener(listener);
-        txtGooglePlus.setOnClickListener(listener);
-
-        cross.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onWishClick(View view) {
-                dialog.dismiss();
-            }
-        });
-
-        return this.dialog;
-    }*/
-
-  /*  public Dialog changeUserDialoge(DockActivity dockActivity) {
-        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        this.dialog.setContentView(R.layout.dialoge_change_user);
-        CustomRecyclerView rvChangeUser = (CustomRecyclerView) dialog.findViewById(R.id.rv_change_user);
-        ImageView cross = (ImageView) dialog.findViewById(R.id.cross);
-
-        ArrayList<String> collection = new ArrayList<>();
-        collection.add("");
-        collection.add("");
-        collection.add("");
-        collection.add("");
-
-     *//*   rvChangeUser.BindRecyclerView(new ChangeUserBinder(dockActivity), collection,
-                new LinearLayoutManager(dockActivity, LinearLayoutManager.VERTICAL, false)
-                , new DefaultItemAnimator());*//*
-
-        cross.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onWishClick(View view) {
-                dialog.dismiss();
-            }
-        });
-
-        return this.dialog;
-    }
-
-
-*/
 
 
     public Dialog cameraPicker(View.OnClickListener cameraListner, View.OnClickListener galleryListner) {

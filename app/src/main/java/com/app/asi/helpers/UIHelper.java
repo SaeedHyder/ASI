@@ -20,7 +20,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.app.asi.R;
-import com.google.common.base.Strings;
 
 public class UIHelper {
 	
@@ -31,21 +30,21 @@ public class UIHelper {
 	}
 	
 	public static void showLongToastInCenter( Context ctx, String message ) {
-		message = Strings.nullToEmpty( message );
+	//	message = Strings.nullToEmpty( message );
 		Toast toast = Toast.makeText( ctx, message, Toast.LENGTH_LONG );
 		toast.setGravity( Gravity.CENTER, 0, 0 );
 		toast.show();
 	}
 	
 	public static void showShortToastInCenter( Context ctx, String message ) {
-		message = Strings.nullToEmpty( message );
+		//message = Strings.nullToEmpty( message );
 		Toast toast = Toast.makeText( ctx, message, Toast.LENGTH_SHORT );
 		toast.setGravity( Gravity.CENTER, 0, 0 );
 		toast.show();
 	}
 
 	public static void showShortToastInDialoge( Context ctx, String message ) {
-		message = Strings.nullToEmpty( message );
+	//	message = Strings.nullToEmpty( message );
 		DialogHelper dialogHelper=new DialogHelper(ctx);
 		dialogHelper.toastDialoge(message);
 		dialogHelper.showDialog();

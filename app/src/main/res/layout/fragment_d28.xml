@@ -52,25 +52,29 @@
                 android:scaleType="fitXY"
                 android:src="@drawable/d28_02" />
 
+
+
+
+
             <ImageView
                 android:id="@+id/fruitNinjaVirtual"
                 android:layout_width="@dimen/x80"
-                android:layout_height="@dimen/x80"
-                android:layout_marginTop="@dimen/x5_"
+                android:layout_height="@dimen/x55"
+                android:layout_marginTop="@dimen/x20_"
+                android:layout_below="@+id/beatSaber"
                 android:layout_alignParentEnd="true"
-                android:layout_marginEnd="@dimen/x8"
+                android:layout_marginEnd="@dimen/x16"
                 android:scaleType="fitXY"
-                android:src="@drawable/d28_01" />
-
+                android:src="@drawable/d28_04_new" />
             <ImageView
                 android:id="@+id/beatSaber"
                 android:layout_width="@dimen/x80"
-                android:layout_height="@dimen/x80"
+                android:layout_height="@dimen/x55"
                 android:layout_marginTop="@dimen/x5_"
                 android:layout_alignParentEnd="true"
                 android:layout_marginEnd="@dimen/x8"
                 android:scaleType="fitXY"
-                android:src="@drawable/d28_01" />
+                android:src="@drawable/d28_03_new" />
 
             <ImageView
                 android:id="@+id/mininoSoccer"
@@ -128,13 +132,22 @@
 
             <ImageView
                 android:id="@+id/snapShot2"
-                android:layout_width="@dimen/x140"
-                android:layout_height="@dimen/x140"
-                android:layout_below="@+id/hyperShoot"
-                android:layout_marginTop="@dimen/x10"
-                android:layout_marginBottom="@dimen/x10"
+                android:layout_width="@dimen/x75"
+                android:layout_height="@dimen/x75"
+                android:scaleType="fitXY"
                 android:layout_alignParentEnd="true"
-                android:src="@drawable/d28_09" />
+                android:layout_below="@+id/letsBounce"
+                android:src="@drawable/d28_snaps_new" />
+            <ImageView
+                android:id="@+id/vrRabbids"
+                android:layout_width="@dimen/x120"
+                android:layout_height="@dimen/x118"
+                android:layout_below="@+id/hyperShoot"
+                android:layout_marginTop="@dimen/x31"
+                android:layout_marginStart="@dimen/x15"
+                android:layout_alignStart="@+id/hyperShoot"
+                android:layout_alignParentBottom="true"
+                android:src="@drawable/d28_rabb_new" />
 
 
         </RelativeLayout>

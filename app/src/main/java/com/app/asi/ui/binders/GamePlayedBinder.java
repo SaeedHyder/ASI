@@ -14,7 +14,6 @@ import com.app.asi.helpers.DateHelper;
 import com.app.asi.interfaces.RecyclerClickListner;
 import com.app.asi.ui.viewbinders.abstracts.RecyclerViewBinder;
 import com.app.asi.ui.views.AnyTextView;
-import com.nostra13.universalimageloader.core.ImageLoader;
 import com.squareup.picasso.Picasso;
 
 import butterknife.BindView;
@@ -26,14 +25,13 @@ public class GamePlayedBinder extends RecyclerViewBinder<GameEnt> {
 
     private DockActivity dockActivity;
     private BasePreferenceHelper prefHelper;
-    private ImageLoader imageLoader;
+
     private RecyclerClickListner clickListner;
 
     public GamePlayedBinder(DockActivity dockActivity, BasePreferenceHelper prefHelper, RecyclerClickListner clickListner) {
         super(R.layout.row_item_wishlist);
         this.dockActivity = dockActivity;
         this.prefHelper = prefHelper;
-        this.imageLoader = ImageLoader.getInstance();
         this.clickListner = clickListner;
     }
 
@@ -55,10 +53,12 @@ public class GamePlayedBinder extends RecyclerViewBinder<GameEnt> {
             holder.txtDetail.setText(entity.getDescription() + "");
             holder.txtDimensions.setText(entity.getDimension() + "");
             holder.txtDimensions.setText(entity.getDimension() + "");
-            holder.txtDate.setText(DateHelper.getFormatedDate("yyyy-MM-dd'T'HH:mm:ss.SSS","hh:mm a dd MMM,yyyy",entity.getCreatedOn()));
+            holder.txtDate.setText(DateHelper.getFormatedDate("yyyy-MM-dd'T'HH:mm:ss.SSS", "hh:mm a dd MMM,yyyy", entity.getPlayedOn()));
 
             if (entity.getImageUrls() != null && entity.getImageUrls().size() > 0) {
-                Picasso.get().load(entity.getImageUrls().get(0)).placeholder(R.drawable.placeholder_thumb).into(holder.ivIcon);
+                Picasso.get().load(entity.getImageUrls().get(0)).into(holder.ivIcon);
+            } else {
+                Picasso.get().load(R.drawable.logo).into(holder.ivIcon);
             }
 
             holder.mainFrame.setOnClickListener(new View.OnClickListener() {
@@ -71,16 +71,15 @@ public class GamePlayedBinder extends RecyclerViewBinder<GameEnt> {
         }
 
 
-
     }
 
-   static class ViewHolder extends BaseViewHolder{
+    static class ViewHolder extends BaseViewHolder {
         @BindView(R.id.ivIcon)
-        CircleImageView ivIcon;
+        ImageView ivIcon;
         @BindView(R.id.txt_title)
         AnyTextView txtTitle;
-       @BindView(R.id.txtDate)
-       AnyTextView txtDate;
+        @BindView(R.id.txtDate)
+        AnyTextView txtDate;
         @BindView(R.id.txt_detail)
         AnyTextView txtDetail;
         @BindView(R.id.txt_dimensions)
@@ -91,7 +90,6 @@ public class GamePlayedBinder extends RecyclerViewBinder<GameEnt> {
         LinearLayout llGamePlayed;
         @BindView(R.id.mainFrame)
         LinearLayout mainFrame;
-
 
 
         ViewHolder(View view) {

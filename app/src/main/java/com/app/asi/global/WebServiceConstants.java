@@ -3,7 +3,8 @@ package com.app.asi.global;
 public class WebServiceConstants {
     public static final String SERVICE_URL = "";
 
-    public static final String Local_SERVICE_URL = "http://asi.ingicweb.com/api/";
+ //   public static final String Local_SERVICE_URL = "http://asi.ingicweb.com/api/";
+    public static final String Local_SERVICE_URL = "http://asi.productioningic.com/API/";
 
     public static final String SUCCESS_RESPONSE_CODE = "2000";
 

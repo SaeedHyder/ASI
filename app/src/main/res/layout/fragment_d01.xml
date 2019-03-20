@@ -47,14 +47,14 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:src="@drawable/new_new_d01_connec" />
+                android:src="@drawable/d01_connec_new" />
 
             <ImageView
                 android:id="@+id/buildingBlock"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:src="@drawable/new_new_d01_buildingbl" />
+                android:src="@drawable/d01_buildingbl_new" />
 
 
         </LinearLayout>

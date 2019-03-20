@@ -2,6 +2,7 @@ package com.app.asi.activities;
 
 import android.Manifest;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.NotificationManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -29,13 +30,11 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.AlertDialog;
 import android.util.Base64;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.FrameLayout;
@@ -43,10 +42,8 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.app.asi.R;
-import com.app.asi.entities.LocationModel;
 import com.app.asi.fragments.HomeFragment;
 import com.app.asi.fragments.LoginFragment;
-import com.app.asi.fragments.NotificationsFragment;
 import com.app.asi.fragments.SideMenuFragment;
 import com.app.asi.fragments.WelcomeScreenFragment;
 import com.app.asi.fragments.abstracts.BaseFragment;
@@ -58,28 +55,16 @@ import com.app.asi.helpers.UIHelper;
 import com.app.asi.interfaces.ImageSetter;
 import com.app.asi.interfaces.OnSettingActivateListener;
 import com.app.asi.residemenu.ResideMenu;
+
 import com.app.asi.ui.views.TitleBar;
-import com.facebook.AccessToken;
-import com.facebook.login.LoginManager;
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.api.ApiException;
-import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.common.api.ResolvableApiException;
-import com.google.android.gms.location.LocationRequest;
-import com.google.android.gms.location.LocationServices;
-import com.google.android.gms.location.LocationSettingsRequest;
-import com.google.android.gms.location.LocationSettingsResponse;
-import com.google.android.gms.location.LocationSettingsStatusCodes;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
+
 import com.kbeanie.imagechooser.api.ChooserType;
 import com.kbeanie.imagechooser.api.ChosenImage;
 import com.kbeanie.imagechooser.api.ChosenImages;
 import com.kbeanie.imagechooser.api.ImageChooserListener;
 import com.kbeanie.imagechooser.api.ImageChooserManager;
-import com.nostra13.universalimageloader.core.DisplayImageOptions;
-import com.nostra13.universalimageloader.core.assist.ImageScaleType;
-import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
+import com.wang.avi.AVLoadingIndicatorView;
+
 
 import java.io.IOException;
 import java.security.MessageDigest;
@@ -90,13 +75,11 @@ import java.util.Locale;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-import static com.app.asi.global.AppConstants.chatPush;
-import static com.app.asi.global.AppConstants.companyPush;
 import static com.app.asi.global.AppConstants.deletePush;
 import static com.app.asi.global.AppConstants.inactivePush;
 
 
-public class MainActivity extends DockActivity implements OnClickListener, ImageChooserListener {
+public class MainActivity extends DockActivity implements View.OnClickListener, ImageChooserListener {
     private final static String TAG = "MainActivity";
     public TitleBar titleBar;
     @BindView(R.id.sideMneuFragmentContainer)
@@ -106,7 +89,7 @@ public class MainActivity extends DockActivity implements OnClickListener, Image
     @BindView(R.id.mainFrameLayout)
     FrameLayout mainFrameLayout;
     @BindView(R.id.progressBar)
-    ProgressBar progressBar;
+    AVLoadingIndicatorView progressBar;
     @BindView(R.id.drawer_layout)
     DrawerLayout drawerLayout;
 
@@ -157,11 +140,11 @@ public class MainActivity extends DockActivity implements OnClickListener, Image
 
         settingSideMenu(sideMenuType, sideMenuDirection);
         printHashKey(getDockActivity());
-        onNotificationReceived();
+        //onNotificationReceived();
 
-        setCurrentLocale();
+       //setCurrentLocale();
 
-        titleBar.setMenuButtonListener(new OnClickListener() {
+        titleBar.setMenuButtonListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
@@ -180,7 +163,7 @@ public class MainActivity extends DockActivity implements OnClickListener, Image
             }
         });
 
-        titleBar.setBackButtonListener(new OnClickListener() {
+        titleBar.setBackButtonListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
@@ -197,7 +180,7 @@ public class MainActivity extends DockActivity implements OnClickListener, Image
             }
         });
 
-        titleBar.setNotificationButtonListener(new OnClickListener() {
+        titleBar.setNotificationButtonListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
             //    replaceDockableFragment(NotificationsFragment.newInstance(), "NotificationsFragment");
@@ -345,9 +328,9 @@ public class MainActivity extends DockActivity implements OnClickListener, Image
                             getDockActivity().popBackStackTillEntry(0);
                             prefHelper.setLoginStatus(false);
                             prefHelper.setSocialLogin(false);
-                            if (AccessToken.getCurrentAccessToken() != null) {
+                           /* if (AccessToken.getCurrentAccessToken() != null) {
                                 LoginManager.getInstance().logOut();
-                            }
+                            }*/
                             NotificationManager notificationManager = (NotificationManager) getDockActivity().getSystemService(Context.NOTIFICATION_SERVICE);
                             notificationManager.cancelAll();
                             getDockActivity().replaceDockableFragment(LoginFragment.newInstance(), "LoginFragment");
@@ -356,9 +339,9 @@ public class MainActivity extends DockActivity implements OnClickListener, Image
                             getDockActivity().popBackStackTillEntry(0);
                             prefHelper.setLoginStatus(false);
                             prefHelper.setSocialLogin(false);
-                            if (AccessToken.getCurrentAccessToken() != null) {
+                          /*  if (AccessToken.getCurrentAccessToken() != null) {
                                 LoginManager.getInstance().logOut();
-                            }
+                            }*/
                             NotificationManager notificationManager = (NotificationManager) getDockActivity().getSystemService(Context.NOTIFICATION_SERVICE);
                             notificationManager.cancelAll();
                             getDockActivity().replaceDockableFragment(LoginFragment.newInstance(), "LoginFragment");
@@ -397,6 +380,7 @@ public class MainActivity extends DockActivity implements OnClickListener, Image
                     WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
             mainFrameLayout.setVisibility(View.VISIBLE);
             if (progressBar != null) {
+                progressBar.show();
                 progressBar.setVisibility(View.VISIBLE);
                 getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
                         WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
@@ -413,6 +397,7 @@ public class MainActivity extends DockActivity implements OnClickListener, Image
         if (progressBar != null) {
             getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
             progressBar.setVisibility(View.INVISIBLE);
+            progressBar.hide();
         }
         loading = false;
 
@@ -459,21 +444,6 @@ public class MainActivity extends DockActivity implements OnClickListener, Image
 
     @Override
     public void onClick(View view) {
-
-    }
-
-    private void notImplemented() {
-        UIHelper.showLongToastInCenter(this, "Coming Soon");
-    }
-
-    public DisplayImageOptions getImageLoaderRoundCornerTransformation(int raduis) {
-        return new DisplayImageOptions.Builder()
-                .showImageForEmptyUri(R.drawable.placeholder_thumb)
-                .showImageOnFail(R.drawable.placeholder_thumb).resetViewBeforeLoading(true)
-                .cacheInMemory(true).cacheOnDisc(true)
-                .imageScaleType(ImageScaleType.IN_SAMPLE_POWER_OF_2)
-                .displayer(new RoundedBitmapDisplayer(raduis))
-                .bitmapConfig(Bitmap.Config.RGB_565).build();
 
     }
 
@@ -599,209 +569,6 @@ public class MainActivity extends DockActivity implements OnClickListener, Image
 
     }
 
-    public boolean statusCheck() {
-        if (isConnected(getApplicationContext())) {
-            final LocationManager manager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-            if (!manager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
-                turnLocationOn(null);
-                //buildAlertMessageNoGps(R.string.gps_question, Settings.ACTION_LOCATION_SOURCE_SETTINGS, LocationResultCode);
-                return false;
-            } else {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    public boolean isConnected(Context context) {
-        ConnectivityManager cm = (ConnectivityManager) getSystemService(context.CONNECTIVITY_SERVICE);
-        NetworkInfo netInfoMob = cm.getNetworkInfo(cm.TYPE_MOBILE);
-        NetworkInfo netInfoWifi = cm.getNetworkInfo(cm.TYPE_WIFI);
-        if (netInfoMob != null && netInfoMob.isConnectedOrConnecting()) {
-            Log.v("TAG", "Mobile Internet connected");
-            return true;
-        }
-        if (netInfoWifi != null && netInfoWifi.isConnectedOrConnecting()) {
-            Log.v("TAG", "Wifi Internet connected");
-            return true;
-        }
-        buildAlertMessageNoGps(R.string.wifi_question, Settings.ACTION_WIFI_SETTINGS, WifiResultCode);
-        return false;
-
-    }
-
-    private void buildAlertMessageNoGps(final int StringResourceID, final String IntentType, final int requestCode) {
-
-        final AlertDialog.Builder builder = new AlertDialog.Builder(getDockActivity());
-        builder
-                .setMessage(getString(StringResourceID))
-                .setCancelable(false)
-                .setPositiveButton(getResources().getString(R.string.gps_yes), new DialogInterface.OnClickListener() {
-                    public void onClick(final DialogInterface dialog, final int id) {
-                        if (StringResourceID == R.string.gps_question) {
-                            dialog.cancel();
-                            turnLocationOn(null);
-                            dialog.dismiss();
-                        } else {
-                            dialog.cancel();
-                            startImpIntent(dialog, IntentType, requestCode);
-                            dialog.dismiss();
-                        }
-
-                        // startActivityForResult(new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS),LocationResultCode);
-                    }
-                })
-                .setNegativeButton(getResources().getString(R.string.gps_no), new DialogInterface.OnClickListener() {
-                    public void onClick(final DialogInterface dialog, final int id) {
-                        dialog.dismiss();
-                        dialog.cancel();
-
-                    }
-                });
-        if (alert == null) {
-            alert = builder.create();
-
-        }
-
-        if (!alert.isShowing())
-            alert.show();
-
-    }
-
-    public void turnLocationOn(GoogleApiClient googleApiClient) {
-        if (googleApiClient == null) {
-            GoogleApiClient finalGoogleApiClient = googleApiClient;
-            googleApiClient = new GoogleApiClient.Builder(getApplicationContext())
-                    .addApi(LocationServices.API)
-                    .addConnectionCallbacks(new GoogleApiClient.ConnectionCallbacks() {
-                        @Override
-                        public void onConnected(Bundle bundle) {
-
-                        }
-
-                        @Override
-                        public void onConnectionSuspended(int i) {
-                            finalGoogleApiClient.connect();
-                        }
-                    })
-                    .addOnConnectionFailedListener(new GoogleApiClient.OnConnectionFailedListener() {
-                        @Override
-                        public void onConnectionFailed(ConnectionResult connectionResult) {
-
-                            Log.d("LocationEnt error", "LocationEnt error " + connectionResult.getErrorCode());
-                        }
-                    }).build();
-            googleApiClient.connect();
-
-            LocationRequest locationRequest = LocationRequest.create();
-            locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
-            locationRequest.setInterval(30 * 1000);
-            locationRequest.setFastestInterval(5 * 1000);
-
-            LocationSettingsRequest.Builder builder = new LocationSettingsRequest.Builder()
-                    .addLocationRequest(locationRequest);
-            builder.setNeedBle(true);
-            builder.setAlwaysShow(true);
-            Task<LocationSettingsResponse> task =
-                    LocationServices.getSettingsClient(this).checkLocationSettings(builder.build());
-
-            task.addOnCompleteListener(new OnCompleteListener<LocationSettingsResponse>() {
-                @Override
-                public void onComplete(Task<LocationSettingsResponse> task) {
-                    try {
-                        LocationSettingsResponse response = task.getResult(ApiException.class);
-                        if (settingActivateListener != null) {
-                            settingActivateListener.onLocationActivateListener();
-                        }
-
-                    } catch (ApiException exception) {
-                        switch (exception.getStatusCode()) {
-                            case LocationSettingsStatusCodes.RESOLUTION_REQUIRED:
-                                try {
-                                    ResolvableApiException resolvable = (ResolvableApiException) exception;
-
-                                    resolvable.startResolutionForResult(getDockActivity(), 1000);
-                                } catch (IntentSender.SendIntentException e) {
-                                } catch (ClassCastException e) {
-                                    // Ignore, should be an impossible error.
-                                }
-                                break;
-                            case LocationSettingsStatusCodes.SETTINGS_CHANGE_UNAVAILABLE:
-                                // LocationEnt settings are not satisfied. However, we have no way to fix the
-                                // settings so we won't show the dialog.
-                                break;
-                        }
-                    }
-                }
-            });
-
-        }
-    }
-
-    private void startImpIntent(DialogInterface dialog, String IntentType, int requestCode) {
-        dialog.dismiss();
-        Intent i = new Intent(IntentType);
-        i.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        startActivityForResult(i, requestCode);
-    }
-
-    public LocationModel getMyCurrentLocation() {
-
-
-        String address = "";
-        LocationModel locationObj = new LocationModel();
-        //  LocationModel locationObj = new LocationModel(address,24.829759,67.073822);
-
-
-// instantiate the location manager, note you will need to request permissions in your manifest
-        locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-
-
-// get the last know location from your location manager.
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            return null;
-        }
-// now get the lat/lon from the location and do something with it.
-        Location gpslocation = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-        Location networklocation = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
-        Location passivelocation = locationManager.getLastKnownLocation(LocationManager.PASSIVE_PROVIDER);
-        Location locationchangelocation = locationManager.getLastKnownLocation(LocationManager.KEY_LOCATION_CHANGED);
-
-
-        if (gpslocation != null) {
-
-            Log.d("LocationEnt", "GPS::" + gpslocation.getLatitude() + "," + gpslocation.getLongitude());
-            address = getCurrentAddress(gpslocation.getLatitude(), gpslocation.getLongitude());
-            locationObj = new LocationModel(address, gpslocation.getLatitude(), gpslocation.getLongitude());
-
-            return locationObj;
-
-        } else if (networklocation != null) {
-
-            Log.d("LocationEnt", "NETWORK::" + networklocation.getLatitude() + "," + networklocation.getLongitude());
-            address = getCurrentAddress(networklocation.getLatitude(), networklocation.getLongitude());
-            locationObj = new LocationModel(address, networklocation.getLatitude(), networklocation.getLongitude());
-
-            return locationObj;
-        } else if (passivelocation != null) {
-
-            Log.d("LocationEnt", "PASSIVE::" + passivelocation.getLatitude() + "," + passivelocation.getLongitude());
-            address = getCurrentAddress(passivelocation.getLatitude(), passivelocation.getLongitude());
-            locationObj = new LocationModel(address, passivelocation.getLatitude(), passivelocation.getLongitude());
-
-            return locationObj;
-        } else if (locationchangelocation != null) {
-
-            Log.d("LocationEnt", "CHAGELOCATION::" + locationchangelocation.getLatitude() + "," + locationchangelocation.getLongitude());
-            address = getCurrentAddress(locationchangelocation.getLatitude(), locationchangelocation.getLongitude());
-            locationObj = new LocationModel(address, locationchangelocation.getLatitude(), locationchangelocation.getLongitude());
-
-            return locationObj;
-        } else {
-            return locationObj;
-        }
-
-    }
 
     public String getCurrentAddress(double lat, double lng) {
         try {

@@ -8,9 +8,6 @@ import android.provider.MediaStore;
 import android.view.View;
 
 import com.app.asi.activities.DockActivity;
-import com.nostra13.universalimageloader.core.ImageLoader;
-import com.nostra13.universalimageloader.core.assist.FailReason;
-import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 
 import java.io.ByteArrayOutputStream;
 //import org.apache.commons.io.FileUtils;
@@ -42,7 +39,7 @@ public class ShareIntentHelper {
     public static void shareImageAndTextResultIntent(DockActivity context, String image, String text) {
         try {
 
-            getBitmap(image, context, text);
+          //  getBitmap(image, context, text);
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -50,7 +47,7 @@ public class ShareIntentHelper {
     }
 
 
-    private static void getBitmap(String image, final DockActivity context, final String text) {
+   /* private static void getBitmap(String image, final DockActivity context, final String text) {
 
         ImageLoader imageLoader = ImageLoader.getInstance();
 
@@ -87,7 +84,7 @@ public class ShareIntentHelper {
                 context.onLoadingFinished();
             }
         });
-
+*/
        /* Picasso.with(context)
                 .load(image)
                 .into(new Target() {
@@ -117,10 +114,10 @@ public class ShareIntentHelper {
 
                     }
 
-                });*/
+                });
 
 
-    }
+    }*/
 
 
     public static Uri getImageUri(Context inContext, Bitmap inImage) {

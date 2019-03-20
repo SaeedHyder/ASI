@@ -161,7 +161,7 @@ public class WishListFragment extends BaseFragment implements RecyclerClickListn
     public void onClick(Object entity, int position) {
         WishListEnt data = (WishListEnt) entity;
         GameEnt gameEnt = new GameEnt(data.getTitle(), data.getDescription(), data.getTitleAr(), data.getDescriptionAr(), data.getDimension(), data.getVideoUrl(),
-                data.getCodeImageUrl(), data.getImageUrls(), data.getShareUrl(), data.getFavourite(), data.getPlayed(), data.getId(), data.getCreatedOn());
+                data.getCodeImageUrl(), data.getImageUrls(), data.getShareUrl(), data.getFavourite(), data.getPlayed(), data.getId(), data.getCreatedOn(),data.getCreatedOn());
 
         GamesPopupFragment gamesPopupFragment = new GamesPopupFragment();
         gamesPopupFragment.setUpdateDataListner(this, data.getId() + "", gameEnt, true);

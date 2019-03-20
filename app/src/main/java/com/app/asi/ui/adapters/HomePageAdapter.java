@@ -9,7 +9,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import com.app.asi.R;
 import com.app.asi.activities.MainActivity;
-import com.nostra13.universalimageloader.core.ImageLoader;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -19,14 +19,13 @@ public class HomePageAdapter extends PagerAdapter {
     MainActivity context;
     ArrayList<String> images;
     LayoutInflater layoutInflater;
-    ImageLoader imageLoader;
+
 
 
     public HomePageAdapter(MainActivity context, ArrayList<String> images) {
         this.context = context;
         this.images = images;
         layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        imageLoader = ImageLoader.getInstance();
     }
 
     @Override
@@ -44,8 +43,8 @@ public class HomePageAdapter extends PagerAdapter {
         View itemView = layoutInflater.inflate(R.layout.home_pager_item, container, false);
 
         ImageView imageView = (ImageView) itemView.findViewById(R.id.imageView);
-        imageLoader.displayImage(images.get(position), imageView);
-        //  imageView.setImageResource(gameList[position]);
+        //Picasso.get().load(R.drawable.home_header_img).placeholder(R.drawable.placeholder_thumb).into(imageView);
+          imageView.setImageResource(R.drawable.home_header_img);
         container.addView(itemView);
 
        /* imageView.setOnClickListener(new View.OnClickListener() {

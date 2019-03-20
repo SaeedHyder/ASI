@@ -17,7 +17,6 @@ import android.view.View;
 import android.widget.ImageView;
 
 import com.app.asi.activities.MainActivity;
-import com.nostra13.universalimageloader.core.ImageLoader;
 
 public class CameraHelper {
 
@@ -133,148 +132,9 @@ public class CameraHelper {
 
 	}
 
-	public static File retrieveAndDisplayPictureOfDrawableSize(int requestCode,
-			int resultCode, Intent data, Activity activity, Drawable d,
-			ImageView imgPhoto) {
 
-		switch (requestCode) {
 
-		case GALLERY_REQUEST:
-			try {
-				Uri selectedImageUri = data.getData();
-				image_path_string = Funcs.getPath(selectedImageUri, activity);
-				// Bitmap bmp = BitmapFactory.decodeFile(image_path_string,
-				// getOptions());
-				// bmp = BitmapHelper.getImageOrientation(image_path_string,
-				// bmp);
-				//
-				// image_path_string = Funcs.replace(activity, bmp,
-				// image_path_string) ;
-				// bmp.recycle();
-				// bmp = null;
-				picture = new File(image_path_string);
 
-				imgPhoto.getLayoutParams().width = d.getIntrinsicWidth();
-				imgPhoto.getLayoutParams().height = d.getIntrinsicHeight();
-
-				ImageLoader.getInstance().displayImage(
-						"file:///" + image_path_string, imgPhoto);
-
-				return picture;
-
-			} catch (Exception e) {
-				if (activity != null)
-					Funcs.showShortToast(
-							"Unable to get image. Please try again..", activity);
-				return null;
-			}
-
-		case CAMERA_REQUEST:
-			try {
-				File pictureFile = null;
-				image_path_string = uriImage.getPath();
-				Bitmap bmp = BitmapFactory.decodeFile(image_path_string,
-						getOptions());
-				bmp = BitmapHelper.getImageOrientation(image_path_string, bmp);
-				if (bmp != null) {
-					bmp = BitmapHelper.scaleCenterCrop(bmp, HEIGHT, WIDTH);
-				}
-				image_path_string = Funcs.replace(activity, bmp,
-						image_path_string);
-				bmp.recycle();
-				bmp = null;
-				pictureFile = new File(image_path_string);
-
-				// d = activity.getResources().getDrawable(
-				// R.drawable.img_btn_signup_addphoto);
-
-				imgPhoto.getLayoutParams().width = d.getIntrinsicWidth();
-				imgPhoto.getLayoutParams().height = d.getIntrinsicHeight();
-
-				ImageLoader.getInstance().displayImage(
-						"file:///" + image_path_string, imgPhoto);
-				return pictureFile;
-			} catch (Exception e) {
-				e.printStackTrace();
-				Funcs.showShortToast("Unable to get image. Please try again..",
-						activity);
-				return null;
-			}
-
-		default:
-			return null;
-
-		}
-
-	}
-
-	public static File retrieveAndDisplayPicture(int requestCode,
-			int resultCode, Intent data, Activity activity, ImageView imgPhoto) {
-
-		switch (requestCode) {
-
-		case GALLERY_REQUEST:
-			try {
-				Uri selectedImageUri = data.getData();
-				image_path_string = Funcs.getPath(selectedImageUri, activity);
-				// Bitmap bmp = BitmapFactory.decodeFile(image_path_string,
-				// getOptions());
-				// bmp = BitmapHelper.getImageOrientation(image_path_string,
-				// bmp);
-				//
-				// image_path_string = Funcs.replace(activity, bmp,
-				// image_path_string) ;
-				// bmp.recycle();
-				// bmp = null;
-				picture = new File(image_path_string);
-
-				ImageLoader.getInstance().displayImage(
-						"file:///" + image_path_string, imgPhoto);
-
-				return picture;
-
-			} catch (Exception e) {
-				if (activity != null)
-					Funcs.showShortToast(
-							"Unable to get image. Please try again..", activity);
-				return null;
-			}
-
-		case CAMERA_REQUEST:
-			try {
-				File pictureFile = null;
-				image_path_string = uriImage.getPath();
-				Bitmap bmp = BitmapFactory.decodeFile(image_path_string,
-						getOptions());
-				bmp = BitmapHelper.getImageOrientation(image_path_string, bmp);
-				if (bmp != null) {
-					bmp = BitmapHelper.scaleCenterCrop(bmp, HEIGHT, WIDTH);
-				}
-				image_path_string = Funcs.replace(activity, bmp,
-						image_path_string);
-				bmp.recycle();
-				bmp = null;
-				pictureFile = new File(image_path_string);
-
-				// d = activity.getResources().getDrawable(
-				// R.drawable.img_btn_signup_addphoto);
-
-				ImageLoader.getInstance().displayImage(
-						"file:///" + image_path_string, imgPhoto);
-				return pictureFile;
-			} catch (Exception e) {
-				e.printStackTrace();
-				Funcs.showShortToast("Unable to get image. Please try again..",
-						activity);
-				return null;
-			}
-
-		default:
-			return null;
-
-		}
-
-	}
 	
 	public static File retrieveVideo(int requestCode, int resultCode,
 			Intent data, Activity activity) {

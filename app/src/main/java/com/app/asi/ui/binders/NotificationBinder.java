@@ -13,7 +13,6 @@ import com.app.asi.helpers.DateHelper;
 import com.app.asi.interfaces.RecyclerClickListner;
 import com.app.asi.ui.viewbinders.abstracts.RecyclerViewBinder;
 import com.app.asi.ui.views.AnyTextView;
-import com.nostra13.universalimageloader.core.ImageLoader;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -22,14 +21,13 @@ public class NotificationBinder extends RecyclerViewBinder<NotificationEnt> {
 
     private DockActivity dockActivity;
     private BasePreferenceHelper prefHelper;
-    private ImageLoader imageLoader;
+
     private RecyclerClickListner clickListner;
 
     public NotificationBinder(DockActivity dockActivity, BasePreferenceHelper prefHelper, RecyclerClickListner clickListner) {
         super(R.layout.row_item_notificaiton);
         this.dockActivity = dockActivity;
         this.prefHelper = prefHelper;
-        this.imageLoader = ImageLoader.getInstance();
         this.clickListner = clickListner;
     }
 

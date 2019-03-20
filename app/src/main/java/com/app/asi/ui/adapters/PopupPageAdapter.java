@@ -21,7 +21,6 @@ import com.app.asi.entities.GameEnt;
 import com.app.asi.helpers.ServiceHelper;
 import com.app.asi.interfaces.WishListInterface;
 import com.app.asi.ui.views.AnyTextView;
-import com.nostra13.universalimageloader.core.ImageLoader;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -32,7 +31,6 @@ public class PopupPageAdapter extends PagerAdapter {
     private MainActivity context;
     private ArrayList<GameEnt> gameList;
     private LayoutInflater layoutInflater;
-    private ImageLoader imageLoader;
     protected ServiceHelper serviceHelper;
     private WishListInterface wishListInterface;
     private int pos = 0;
@@ -41,7 +39,6 @@ public class PopupPageAdapter extends PagerAdapter {
         this.context = context;
         this.gameList = list;
         layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        imageLoader = ImageLoader.getInstance();
         this.wishListInterface = wishListInterface;
 
 

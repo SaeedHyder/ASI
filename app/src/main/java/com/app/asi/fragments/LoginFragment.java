@@ -95,7 +95,6 @@ public class LoginFragment extends BaseFragment {
                         e.printStackTrace();
                     }
                     RequestBody body = RequestBody.create(MediaType.parse("application/json; charset=utf-8"), login.toString());
-
                     serviceHelper.enqueueCall(webService.loginUser(body), Login);
 
                 }
@@ -122,7 +121,6 @@ public class LoginFragment extends BaseFragment {
                     if (userEnt.getVerified()) {
                         prefHelper.setLoginStatus(true);
                         getDockActivity().popBackStackTillEntry(0);
-                        getMainActivity().refreshSideMenuData();
                         getDockActivity().replaceDockableFragment(HomeFragment.newInstance(), "HomeFragment");
                         if (getMainActivity() != null) {
                             getMainActivity().refreshSideMenu();

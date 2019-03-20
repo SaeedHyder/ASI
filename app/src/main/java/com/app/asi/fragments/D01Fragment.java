@@ -90,7 +90,7 @@ public class D01Fragment extends BaseFragment implements UpdateListData {
 
     @OnClick({R.id.asiDesignSolution, R.id.buildingBlock, R.id.sparesSupport,R.id.connectGo})
     public void onViewClicked(View view) {
-        if (gamesList.size() > 0)
+        if (gamesList!=null && gamesList.size() > 0)
             switch (view.getId()) {
 
                 case R.id.asiDesignSolution:

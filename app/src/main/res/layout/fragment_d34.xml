@@ -28,15 +28,6 @@
         android:background="@color/d32"
    >
 
-        <ImageView
-            android:id="@+id/floor"
-            android:layout_width="@dimen/x130"
-            android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/rl_bottom"
-            android:layout_marginTop="@dimen/x3_"
-            android:layout_alignTop="@+id/rlTop"
-            android:scaleType="fitXY"
-            android:src="@drawable/d34_12" />
 
         <LinearLayout
             android:id="@+id/rlTop"
@@ -58,6 +49,7 @@
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="@dimen/x60"
+                android:layout_marginTop="@dimen/x4_"
                 android:layout_toEndOf="@+id/candyWaterGame"
                 android:src="@drawable/d34_04" />
 
@@ -66,6 +58,7 @@
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="@dimen/x60"
+                android:layout_marginTop="@dimen/x2"
                 android:layout_toEndOf="@+id/bazookaBlast3Player"
                 android:src="@drawable/d34_03" />
 
@@ -77,6 +70,7 @@
             android:layout_height="wrap_content"
             android:layout_alignEnd="@+id/rlTop"
             android:layout_below="@+id/rlTop"
+            android:layout_marginStart="@dimen/x4_"
             android:layout_toEndOf="@+id/floor">
 
             <ImageView
@@ -98,17 +92,28 @@
             <ImageView
                 android:id="@+id/pinball"
                 android:layout_width="@dimen/x40"
-                android:layout_height="@dimen/x60"
+                android:layout_height="@dimen/x25"
+                android:layout_marginTop="@dimen/x10"
                 android:layout_marginEnd="@dimen/x2_"
                 android:layout_alignParentEnd="true"
-                android:src="@drawable/d34_01" />
+                android:src="@drawable/d34_pinball_dead_new" />
+
+            <ImageView
+                android:id="@+id/pinball_gold"
+                android:layout_width="@dimen/x40"
+                android:layout_height="@dimen/x25"
+                android:layout_marginEnd="@dimen/x2_"
+                android:layout_marginTop="@dimen/x3_"
+                android:layout_below="@+id/pinball"
+                android:layout_alignParentEnd="true"
+                android:src="@drawable/d34_pinballgold_new" />
 
             <ImageView
                 android:id="@+id/pongArcade"
                 android:layout_width="@dimen/x60"
                 android:layout_height="@dimen/x30"
                 android:layout_alignParentEnd="true"
-                android:layout_below="@+id/pinball"
+                android:layout_below="@+id/pinball_gold"
                 android:layout_marginEnd="@dimen/x8"
                 android:src="@drawable/d34_06" />
 
@@ -163,6 +168,16 @@
 
 
         </RelativeLayout>
+
+        <ImageView
+            android:id="@+id/floor"
+            android:layout_width="@dimen/x130"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/rl_bottom"
+            android:layout_marginTop="@dimen/x3_"
+            android:layout_alignTop="@+id/rlTop"
+            android:scaleType="fitXY"
+            android:src="@drawable/d34_12" />
 
 
     </RelativeLayout>

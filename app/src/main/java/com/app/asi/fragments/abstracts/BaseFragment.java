@@ -25,7 +25,6 @@ import com.app.asi.activities.MainActivity;
 import com.app.asi.entities.UserEnt;
 import com.app.asi.global.WebServiceConstants;
 import com.app.asi.helpers.BasePreferenceHelper;
-import com.app.asi.helpers.GPSTracker;
 import com.app.asi.helpers.ServiceHelper;
 import com.app.asi.helpers.UIHelper;
 import com.app.asi.interfaces.LoadingListener;
@@ -48,9 +47,6 @@ public abstract class BaseFragment extends Fragment implements webServiceRespons
 	protected  WebService webService;
 	protected  WebService headerWebService;
 	protected ServiceHelper serviceHelper;
-
-	protected GPSTracker mGpsTracker;
-
 	protected  DockActivity myDockActivity;
 	//private DockActivity activity;
 
@@ -58,8 +54,6 @@ public abstract class BaseFragment extends Fragment implements webServiceRespons
 	public void onCreate( Bundle savedInstanceState ) {
 		super.onCreate( savedInstanceState );
 		prefHelper = new BasePreferenceHelper(getContext());
-
-		mGpsTracker = new GPSTracker(getDockActivity());
 
 		if (webService == null) {
 			webService = WebServiceFactory.getWebServiceInstanceWithCustomInterceptor(getDockActivity(), WebServiceConstants.Local_SERVICE_URL);

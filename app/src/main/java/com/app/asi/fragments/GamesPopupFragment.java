@@ -11,6 +11,7 @@ import com.app.asi.R;
 import com.app.asi.entities.GameEnt;
 import com.app.asi.entities.UserEnt;
 import com.app.asi.fragments.abstracts.BaseFragment;
+import com.app.asi.helpers.DialogHelper;
 import com.app.asi.helpers.ServiceHelper;
 import com.app.asi.helpers.UIHelper;
 import com.app.asi.interfaces.UpdateListData;
@@ -86,7 +87,7 @@ public class GamesPopupFragment extends BaseFragment implements WishListInterfac
             gamesList.add(favGameEnt);
 
         } else {
-            for (int i = 0; i < gamesList.size() ; i++) {
+            for (int i = 0; i < gamesList.size(); i++) {
                 if (String.valueOf(gamesList.get(i).getId()).equals(gameId)) {
                     position = i;
                 }
@@ -158,7 +159,16 @@ public class GamesPopupFragment extends BaseFragment implements WishListInterfac
         GameEnt data = gamesList.get(viewPager.getCurrentItem());
         btnAddWish = btnAddWishList;
         if (data.getFavourite()) {
-            serviceHelper.enqueueCall(headerWebService.addWishListMap(data.getId() + "", false), AddWishList);
+            DialogHelper dialoge = new DialogHelper(getDockActivity());
+            dialoge.initRemoveDialoge(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    serviceHelper.enqueueCall(headerWebService.addWishListMap(data.getId() + "", false), AddWishList);
+                    dialoge.hideDialog();
+                }
+            }, data.getTitle()+"", getResString(R.string.are_you_sure_you_want_to_remove_game));
+            dialoge.showDialog();
+
         } else {
             serviceHelper.enqueueCall(headerWebService.addWishListMap(data.getId() + "", true), AddWishList);
         }

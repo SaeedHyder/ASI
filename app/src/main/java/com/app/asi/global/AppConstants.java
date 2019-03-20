@@ -113,7 +113,6 @@ public class AppConstants {
  public static String COSMIC_XL = "53";
  public static String E_CLAW_600_HARMONY_3_PLAYER = "54";
  public static String TICKET_ZONE = "55";
-
  public static String ADVENTURE_BIKE = "57";
  public static String BILLY_JUMPER = "58";
  public static String THE_ROCKET = "59";
@@ -132,18 +131,13 @@ public class AppConstants {
  public static String TECHNO_FLAME = "72";
  public static String BABY_AIR_HOCKEY_EVO = "73";
  public static String BUILDING_BLOCK_CARS = "77";
- public static String ASI_SUPPORT_SOLUTIONS = "79";
  public static String CONNECT_GO = "76";
-
  public static String WATER_GUN_FUN_8_PLAYER= "80";
-
  public static String BEAT_SABER_VR = "2";
  public static String VIRTUALRABBIDSTHEBIGRIDE = "1";
- /* public static String ASI_DESIGN_SOLUTION = "76";*/
-
-
  public static String THE_BEATLES_GOLD = "74";
  public static String DEAD_POOL_PRO = "75";
+
  public static String TICKET_STATION = "15";
 
  //d05
@@ -162,6 +156,10 @@ public class AppConstants {
  public static String LETS_BOUNCE = "30";
  public static String SNAPSHOT_2 = "56";
 
+ //d32
+ public static String SPACEBasketBall  = "78";
+ public static String MagnoBison = "79";
+
 
  //rooms
  public static String d01="4-D01";
@@ -170,5 +168,7 @@ public class AppConstants {
  public static String d49="4-D49";
  public static String d32="4-D32";
  public static String d34="4-D34";
+
+ public static String asiDesignURL="http://asidesignsolutions.com/";
 
 }

@@ -46,6 +46,8 @@
    <color name="app_blue_text">#1B375F</color>
    <color name="app_gray_text">#7A8393</color>
    <color name="app_red">#A22727</color>
+   <color name="wishlist_color">#9C3333</color>
+
    <color name="app_light_green">#93C984</color>
    <color name="app_sky_blue">#3EAFE8</color>
    <color name="app_sky_blue_2">#47BCE8</color>

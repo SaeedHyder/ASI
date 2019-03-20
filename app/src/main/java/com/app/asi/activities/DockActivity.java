@@ -21,9 +21,7 @@ import com.app.asi.helpers.BasePreferenceHelper;
 import com.app.asi.interfaces.LoadingListener;
 import com.app.asi.residemenu.ResideMenu;
 import com.app.asi.ui.dialogs.DialogFactory;
-import com.nostra13.universalimageloader.core.DisplayImageOptions;
-import com.nostra13.universalimageloader.core.assist.ImageScaleType;
-import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
+
 
 import java.io.IOException;
 import java.util.List;
@@ -247,7 +245,7 @@ public abstract class DockActivity extends AppCompatActivity implements
         return menuListener;
     }
 
-    public DisplayImageOptions getImageLoaderRoundCornerTransformation(int raduis) {
+    /*public DisplayImageOptions getImageLoaderRoundCornerTransformation(int raduis) {
         return new DisplayImageOptions.Builder()
                 .showImageForEmptyUri(R.drawable.placeholder_thumb)
                 .showImageOnFail(R.drawable.placeholder_thumb).resetViewBeforeLoading(true)
@@ -256,7 +254,7 @@ public abstract class DockActivity extends AppCompatActivity implements
                 .displayer(new RoundedBitmapDisplayer(raduis))
                 .bitmapConfig(Bitmap.Config.RGB_565).build();
 
-    }
+    }*/
 
     public DockActivity getDockActivity() {
         return (DockActivity) this;

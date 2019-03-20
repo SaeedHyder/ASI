@@ -11,7 +11,6 @@ import android.widget.LinearLayout;
 import com.app.asi.R;
 import com.app.asi.fragments.abstracts.BaseFragment;
 import com.app.asi.ui.views.TitleBar;
-import com.nostra13.universalimageloader.core.ImageLoader;
 import com.squareup.picasso.Picasso;
 
 import butterknife.BindView;
@@ -38,7 +37,7 @@ public class ProfileFragment extends BaseFragment {
     LinearLayout mainFrameLayout;
 
 
-    private ImageLoader imageLoader;
+
 
     public static ProfileFragment newInstance() {
         Bundle args = new Bundle();
@@ -51,7 +50,6 @@ public class ProfileFragment extends BaseFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        imageLoader = ImageLoader.getInstance();
         if (getArguments() != null) {
         }
 

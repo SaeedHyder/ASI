@@ -117,7 +117,7 @@ public class D05Fragment extends BaseFragment implements UpdateListData {
 
     @OnClick({R.id.connectForHoops, R.id.ticketMonster, R.id.villayCrash, R.id.pianoKeySingle, R.id.scoobyDoo, R.id.e_calw, R.id.ticketCircus, R.id.eClawCosmic, R.id.eClawCosmicXL, R.id.flinStone, R.id.trolls, R.id.prizeCube, R.id.eClaw600Harmoney, R.id.prizeCube3, R.id.choclateCrane, R.id.ticketZone})
     public void onViewClicked(View view) {
-        if (gamesList.size() > 0)
+        if (gamesList!=null && gamesList.size() > 0)
             switch (view.getId()) {
                 case R.id.connectForHoops:
                     gamesPopupFragment = new GamesPopupFragment();

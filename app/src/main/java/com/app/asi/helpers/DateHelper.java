@@ -12,7 +12,6 @@ import android.content.Context;
 import android.text.TextUtils;
 import android.util.Log;
 
-import static com.google.common.base.Preconditions.checkArgument;
 
 
 /**
@@ -754,11 +753,6 @@ public class DateHelper {
 		return sdf.format(sq);
 	}
 
-	public static String getDateInSpecificFormat(Date data) {
-		String dayNumberSuffix = getDayOfMonthSuffix(toCalendar(data).get(Calendar.DAY_OF_MONTH));
-		DateFormat dateFormat = new SimpleDateFormat("d'" + dayNumberSuffix + "' MMMM yyyy", Locale.ENGLISH);
-		return dateFormat.format(data.getTime());
-	}
 
 	public static Calendar toCalendar(Date date) {
 		Calendar cal = Calendar.getInstance();
@@ -810,22 +804,7 @@ public class DateHelper {
 		return outFormat.format(newDate);
 	}
 
-	public static String getDayOfMonthSuffix(final int n) {
-		checkArgument(n >= 1 && n <= 31, "illegal day of month: " + n);
-		if (n >= 11 && n <= 13) {
-			return "th";
-		}
-		switch (n % 10) {
-			case 1:
-				return "st";
-			case 2:
-				return "nd";
-			case 3:
-				return "rd";
-			default:
-				return "th";
-		}
-	}
+
 
 	public static String getLocalTimeDate(String OurDate) {
 		try {
@@ -896,12 +875,12 @@ public class DateHelper {
 	public static String getFormatedDate(String Currentformat, String DesiredFormat, String OurDate) {
 		try {
 			SimpleDateFormat formatter = new SimpleDateFormat(Currentformat);
+			formatter.setTimeZone(TimeZone.getTimeZone("UTC"));
 			Date value = formatter.parse(OurDate);
 
 			SimpleDateFormat dateFormatter = new SimpleDateFormat(DesiredFormat); //this format changeable
-
+			dateFormatter.setTimeZone(TimeZone.getDefault());
 			OurDate = dateFormatter.format(value);
-
 			//Log.d("OurDate", OurDate);
 		} catch (Exception e) {
 			OurDate = "00-00-0000 00:00";

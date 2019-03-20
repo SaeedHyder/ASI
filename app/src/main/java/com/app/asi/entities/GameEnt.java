@@ -61,8 +61,19 @@ public class GameEnt {
     @SerializedName("isDeleted")
     @Expose
     private Boolean isDeleted;
+    @SerializedName("playedOn")
+    @Expose
+    private String playedOn;
 
-    public GameEnt(String title, String description, String titleAr, String descriptionAr,  String dimension, String videoUrl, String codeImageUrl, ArrayList<String> imageUrls, String shareUrl, Boolean isFavourite, Boolean isPlayed, Integer id, String createdOn) {
+    public String getPlayedOn() {
+        return playedOn;
+    }
+
+    public void setPlayedOn(String playedOn) {
+        this.playedOn = playedOn;
+    }
+
+    public GameEnt(String title, String description, String titleAr, String descriptionAr, String dimension, String videoUrl, String codeImageUrl, ArrayList<String> imageUrls, String shareUrl, Boolean isFavourite, Boolean isPlayed, Integer id, String createdOn,String playedOn) {
         this.title = title;
         this.description = description;
         this.titleAr = titleAr;
@@ -76,6 +87,7 @@ public class GameEnt {
         this.isPlayed = isPlayed;
         this.id = id;
         this.createdOn = createdOn;
+        this.playedOn = playedOn;
     }
 
     public String getTitle() {

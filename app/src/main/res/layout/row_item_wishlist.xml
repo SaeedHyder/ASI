@@ -14,11 +14,13 @@
         android:orientation="horizontal">
 
 
-            <de.hdodenhof.circleimageview.CircleImageView
+            <ImageView
                 android:id="@+id/ivIcon"
-                android:layout_width="@dimen/x50"
-                android:layout_height="@dimen/x50"
-                android:src="@drawable/img"
+                android:layout_width="@dimen/x70"
+                android:layout_height="@dimen/x70"
+                android:padding="@dimen/x7"
+                android:src="@drawable/logo"
+                android:background="@drawable/rounded_drawable"
                 android:visibility="visible" />
 
 

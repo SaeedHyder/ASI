@@ -31,7 +31,6 @@ import com.karumi.dexter.listener.DexterError;
 import com.karumi.dexter.listener.PermissionRequest;
 import com.karumi.dexter.listener.PermissionRequestErrorListener;
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
-import com.nostra13.universalimageloader.core.ImageLoader;
 import com.squareup.picasso.Picasso;
 
 import java.io.File;
@@ -59,7 +58,7 @@ public class EditProfileFragment extends BaseFragment implements ImageSetter {
     @BindView(R.id.edt_username)
     TextInputEditText edtUsername;
     @BindView(R.id.edt_email)
-    TextView edtEmail;
+    TextInputEditText edtEmail;
     @BindView(R.id.Countrypicker)
     CountryCodePicker Countrypicker;
     @BindView(R.id.edt_phone)
@@ -74,7 +73,7 @@ public class EditProfileFragment extends BaseFragment implements ImageSetter {
 
 
     private PhoneNumberUtil phoneUtil;
-    private ImageLoader imageLoader;
+
     private File profilePic;
     private String profilePath;
     private Double latitude;
@@ -92,7 +91,7 @@ public class EditProfileFragment extends BaseFragment implements ImageSetter {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        imageLoader = ImageLoader.getInstance();
+
         if (getArguments() != null) {
         }
 
@@ -109,6 +108,9 @@ public class EditProfileFragment extends BaseFragment implements ImageSetter {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        edtEmail.setFocusable(false);
+        edtEmail.setFocusableInTouchMode(false);
 
         phoneUtil = PhoneNumberUtil.getInstance();
         edtPhone.setTransformationMethod(new NumericKeyBoardTransformationMethod());
@@ -238,7 +240,6 @@ public class EditProfileFragment extends BaseFragment implements ImageSetter {
                 userObject.setCompany(userEnt.getCompany());
                 userObject.setImageUrl(userEnt.getImageUrl());
                 prefHelper.putUser(userObject);
-                getMainActivity().refreshSideMenuData();
                 UIHelper.showShortToastInCenter(getDockActivity(), getResString(R.string.profile_updated_successfully));
                 getDockActivity().popFragment();
                 break;
@@ -253,7 +254,7 @@ public class EditProfileFragment extends BaseFragment implements ImageSetter {
             e.printStackTrace();
         }
         profilePath = imagePath;
-        imageLoader.displayImage("file:///" + imagePath, profileImage);
+        Picasso.get().load("file:///" + imagePath).placeholder(R.drawable.placeholder_thumb).into(profileImage);
 
     }
 

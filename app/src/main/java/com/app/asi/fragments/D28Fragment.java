@@ -30,6 +30,8 @@ public class D28Fragment extends BaseFragment implements UpdateListData {
     ImageView table1;
     @BindView(R.id.fruitNinjaVirtual)
     ImageView fruitNinjaVirtual;
+    @BindView(R.id.beatSaber)
+    ImageView beatSaber;
     @BindView(R.id.mininoSoccer)
     ImageView mininoSoccer;
     @BindView(R.id.ringToss)
@@ -42,6 +44,8 @@ public class D28Fragment extends BaseFragment implements UpdateListData {
     ImageView table2;
     @BindView(R.id.snapShot2)
     ImageView snapShot2;
+    @BindView(R.id.vrRabbids)
+    ImageView vrRabbids;
     Unbinder unbinder;
 
     private ArrayList<GameEnt> gamesList;
@@ -95,9 +99,9 @@ public class D28Fragment extends BaseFragment implements UpdateListData {
         titleBar.showLogo();
     }
 
-    @OnClick({R.id.ring3Circus, R.id.fruitNinjaVirtual, R.id.mininoSoccer, R.id.ringToss, R.id.letsBounce, R.id.hyperShoot, R.id.snapShot2})
+    @OnClick({R.id.ring3Circus, R.id.fruitNinjaVirtual, R.id.mininoSoccer, R.id.ringToss, R.id.letsBounce, R.id.hyperShoot, R.id.snapShot2,R.id.beatSaber,R.id.vrRabbids})
     public void onViewClicked(View view) {
-        if (gamesList.size() > 0)
+        if (gamesList!=null && gamesList.size() > 0)
             switch (view.getId()) {
                 case R.id.ring3Circus:
                     gamesPopupFragment = new GamesPopupFragment();
@@ -133,6 +137,17 @@ public class D28Fragment extends BaseFragment implements UpdateListData {
                 case R.id.snapShot2:
                     gamesPopupFragment = new GamesPopupFragment();
                     gamesPopupFragment.setUpdateDataListner(this, AppConstants.SNAPSHOT_2, gamesList);
+                    getDockActivity().addDockableFragment(gamesPopupFragment, "GamesPopupFragment");
+                    break;
+
+                case R.id.beatSaber:
+                    gamesPopupFragment = new GamesPopupFragment();
+                    gamesPopupFragment.setUpdateDataListner(this, AppConstants.BEAT_SABER_VR, gamesList);
+                    getDockActivity().addDockableFragment(gamesPopupFragment, "GamesPopupFragment");
+                    break;
+                case R.id.vrRabbids:
+                    gamesPopupFragment = new GamesPopupFragment();
+                    gamesPopupFragment.setUpdateDataListner(this, AppConstants.VIRTUALRABBIDSTHEBIGRIDE, gamesList);
                     getDockActivity().addDockableFragment(gamesPopupFragment, "GamesPopupFragment");
                     break;
             }

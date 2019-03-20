@@ -114,7 +114,7 @@ public class D49Fragment extends BaseFragment implements UpdateListData {
 
     @OnClick({R.id.atvSlam, R.id.targetBravoStandup, R.id.dayTona, R.id.transformerShadow, R.id.houseOfDeads, R.id.piratesFalls, R.id.hotRacer, R.id.sonicKidsBasketBall, R.id.segaAllBasketBall, R.id.ballRunna, R.id.hoopla, R.id.pixelChase})
     public void onViewClicked(View view) {
-        if (gamesList.size() > 0)
+        if (gamesList != null && gamesList.size() > 0)
             switch (view.getId()) {
                 case R.id.atvSlam:
                     gamesPopupFragment = new GamesPopupFragment();

@@ -1,6 +1,5 @@
 package com.app.asi.fragments;
 
-import android.app.AlertDialog;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.net.Uri;
@@ -9,17 +8,15 @@ import android.support.annotation.Nullable;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
-import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.app.asi.R;
-import com.app.asi.activities.MainActivity;
 import com.app.asi.entities.HomeEnt;
 import com.app.asi.entities.UserEnt;
 import com.app.asi.fragments.abstracts.BaseFragment;
-import com.app.asi.global.WebServiceConstants;
+import com.app.asi.global.AppConstants;
 import com.app.asi.helpers.DialogHelper;
 import com.app.asi.helpers.UIHelper;
 import com.app.asi.interfaces.BarCodeValue;
@@ -28,22 +25,19 @@ import com.app.asi.ui.adapters.HomePageAdapter;
 import com.app.asi.ui.binders.HomeBinder;
 import com.app.asi.ui.views.CustomRecyclerView;
 import com.app.asi.ui.views.TitleBar;
-import com.google.android.gms.samples.vision.barcodereader.BarcodeGraphic;
 import com.google.android.gms.vision.barcode.Barcode;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import me.relex.circleindicator.CircleIndicator;
-import xyz.belvi.mobilevisionbarcodescanner.BarcodeRetriever;
 
 import static com.app.asi.global.WebServiceConstants.GamePlayedBarCode;
 
 
-public class HomeFragment extends BaseFragment implements RecyclerClickListner,BarCodeValue {
+public class HomeFragment extends BaseFragment implements RecyclerClickListner, BarCodeValue {
 
 
     @BindView(R.id.rvHome)
@@ -79,6 +73,7 @@ public class HomeFragment extends BaseFragment implements RecyclerClickListner,B
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        getMainActivity().refreshSideMenuData();
         setHomeData();
         setViewPager();
 
@@ -149,7 +144,7 @@ public class HomeFragment extends BaseFragment implements RecyclerClickListner,B
             UIHelper.showShortToastInDialoge(getDockActivity(), getResString(R.string.will_be_implemented));
 
         } else if (ent.getTitle().equals(getResString(R.string.scan_qr_code))) {
-            BarCodeScanFragment barCodeScanFragment=new BarCodeScanFragment();
+            BarCodeScanFragment barCodeScanFragment = new BarCodeScanFragment();
             barCodeScanFragment.setBarCOdeListner(this);
             getDockActivity().replaceDockableFragment(barCodeScanFragment, "BarCodeScanFragment");
 
@@ -177,7 +172,7 @@ public class HomeFragment extends BaseFragment implements RecyclerClickListner,B
         } else if (ent.getTitle().equals(getResString(R.string.contact_us))) {
             getDockActivity().replaceDockableFragment(ContactUsFragment.newInstance(), "ContactUsFragment");
         } else if (ent.getTitle().equals(getResString(R.string.website))) {
-            openWebPage("www.asi-world.com");
+            openWebPage(AppConstants.asiDesignURL);
         }
 
     }
@@ -236,16 +231,16 @@ public class HomeFragment extends BaseFragment implements RecyclerClickListner,B
 
     @Override
     public void getValue(Barcode barcode) {
-        String id=barcode.displayValue.replaceAll("[^0-9]", "");
-        serviceHelper.enqueueCall(headerWebService.gameSectionPlayed(id+""), GamePlayedBarCode);
+        String id = barcode.displayValue.replaceAll("[^0-9]", "");
+        serviceHelper.enqueueCall(headerWebService.gameSectionPlayed(id + ""), GamePlayedBarCode);
     }
 
     @Override
     public void ResponseSuccess(Object result, UserEnt userEnt, String Tag, String message) {
         super.ResponseSuccess(result, userEnt, Tag, message);
-        switch (Tag){
+        switch (Tag) {
             case GamePlayedBarCode:
-                UIHelper.showShortToastInDialoge(getDockActivity(),getResString(R.string.game_is_addedd));
+                UIHelper.showShortToastInDialoge(getDockActivity(), getResString(R.string.game_is_addedd));
                 break;
         }
     }

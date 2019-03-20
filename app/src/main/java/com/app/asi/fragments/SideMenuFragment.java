@@ -28,8 +28,7 @@ import com.app.asi.ui.binders.SideMenuBinder;
 import com.app.asi.ui.views.AnyTextView;
 import com.app.asi.ui.views.CustomRecyclerView;
 import com.app.asi.ui.views.TitleBar;
-import com.facebook.AccessToken;
-import com.facebook.login.LoginManager;
+
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.squareup.picasso.Picasso;
 
@@ -136,8 +135,8 @@ public class SideMenuFragment extends BaseFragment implements RecyclerClickListn
 
         collection = new ArrayList<>();
         collection.add(new SideMenuEnt(getResString(R.string.home), true));
-        collection.add(new SideMenuEnt(getResString(R.string.wish_list)));
         collection.add(new SideMenuEnt(getResString(R.string.games_played)));
+        collection.add(new SideMenuEnt(getResString(R.string.wish_list)));
         collection.add(new SideMenuEnt(getResString(R.string.settings)));
         collection.add(new SideMenuEnt(getResString(R.string.notifications)));
         collection.add(new SideMenuEnt(getResString(R.string.termsCondition)));
@@ -200,23 +199,13 @@ public class SideMenuFragment extends BaseFragment implements RecyclerClickListn
 
         } else if (ent.getTitle().equals(getResString(R.string.logout))) {
             DialogHelper dialoge = new DialogHelper(getDockActivity());
-            dialoge.initlogout(new View.OnClickListener() {
+            dialoge.initDialoge(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     serviceHelper.enqueueCall(headerWebService.logout(AppConstants.Device_Type, FirebaseInstanceId.getInstance().getToken()), Logout);
-                    /*getDockActivity().popBackStackTillEntry(0);
-                    prefHelper.setLoginStatus(false);
-                    prefHelper.setSocialLogin(false);
-                    getDockActivity().replaceDockableFragment(LoginFragment.newInstance(), "LoginFragment");
-                    UIHelper.showShortToastInCenter(getDockActivity(), getResString(R.string.logout_successfully));*/
                     dialoge.hideDialog();
                 }
-            }, new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    dialoge.hideDialog();
-                }
-            });
+            },getResString(R.string.logout),getResString(R.string.are_you_sure_you_want_to_logout));
             dialoge.showDialog();
         }
     }
@@ -229,9 +218,9 @@ public class SideMenuFragment extends BaseFragment implements RecyclerClickListn
                 getDockActivity().popBackStackTillEntry(0);
                 prefHelper.setLoginStatus(false);
                 prefHelper.setSocialLogin(false);
-                if (AccessToken.getCurrentAccessToken() != null) {
+               /* if (AccessToken.getCurrentAccessToken() != null) {
                     LoginManager.getInstance().logOut();
-                }
+                }*/
                 NotificationManager notificationManager = (NotificationManager) getDockActivity().getSystemService(Context.NOTIFICATION_SERVICE);
                 notificationManager.cancelAll();
                 getDockActivity().replaceDockableFragment(LoginFragment.newInstance(), "LoginFragment");
@@ -247,8 +236,8 @@ public class SideMenuFragment extends BaseFragment implements RecyclerClickListn
         collection = new ArrayList<>();
 
         collection.add(new SideMenuEnt(getResString(R.string.home), true));
-        collection.add(new SideMenuEnt(getResString(R.string.wish_list)));
         collection.add(new SideMenuEnt(getResString(R.string.games_played)));
+        collection.add(new SideMenuEnt(getResString(R.string.wish_list)));
         collection.add(new SideMenuEnt(getResString(R.string.settings)));
         collection.add(new SideMenuEnt(getResString(R.string.notifications)));
         collection.add(new SideMenuEnt(getResString(R.string.termsCondition)));

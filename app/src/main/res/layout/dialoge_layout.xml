@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="@dimen/x250"
+    android:layout_gravity="center"
+    android:gravity="center"
+    android:orientation="vertical">
+
+
+
+    <LinearLayout
+        android:id="@+id/textLayout"
+        android:layout_width="@dimen/x250"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:background="@drawable/roundshapelayout"
+        android:layout_marginTop="@dimen/x10"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <com.app.asi.ui.views.AnyTextView
+            android:id="@+id/txtTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/x20"
+            android:layout_marginRight="@dimen/x20"
+            android:layout_marginTop="@dimen/x45"
+            android:gravity="center"
+            android:text="@string/logout"
+            android:visibility="visible"
+            android:textColor="@color/app_red"
+            android:textSize="@dimen/x17"
+            app:typeface="@string/font_normal" />
+
+
+
+        <com.app.asi.ui.views.AnyTextView
+            android:id="@+id/txtDescription"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/x15"
+            android:layout_marginLeft="@dimen/x20"
+            android:layout_marginRight="@dimen/x20"
+            android:layout_marginTop="@dimen/x10"
+            android:alpha="0.7"
+            android:gravity="center"
+            android:text="@string/are_you_sure_you_want_to_logout"
+            android:textColor="@color/black"
+            android:textSize="@dimen/x15"
+            app:typeface="@string/font_normal" />
+
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/x35"
+            android:layout_alignBottom="@+id/textLayout"
+            android:layout_centerHorizontal="true"
+            android:layout_marginStart="@dimen/x10"
+            android:layout_marginEnd="@dimen/x10"
+            android:layout_marginBottom="@dimen/x10"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/btn_yes"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginRight="@dimen/x5"
+                android:layout_weight="1"
+                android:background="@drawable/rounded_red_button"
+                android:text="@string/yes"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:textSize="@dimen/x15" />
+
+
+
+            <Button
+                android:id="@+id/btn_No"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="@dimen/x5"
+                android:layout_weight="1"
+                android:background="@drawable/rounded_red_button"
+                android:text="@string/no"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:textSize="@dimen/x15" />
+
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/x4_"
+
+        >
+
+        <ImageView
+            android:layout_width="@dimen/x65"
+            android:layout_height="@dimen/x67"
+            android:padding="@dimen/x6"
+            android:background="@drawable/white_circle"
+            android:src="@drawable/logo4"/>
+
+    </FrameLayout>
+
+
+
+
+</RelativeLayout>

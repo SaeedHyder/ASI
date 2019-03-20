@@ -183,7 +183,7 @@ public class EmailVerificationFragment extends BaseFragment {
     }
 
     public void counter() {
-        timer = new CountDownTimer(90000, 1000) {
+        timer = new CountDownTimer(120000, 1000) {
 
             public void onTick(long millisUntilFinished) {
 
@@ -230,7 +230,6 @@ public class EmailVerificationFragment extends BaseFragment {
                 prefHelper.setLoginStatus(true);
                 getDockActivity().popBackStackTillEntry(0);
                 getMainActivity().refreshSideMenu();
-                getMainActivity().refreshSideMenuData();
                 UIHelper.hideSoftKeyboard(getDockActivity(),txtPinEntry);
                 getDockActivity().replaceDockableFragment(HomeFragment.newInstance(), "HomeFragment");
                 UIHelper.showShortToastInCenter(getDockActivity(), getResString(R.string.account_verify));

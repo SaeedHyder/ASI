@@ -14,7 +14,7 @@ import com.app.asi.interfaces.RecyclerClickListner;
 import com.app.asi.interfaces.WishListInterface;
 import com.app.asi.ui.viewbinders.abstracts.RecyclerViewBinder;
 import com.app.asi.ui.views.AnyTextView;
-import com.nostra13.universalimageloader.core.ImageLoader;
+
 import com.squareup.picasso.Picasso;
 
 import butterknife.BindView;
@@ -26,7 +26,7 @@ public class WishListBinder extends RecyclerViewBinder<WishListEnt> {
 
     private DockActivity dockActivity;
     private BasePreferenceHelper prefHelper;
-    private ImageLoader imageLoader;
+
     private RecyclerClickListner clickListner;
     private WishListInterface wishListInterface;
 
@@ -34,7 +34,6 @@ public class WishListBinder extends RecyclerViewBinder<WishListEnt> {
         super(R.layout.row_item_wishlist);
         this.dockActivity = dockActivity;
         this.prefHelper = prefHelper;
-        this.imageLoader = ImageLoader.getInstance();
         this.clickListner = clickListner;
         this.wishListInterface = wishListInterface;
     }
@@ -55,7 +54,9 @@ public class WishListBinder extends RecyclerViewBinder<WishListEnt> {
             holder.txtDimensions.setText(entity.getDimension() + "");
 
             if (entity.getImageUrls() != null && entity.getImageUrls().size() > 0) {
-                Picasso.get().load(entity.getImageUrls().get(0)).placeholder(R.drawable.placeholder_thumb).into(holder.ivIcon);
+                Picasso.get().load(entity.getImageUrls().get(0)).into(holder.ivIcon);
+            }else {
+                Picasso.get().load(R.drawable.logo).into(holder.ivIcon);
             }
 
             holder.mainFrame.setOnClickListener(new View.OnClickListener() {
@@ -87,7 +88,7 @@ public class WishListBinder extends RecyclerViewBinder<WishListEnt> {
         @BindView(R.id.mainFrame)
         LinearLayout mainFrame;
         @BindView(R.id.ivIcon)
-        CircleImageView ivIcon;
+        ImageView ivIcon;
 
 
         ViewHolder(View view) {

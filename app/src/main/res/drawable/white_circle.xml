@@ -10,4 +10,6 @@
     <size
         android:width="35dp"
         android:height="35dp"/>
+    <stroke android:color="@color/app_red"
+        android:width="0.1dp"/>
 </shape>
